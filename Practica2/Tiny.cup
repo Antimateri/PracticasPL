@@ -1,0 +1,31 @@
+package asint;
+
+import java_cup.runtime.*;
+import alex.AnalizadorLexicoTiny;
+import alex.UnidadLexica;
+import errors.GestionErroresTiny;
+
+scan with {: return getScanner().next_token(); :};
+parser code {: 
+   private GestionErroresTiny errores;
+   public void syntax_error(Symbol unidadLexica) {
+     errores.errorSintactico((UnidadLexica)unidadLexica);
+   }
+:};
+init with {: 
+   errores = new GestionErroresTiny();
+   AnalizadorLexicoTiny alex = (AnalizadorLexicoTiny)getScanner();
+   alex.fijaGestionErrores(errores);
+:};
+
+
+terminal     ENT, COMA, LISTAP, LISTCIERRE ;
+
+non terminal  S, S1, Es, Ds;
+
+S   ::= S1 | S1 S ; 
+S1  ::= LISTAP LISTCIERRE | LISTAP Ds LISTCIERRE ;
+Ds  ::= Es | Es COMA Ds ;
+Es  ::= S1 | ENT ;
+
+
