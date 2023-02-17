@@ -19,13 +19,19 @@ init with {:
 :};
 
 
-terminal     ENT, COMA, LISTAP, LISTCIERRE ;
+terminal     ENT, COMA, LISTAP, LISTCIERRE, PARAP, PARCIERRE, RED, MAP, FILTER, HASH, DIS, EQQ, MEN, MAY, MAS, MENOS, POR, DIV, IDEN, PRINT, EQ;
 
-non terminal  S, S1, Es, Ds;
+non terminal  S, L, Op0, Op1, Op2, Opa, Opr, Atom, Li, Ds, Exp;
 
-S   ::= S1 | S1 S ; 
-S1  ::= LISTAP LISTCIERRE | LISTAP Ds LISTCIERRE ;
-Ds  ::= Es | Es COMA Ds ;
-Es  ::= S1 | ENT ;
+S   ::= L | L S ;
+L   ::= PRINT Exp | IDEN EQ Exp ;
+Op0 ::= RED Opa ENT Op1 | MAP Opa ENT Op1 | FILTER Opr ENT Op1 | Op1;
+Op1 ::= Op1 HASH Op2 | Op2 ;
+Op2 ::= PARAP Exp PARCIERRE | Atom ;
+Opa ::= MAS | MENOS | POR | DIV ;
+Opr ::= DIS | EQQ | MEN | MAY ;
+Atom::= Li | ENT | IDEN ;
+Li  ::= LISTAP LISTCIERRE | LISTAP Ds LISTCIERRE ;
+Ds  ::= Atom COMA Ds | Atom ;
 
 
