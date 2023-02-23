@@ -1,4 +1,6 @@
 ## Especificación de la sintaxis del lenguaje de programación
+Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González  
+
 ### Identificadores y ámbitos de definición
 - Declaración de variables simples y de arrays de cualquier tipo, incluidos otros arrays
 - Bloques anidados
