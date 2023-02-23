@@ -5,19 +5,19 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
 - Declaración de variables simples y de arrays de cualquier tipo, incluidos otros arrays
 tipo_variable nombre = declaración
 - Bloques anidados
-{...
-  {...
-  }
+{...  
+  {...  
+  }  
 }
 - Funciones
-tipo_funcion nombre_funcion (tipo_arg1 nombre_arg1, ...){
-...
+tipo_funcion nombre_funcion (tipo_arg1 nombre_arg1, ...){  
+...  
 }
 - Punteros
 - Registros
-struct nombre{
-  tipo1 nombre_campo1;
-  ...
+struct nombre{  
+  tipo1 nombre_campo1;  
+  ...  
 }
 ### Tipos
 - Declaración explícita del tipo de las variables
