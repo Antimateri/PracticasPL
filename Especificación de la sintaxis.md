@@ -54,7 +54,7 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
 - Recuperación de errores
-###Se valora
+### Se valora
 - Las funciones se pueden llamar opcionalmente como
     ```
     nombre_fun(arg) TE ELIJO A TI
