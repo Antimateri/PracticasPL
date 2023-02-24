@@ -55,14 +55,13 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
 - Parar la compilación
 - Recuperación de errores
 ###Se valora
-
-    Las funciones se pueden llamar opcionalmente como
+- Las funciones se pueden llamar opcionalmente como
     ```
     nombre_fun(arg) TE ELIJO A TI
     ```
     Sustituir ; por y
-    operador España donde
+- operador España donde
     ```
     x España
-    
-    donde se aumenta una unidad x porque españa solo sale en arriva españa
+    ```
+  donde se aumenta una unidad x porque españa solo sale en arriva españa
