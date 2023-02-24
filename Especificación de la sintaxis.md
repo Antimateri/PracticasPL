@@ -1,10 +1,23 @@
 ## Especificación de la sintaxis del lenguaje de programación
 Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González  
 
+### Nombre del lenguaje
+  Juan (extensión jn)
+  La idea es crear un lenguaje en el que solo Juan pueda expresarse. Juan somos todos. Todos somos Juan.
+
 ### Identificadores y ámbitos de definición
 - Declaración de variables simples y de arrays de cualquier tipo, incluidos otros arrays
-- Bloques anidados  
-- Funciones   
+  Juan es una persona muy poco original, y le encanta C++. Por ello, la declaración de identificadores y variables quiere hacerlas igual:
+  tipo nombre_variable;
+
+- Bloques anidados
+  Usaremos llaves {} para definir el contenido de cada bloque.
+- Funciones
+  Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función,     hay que escribir cabra:
+  cabra tipo nombre_fun (parámetros) {
+    cuerpo_fun
+  }
+  
 - Punteros  
 - Registros  
 ### Tipos
