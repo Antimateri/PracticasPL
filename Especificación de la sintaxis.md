@@ -54,3 +54,15 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
 - Recuperación de errores
+###Se valora
+
+    Las funciones se pueden llamar opcionalmente como
+    ```
+    nombre_fun(arg) TE ELIJO A TI
+    ```
+    Sustituir ; por y
+    operador España donde
+    ```
+    x España
+    
+    donde se aumenta una unidad x porque españa solo sale en arriva españa
