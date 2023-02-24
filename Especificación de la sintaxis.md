@@ -13,11 +13,11 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
 - Bloques anidados
   Usaremos llaves {} para definir el contenido de cada bloque.
 - Funciones
-  Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función,     hay que escribir cabra:
-  cabra tipo nombre_fun (parámetros) {
-    cuerpo_fun
-  }
-  
+  Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función,     hay que escribir cabra:  
+  cabra tipo nombre_fun (parámetros) {  
+    cuerpo_fun  
+  }  
+    
 - Punteros  
 - Registros  
 ### Tipos
