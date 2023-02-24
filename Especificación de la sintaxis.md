@@ -18,9 +18,17 @@ Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González
   cabra tipo nombre_fun (parámetros) {  
     cuerpo_fun  
   }  
-  ```  
-- Punteros  
+  ```
+  Los parámetros se podrán pasar por valor o referencia.
+- Punteros
+  Juan es un aburrido y define los punteros como en C++.
 - Registros  
+  Juan es un buen español, y como tal, todos los domingos come cocido. Le encanta el cocido. De hecho, siempre dice: "Un cocido es como un struct, puedes   echarle de todo". Por ello, para declarar un registro, se usará la siguiente sintaxis:
+  ```
+  Cocido nombre_registro lleva {
+    variables_registro;
+  };
+  ```
 ### Tipos
 - Declaración explícita del tipo de las variables
 - Tipos básicos predefinidos: enteros y booleanos
