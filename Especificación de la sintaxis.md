@@ -9,13 +9,13 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   La idea es crear un lenguaje en el que solo Juan pueda expresarse. Juan somos todos. Todos somos Juan.
 
 ### Identificadores y ámbitos de definición
-- Declaración de variables simples y de arrays de cualquier tipo, incluidos otros arrays  
+- Declaración de variables simples y de arrays de cualquier tipo, incluidos otros arrays:  
   Juan es una persona muy poco original, y le encanta C++. Por ello, la declaración de identificadores y variables quiere hacerlas igual:  
   ```tipo nombre_variable;```
 
-- Bloques anidados  
+- Bloques anidados:  
   Usaremos llaves {} para definir el contenido de cada bloque.  
-- Funciones
+- Funciones:
   Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función, hay que escribir "cabra" antes que nada:  
   ```
   cabra tipo_fun nombre_fun (parámetros) {  
@@ -24,12 +24,12 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   Los parámetros se podrán pasar por valor o referencia.  
   La declaración de las funciones podrá hacerse antes de escribir el cuerpo de las mismas, y de hecho será recomendable hacerlo al principio del programa.  
-- Punteros  
+- Punteros:  
   Juan es un aburrido y define los punteros como en C++:  
   ```
   tipo_punt * nombre_punt;  
   ``` 
-- Registros  
+- Registros:  
   Juan es un buen español, y como tal, todos los domingos come cocido. Le encanta el cocido. De hecho, siempre dice: "Un cocido es como un struct, puedes   echarle de todo". Por ello, para declarar un registro, se usará la siguiente sintaxis:
   ```
   cocido nombre_registro lleva {
@@ -42,11 +42,11 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   
 ### Tipos
-- Tipos básicos predefinidos: enteros y booleanos  
+- Tipos básicos predefinidos: enteros y booleanos:  
   Igual que en C++. Los enteros con la palabra reservada int. Los booleanos con la palabra reservada bool. En el caso de los booleanos, podrán tomar los valores "true" o "false" (con minúscula).   
   
 - Operadores infijos, con distintas prioridades y asociatividades para estos tipos: exactamente igual que en C++, con +,-,/,*,&,|,==,!=, etc.  
-- Tipo array 
+- Tipo array: 
   Igual que en C++:
   ```
   tipo nombre_array[cantidad];
@@ -54,11 +54,11 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   
 - Comprobación de tipos  
 ### Conjunto de instrucciones del lenguaje
-- Instrucción de asignación incluyendo elementos de arrays. 
+- Instrucción de asignación incluyendo elementos de arrays:  
   Para asignaciones de variables y arrays, usaremos el operador =, con la misma estructura que en C++.
   A parte a Juan le gustaria que hubiera un operador := que copiara elemento a elemento arrays y structs, pero Juan esta muy ocupado recibiendo regañinas de su madre como para hacerlo si es muy complicado.
   
-- Condicional con una y dos ramas 
+- Condicional con una y dos ramas: 
   No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del Padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, introduciremos, para la sintaxis del condicional con una rama, lo siguiente:  
   ```
   pican(expresion_booleana){
@@ -74,16 +74,16 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
     cuerpo_else;
   }
   ```  
-- Algún tipo de bucle  
+- Algún tipo de bucle:  
   Introduciremos en nuestro lenguaje una expresión de tipo While para poder manejar bucles. La estructura será, como viene siendo habitual, igual que la de C++. Sin embargo, a Juan no le gusta la palabra while. Sin embargo lo que sí que le gustan son los ajos. El único problema que tienen es que cuando los comes, se repiten. Es por ello que nuestra sintaxis para el bucle while será la siguiente: 
   ```
   ajo(expresion_booleana){
     cuerpo_bucle;
   }
   ```
-- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices
+- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices:
   Como aburrido que es Juan, lo hará como en C++
-- identificadores con subíndices (para acceso a arrays)
+- identificadores con subíndices (para acceso a arrays):
   Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
   Juan odia modernezes como python, matlab o julia, pero le parece que una indexacion como la de python [:] le ahorraria tiempo que podria pasar con sus cabras, así que si no es muy dificil a lo mejor introducirá esa indexacion en su lenguaje:
   ```
@@ -93,7 +93,7 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   [nombre_array[n],...,nombre_array[m-1]]
   ```
-- llamadas a función
+- llamadas a función:   
   Las funciones son como las cabras de Juan, tu les das de comer hierba (o argumentos) y las cabras te dan queso a cambio (o lo que sea, dios sabe lo que lleva la comida de las cabras) con lo cual Juan ha decidico que la sintaxis para llamar a una función va a ser la siguiente
   ```
   nombre_fun come (parámetros) 
@@ -108,7 +108,7 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   }
   peter come instancia_macarrones
   ```
-- Expresiones con punteros y nombres cualificados (notación “.” en presencia de clases o registros)
+- Expresiones con punteros y nombres cualificados (notación “.” en presencia de clases o registros):   
   Juan es un aburrido y trata los punteros y los nombre cualificadores come en C++.
 ### Gestión de errores
 - Indicación del tipo de error, fila y columna
