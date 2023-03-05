@@ -87,4 +87,7 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
 - Recuperación de errores
-
+Por el momento no sabemos con precisión cómo vamos a desarrollar esos aspectos, lo iremos decidiendo según lo veamos en teoría con mayor profundidad. Lo único que Juan tiene claro es que una madre siempre está ahi para corregir a su hijo y avisarle de sus errores para poder mejorar. Así la madre de Juan, Juana, avisará a su hijo si hay algún error en el código con el siguiente mensaje:  
+```
+Muy mal Juan, tienes un error (tipo_error) en la linea __, columna __.
+```
