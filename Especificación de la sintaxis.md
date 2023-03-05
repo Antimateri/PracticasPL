@@ -1,5 +1,8 @@
 ## Especificación de la sintaxis del lenguaje de programación
-Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González  
+Pablo Cageao Honduvilla, Pablo Heredero García, Jaime Romo González   
+#### Aclaración previa:
+Como grupo de trabajo hemos decidido darle un toque divertido a nuestro lenguaje de programación, como se puede comprobar a continuación. Nuestra intención es que así nos lo pasemos mejor trabajando con él y resulte más ameno. Los detalles que hemos añadido en este aspecto se reducen fundamentalmente a los nombres de buena parte de los comandos. La estructura interna del lenguaje será prácticamente idéntica a la de C++, ya que es el lenguaje que más hemos utilizado y más conocemos. Nuestro compromiso con el trabajo es total, y el objetivo último es obtener una práctica final seria y ajustada a las exigencias de la entrega. En ningún caso estos cambios referidos suponen una falta de compromiso, seriedad o respeto ni hacia la asignatura ni el profesor.  
+Aún con ello, estas directrices que a continuación detallamos están sujetas a cambio, y en caso de necesidad durante el desarrollo podrán modificarse buena parte de ellas.  
 
 ### Nombre del lenguaje
   Juan (extensión jn).  
