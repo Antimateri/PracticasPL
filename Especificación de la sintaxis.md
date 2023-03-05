@@ -54,9 +54,9 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   
 - Comprobación de tipos  
 ### Conjunto de instrucciones del lenguaje
-- Instrucción de asignación incluyendo elementos de arrays:    
-  Para asignaciones de variables y arrays, usaremos el operador =, con la misma estructura que en C++.
-  A parte a Juan le gustaria que hubiera un operador := que copiara elemento a elemento arrays y structs, pero Juan esta muy ocupado recibiendo regañinas de su madre como para hacerlo si es muy complicado.
+- Instrucción de asignación incluyendo elementos de arrays:     
+  Para asignaciones de variables y arrays, usaremos el operador =, con la misma estructura que en C++.  
+  Además, a Juan le gustaria que hubiera un operador := que copiara elemento a elemento arrays y structs, pero Juan esta muy ocupado recibiendo regañinas de su madre como para hacerlo si es muy complicado.
   
 - Condicional con una y dos ramas:   
   No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del Padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, introduciremos, para la sintaxis del condicional con una rama, lo siguiente:  
@@ -81,11 +81,11 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
     cuerpo_bucle;
   }
   ```
-- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices:   
-  Como aburrido que es Juan, lo hará como en C++
-- identificadores con subíndices (para acceso a arrays):   
-  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
-  Juan odia modernezes como python, matlab o julia, pero le parece que una indexacion como la de python [:] le ahorraria tiempo que podria pasar con sus cabras, así que si no es muy dificil a lo mejor introducirá esa indexacion en su lenguaje:
+- Expresiones formadas por constantes, operadores infijos y identificadores sin subíndices:    
+  Como aburrido que es Juan, lo hará como en C++  
+- Identificadores con subíndices (para acceso a arrays):    
+  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).   
+  Juan odia moderneces como python, matlab o julia, pero le parece que una indexación como la de python [:] le ahorraría tiempo que podría pasar con sus cabras, así que si no es muy difícil a lo mejor introducirá esa indexación en su lenguaje:
   ```
   nombre_array[n:m]
   ```
@@ -93,13 +93,13 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   [nombre_array[n],...,nombre_array[m-1]]
   ```
-- llamadas a función:   
-  Las funciones son como las cabras de Juan, tu les das de comer hierba (o argumentos) y las cabras te dan queso a cambio (o lo que sea, dios sabe lo que lleva la comida de las cabras) con lo cual Juan ha decidico que la sintaxis para llamar a una función va a ser la siguiente
+- llamadas a función:    
+  Las funciones son como las cabras de Juan, tu les das de comer hierba (o argumentos) y las cabras te dan queso a cambio (o lo que sea, Dios sabe lo que lleva la comida de las cabras) con lo cual Juan ha decidido que la sintaxis para llamar a una función va a ser la siguiente:  
   ```
-  nombre_fun come (parámetros) 
+  nombre_fun come (parámetros)
   ```
-  Si no fuera muy complicado, Juan se habia planteado que sus cabras coman cocidos, y de igual forma, sus funciones puedan recibir estructuras con forma de sus argumentos (identificados por nombres o orden)
-  Por ejemplo
+  Si no resulta muy complicado, Juan se ha planteado que sus cabras puedan comer cocidos, y de igual forma, que sus funciones puedan recibir estructuras con forma de sus argumentos (identificados por nombres u orden).  
+  Por ejemplo:  
   ```
   cabra int peter(int a, int b);
   cocido macarrones lleva{
@@ -107,9 +107,9 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
       int b;
   }
   peter come instancia_macarrones
-  ```
+  ```  
 - Expresiones con punteros y nombres cualificados (notación “.” en presencia de clases o registros):   
-  Juan es un aburrido y trata los punteros y los nombre cualificadores come en C++.
+  Juan es un aburrido y trata los punteros y los nombre cualificadores come en C++.  
 ### Gestión de errores
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
