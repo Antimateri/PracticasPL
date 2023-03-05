@@ -16,15 +16,19 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
 - Bloques anidados
   Usaremos llaves {} para definir el contenido de cada bloque.
 - Funciones
-  Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función,     hay que escribir cabra:  
+  Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función, hay que escribir "cabra" antes que nada:  
   ```
-  cabra tipo nombre_fun (parámetros) {  
+  cabra tipo_fun nombre_fun (parámetros) {  
     cuerpo_fun  
   }  
   ```
-  Los parámetros se podrán pasar por valor o referencia.
+  Los parámetros se podrán pasar por valor o referencia. 
+  La declaración de las funciones podrá hacerse antes de escribir el cuerpo de las mismas, y de hecho será recomendable hacerlo al principio del programa. 
 - Punteros
-  Juan es un aburrido y define los punteros como en C++.
+  Juan es un aburrido y define los punteros como en C++:
+  ```
+  tipo_punt * nombre_punt;
+  ``` 
 - Registros  
   Juan es un buen español, y como tal, todos los domingos come cocido. Le encanta el cocido. De hecho, siempre dice: "Un cocido es como un struct, puedes   echarle de todo". Por ello, para declarar un registro, se usará la siguiente sintaxis:
   ```
@@ -32,15 +36,18 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
     variables_registro;
   };
   ```
-  Además, Juan es una persona tradicional, así que los registros solo podrán estar formados por variables (no le gusta añadir cosas raras al cocido). Para   acceder a un campo del registro, usaremos el operador . seguido del nombre de la variable correspondiente.    
+  Además, Juan es una persona tradicional, así que los registros solo podrán estar formados por variables (no le gusta añadir cosas raras al cocido). Para acceder a un campo del registro, usaremos el operador . seguido del nombre de la variable correspondiente:
+  ```
+  nombre_registro.nombre_campo
+  ```
   
 ### Tipos
 - Tipos básicos predefinidos: enteros y booleanos  
   Igual que en C++. Los enteros con la palabra reservada int. Los booleanos con la palabra reservada bool.  
   
-- Operadores infijos, con distintas prioridades y asociatividades para estos tipos
+- Operadores infijos, con distintas prioridades y asociatividades para estos tipos: exactamente igual que en C++, con +,-,/,*,&,|,==, etc.
 - Tipo array  
-  Igual que en C++  
+  Igual que en C++:
   ```
   tipo nombre_array[cantidad];
   ```
