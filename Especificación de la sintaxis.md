@@ -51,12 +51,12 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   tipo nombre_array[cantidad];
   ```
-  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
   
 - Comprobación de tipos  
 ### Conjunto de instrucciones del lenguaje
 - Instrucción de asignación incluyendo elementos de arrays. 
-  Para asignaciones de variables y arrays, usaremos el operador :=, con la misma estructura que en C++.
+  Para asignaciones de variables y arrays, usaremos el operador =, con la misma estructura que en C++.
+  A parte a Juan le gustaria que hubiera un operador := que copiara elemento a elemento arrays y structs, pero Juan esta muy ocupado recibiendo regañinas de su madre como para hacerlo si es muy complicado.
   
 - Condicional con una y dos ramas 
   No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del Padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, introduciremos, para la sintaxis del condicional con una rama, lo siguiente:  
@@ -81,8 +81,35 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
     cuerpo_bucle;
   }
   ```
-- Expresiones formadas por constantes, identificadores con y sin subíndices (para acceso a arrays), operadores infijos y llamadas a función
+- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices
+  Como aburrido que es Juan, lo hará como en C++
+- identificadores con subíndices (para acceso a arrays)
+  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
+  Juan odia modernezes como python, matlab o julia, pero le parece que una indexacion como la de python [:] le ahorraria tiempo que podria pasar con sus cabras, así que si no es muy dificil a lo mejor introducirá esa indexacion en su lenguaje:
+  ```
+  nombre_array[n:m]
+  ```
+  sería quivalente a 
+  ```
+  [nombre_array[n],...,nombre_array[m-1]]
+  ```
+- llamadas a función
+  Las funciones son como las cabras de Juan, tu les das de comer hierba (o argumentos) y las cabras te dan queso a cambio (o lo que sea, dios sabe lo que lleva la comida de las cabras) con lo cual Juan ha decidico que la sintaxis para llamar a una función va a ser la siguiente
+  ```
+  nombre_fun come (parámetros) 
+  ```
+  Si no fuera muy complicado, Juan se habia planteado que sus cabras coman cocidos, y de igual forma, sus funciones puedan recibir estructuras con forma de sus argumentos (identificados por nombres o orden)
+  Por ejemplo
+  ```
+  cabra int peter(int a, int b);
+  cocido macarrones lleva{
+      int a;
+      int b;
+  }
+  peter come instancia_macarrones
+  ```
 - Expresiones con punteros y nombres cualificados (notación “.” en presencia de clases o registros)
+  Juan es un aburrido y trata los punteros y los nombre cualificadores come en C++.
 ### Gestión de errores
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
