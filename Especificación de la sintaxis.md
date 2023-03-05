@@ -51,19 +51,34 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   tipo nombre_array[cantidad];
   ```
-  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a juan le gusta mucho C++, por si no ha quedado claro).  
+  Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
   
 - Comprobación de tipos  
 ### Conjunto de instrucciones del lenguaje
-- Instrucción de asignación incluyendo elementos de arrays, condicional con una y dos ramas, y algún tipo de bucle
-  Para asignaciones de variables y arrays, usaremos el operador :=  
-  No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, la sintaxis de las expresiones IF-ELSE será:  
+- Instrucción de asignación incluyendo elementos de arrays. 
+  Para asignaciones de variables y arrays, usaremos el operador :=, con la misma estructura que en C++.
+  
+- Condicional con una y dos ramas 
+  No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del Padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, introduciremos, para la sintaxis del condicional con una rama, lo siguiente:  
   ```
   pican(expresion_booleana){
-    cuerpo_if
+    cuerpo_if;
+  }
+  ```  
+  Por otro lado, y siguiendo en la misma línea, para el condicional con dos ramas, haremos lo siguiente:  
+  ```
+  si_pican(expresion_booleana){
+    cuerpo_if;
   }
   no_pican{
-    cuerpo_else
+    cuerpo_else;
+  }
+  ```  
+- Algún tipo de bucle  
+  Introduciremos en nuestro lenguaje una expresión de tipo While para poder manejar bucles. La estructura será, como viene siendo habitual, igual que la de C++. Sin embargo, a Juan no le gusta la palabra while. Sin embargo lo que sí que le gustan son los ajos. El único problema que tienen es que cuando los comes, se repiten. Es por ello que nuestra sintaxis para el bucle while será la siguiente: 
+  ```
+  ajo(expresion_booleana){
+    cuerpo_bucle;
   }
   ```
 - Expresiones formadas por constantes, identificadores con y sin subíndices (para acceso a arrays), operadores infijos y llamadas a función
