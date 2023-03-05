@@ -13,9 +13,9 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   Juan es una persona muy poco original, y le encanta C++. Por ello, la declaración de identificadores y variables quiere hacerlas igual:  
   ```tipo nombre_variable;```
 
-- Bloques anidados:  
+- Bloques anidados:   
   Usaremos llaves {} para definir el contenido de cada bloque.  
-- Funciones:
+- Funciones:   
   Juan tiene una cabra. A Juan le encanta su cabra, y quiere que esté presente en su lenguaje de programación. Por ello, para definir cualquier función, hay que escribir "cabra" antes que nada:  
   ```
   cabra tipo_fun nombre_fun (parámetros) {  
@@ -24,12 +24,12 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   Los parámetros se podrán pasar por valor o referencia.  
   La declaración de las funciones podrá hacerse antes de escribir el cuerpo de las mismas, y de hecho será recomendable hacerlo al principio del programa.  
-- Punteros:  
+- Punteros:    
   Juan es un aburrido y define los punteros como en C++:  
   ```
   tipo_punt * nombre_punt;  
   ``` 
-- Registros:  
+- Registros:    
   Juan es un buen español, y como tal, todos los domingos come cocido. Le encanta el cocido. De hecho, siempre dice: "Un cocido es como un struct, puedes   echarle de todo". Por ello, para declarar un registro, se usará la siguiente sintaxis:
   ```
   cocido nombre_registro lleva {
@@ -42,11 +42,11 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   ```
   
 ### Tipos
-- Tipos básicos predefinidos: enteros y booleanos:  
+- Tipos básicos predefinidos: enteros y booleanos:    
   Igual que en C++. Los enteros con la palabra reservada int. Los booleanos con la palabra reservada bool. En el caso de los booleanos, podrán tomar los valores "true" o "false" (con minúscula).   
   
 - Operadores infijos, con distintas prioridades y asociatividades para estos tipos: exactamente igual que en C++, con +,-,/,*,&,|,==,!=, etc.  
-- Tipo array: 
+- Tipo array:    
   Igual que en C++:
   ```
   tipo nombre_array[cantidad];
@@ -54,11 +54,11 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
   
 - Comprobación de tipos  
 ### Conjunto de instrucciones del lenguaje
-- Instrucción de asignación incluyendo elementos de arrays:  
+- Instrucción de asignación incluyendo elementos de arrays:    
   Para asignaciones de variables y arrays, usaremos el operador =, con la misma estructura que en C++.
   A parte a Juan le gustaria que hubiera un operador := que copiara elemento a elemento arrays y structs, pero Juan esta muy ocupado recibiendo regañinas de su madre como para hacerlo si es muy complicado.
   
-- Condicional con una y dos ramas: 
+- Condicional con una y dos ramas:   
   No lo hemos dicho, pero Juan es Gallego. Le encantan los pimientos del Padrón. A veces pican, a veces no. Perfecto para un condicional. De esta forma, introduciremos, para la sintaxis del condicional con una rama, lo siguiente:  
   ```
   pican(expresion_booleana){
@@ -81,9 +81,9 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
     cuerpo_bucle;
   }
   ```
-- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices:
+- Expresiones formadas por constantes, operadores infijos y identificadores sin subindices:   
   Como aburrido que es Juan, lo hará como en C++
-- identificadores con subíndices (para acceso a arrays):
+- identificadores con subíndices (para acceso a arrays):   
   Para acceder a los elementos de un array, usaremos el operador [], igual que en C++ (a Juan le gusta mucho C++, por si no ha quedado claro).  
   Juan odia modernezes como python, matlab o julia, pero le parece que una indexacion como la de python [:] le ahorraria tiempo que podria pasar con sus cabras, así que si no es muy dificil a lo mejor introducirá esa indexacion en su lenguaje:
   ```
@@ -113,7 +113,7 @@ Aún con ello, estas directrices que a continuación detallamos están sujetas a
 ### Gestión de errores
 - Indicación del tipo de error, fila y columna
 - Parar la compilación
-- Recuperación de errores
+- Recuperación de errores   
 Por el momento no sabemos con precisión cómo vamos a desarrollar esos aspectos, lo iremos decidiendo según lo veamos en teoría con mayor profundidad. Lo único que Juan tiene claro es que una madre siempre está ahi para corregir a su hijo y avisarle de sus errores para poder mejorar. Así la madre de Juan, Juana, avisará a su hijo si hay algún error en el código con el siguiente mensaje:  
 ```
 Muy mal Juan, tienes un error (tipo_error) en la linea __, columna __.
