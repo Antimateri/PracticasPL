@@ -116,7 +116,7 @@ puntoComa = ;
 {parentesisApertura}      {return ops.unidadPAp();}
 {parentesisCierre}        {return ops.unidadPCierre();} 
 {corcheteApertura}        {return ops.unidadCAp();}
-{corcheteisCierre}        {return ops.unidadCCierre();} 
+{corcheteCierre}          {return ops.unidadCCierre();} 
 {llaveApertura}           {return ops.unidadLAp();}
 {llaveCierre}             {return ops.unidadLCierre();} 
 
