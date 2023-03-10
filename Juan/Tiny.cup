@@ -19,20 +19,20 @@ init with {:
 :};
 
 
-terminal DEFFUN, IDEN, ENDLINE, TYPE, OPPAR, CLPAR, EQ, EEQ, COMA, OPBLOQUE, CLBLOQUE, PUN, NUM, BOOL, COME, RETURN;
+terminal DEFFUN, IDEN, ENDLINE, TYPE, OPPAR, CLPAR, EQ, COMA, OPBLOQUE, CLBLOQUE, NUM, BOOL, CALL, RETURN, MAS, POR, MENOS, ENTRE, MOD, POT;
 
-non terminal  S, Linea, Tipo, Def, Exp, Op0, Op1, Op2, DefFun, Bloque, Arg, InnerList;
+non terminal  S, Linea, Tipo, Def, Exp, Op0, Op1, Op2, DefFun, Bloque, Arg, InnerList, Val;
 
 S         ::= S Linea | Linea;
-Linea     ::= DefFun ENDLINE | DefFun OPBLOQUE Bloque CLBLOQUE | Def ENDLINE | Def EQ Exp ENDLINE | IDEN COME OPPAR InnerList CLPAR ENDLINE;
+Linea     ::= DefFun ENDLINE | DefFun OPBLOQUE Bloque CLBLOQUE | Def ENDLINE | Def EQ Exp ENDLINE | IDEN CALL OPPAR InnerList CLPAR ENDLINE;
 Exp       ::= Exp MAS Op0 | Exp MENOS Op0;
 Op0       ::= Op0 POR Op1 | Op0 ENTRE Op1;
 Op1       ::= Op1 MOD Op2 | Op1 POT Op2;
-Op2       ::= IDEN COME OPPAR InnerList CLPAR | Val;
+Op2       ::= IDEN CALL OPPAR InnerList CLPAR | Val;
 Def       ::= Tipo IDEN;
 DefFun    ::= DEFFUN Tipo IDEN OPPAR Arg CLPAR;
 Tipo      ::= TYPE | IDEN;
-Arg       ::= IDEN COMA ARG | IDEN;
+Arg       ::= IDEN COMA Arg | IDEN;
 InnerList ::= Exp COMA InnerList | Exp;
 Val       ::= IDEN | NUM | BOOL;
 Bloque    ::= S RETURN | S RETURN Val;
