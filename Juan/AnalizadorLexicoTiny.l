@@ -111,7 +111,7 @@ puntoComa = ;
 {operadorOr}              {return ops.unidadOr();}
 {operadorMayor}           {return ops.unidadMayor();}
 {operadorMenor}           {return ops.unidadMenor();}
-{operadorIgual}           {return ops.unidadIgual();}
+{operadorIgual}           {return ops.unidadOpIgual();}
 
 {parentesisApertura}      {return ops.unidadPAp();}
 {parentesisCierre}        {return ops.unidadPCierre();} 
