@@ -7,6 +7,7 @@ public class ALexOperations {
   public ALexOperations(AnalizadorLexicoTiny alex) {
    this.alex = alex;   
   }
+  
 
    public UnidadLexica unidadInt(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.INT); 
