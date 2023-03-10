@@ -19,19 +19,20 @@ init with {:
 :};
 
 
-terminal     DONDE, EVALUA, IDEN, ENT, REAL, MAS,
-             MENOS, POR, DIV, IGUAL, COMA, PAP, PCIERRE;
+terminal DEFFUN, IDEN, ENDLINE, TYPE, OPPAR, CLPAR, EQ, EEQ, COMA, OPBLOQUE, CLBLOQUE, PUN, NUM, BOOL, COME, RETURN;
 
-non terminal  S, Ds, LDs, D, E0, E1, E2, OP0, OP1;
+non terminal  S, Linea, Tipo, Def, Exp, Op0, Op1, Op2, DefFun, Bloque, Arg, InnerList;
 
-S   ::= EVALUA E0 Ds ;
-Ds  ::= DONDE LDs | ;
-LDs ::= LDs COMA D | D ;
-D   ::= IDEN IGUAL E0 ;
-E0  ::= E0 OP0 E1  | E1 ;
-E1  ::= E1 OP1 E2  | E2 ;
-E2  ::= ENT  | REAL  | IDEN  | PAP E0 PCIERRE ;  
-OP0 ::= MAS  | MENOS ;
-OP1 ::= POR | DIV ;
-
-
+S         ::= S Linea | Linea;
+Linea     ::= DefFun ENDLINE | DefFun OPBLOQUE Bloque CLBLOQUE | Def ENDLINE | Def EQ Exp ENDLINE | IDEN COME OPPAR InnerList CLPAR ENDLINE;
+Exp       ::= Exp MAS Op0 | Exp MENOS Op0;
+Op0       ::= Op0 POR Op1 | Op0 ENTRE Op1;
+Op1       ::= Op1 MOD Op2 | Op1 POT Op2;
+Op2       ::= IDEN COME OPPAR InnerList CLPAR | Val;
+Def       ::= Tipo IDEN;
+DefFun    ::= DEFFUN Tipo IDEN OPPAR Arg CLPAR;
+Tipo      ::= TYPE | IDEN;
+Arg       ::= IDEN COMA ARG | IDEN;
+InnerList ::= Exp COMA InnerList | Exp;
+Val       ::= IDEN | NUM | BOOL;
+Bloque    ::= S RETURN | S RETURN Val;
