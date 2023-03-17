@@ -30,10 +30,10 @@ non terminal  S, Linea, Tipo, Def, Exp, Op0, Op1, Op2, Op3, DefFun, Bloque, Arg,
 S         ::= S Linea | Linea;
 Linea     ::= DefFun PUNTOCOMA | DefFun LAP Bloque LCIERRE | DefStruct LAP Arg LCIERRE | 
               Def PUNTOCOMA | Def IGUAL Exp PUNTOCOMA | IDEN CALL PAP InnerList PCIERRE PUNTOCOMA;
-Exp       ::= Exp SUMA Op0 | Exp RESTA Op0;
-Op0       ::= Op0 MUL Op1 | Op0 DIV Op1;
-Op1       ::= Op1 MOD Op2 | Op1 POT Op2;
-Op2       ::= Op2 AND Op3 | Op2 OR Op3;
+Exp       ::= Exp SUMA Op0 | Exp RESTA Op0 | Op0;
+Op0       ::= Op0 MUL Op1 | Op0 DIV Op1 | Op1;
+Op1       ::= Op1 MOD Op2 | Op1 POT Op2 | Op2;
+Op2       ::= Op2 AND Op3 | Op2 OR Op3 | Op3;
 Op3       ::= IDEN CALL PAP InnerList PCIERRE | Val;
 Def       ::= Tipo IDEN;
 DefFun    ::= FUN Tipo IDEN PAP Arg PCIERRE;
