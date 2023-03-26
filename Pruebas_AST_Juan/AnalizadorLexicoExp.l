@@ -29,6 +29,9 @@ import errors.GestionErroresExp;
   ops = new ALexOperations(this);
 %init}
 
+if = if
+while = while
+
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 parteEntera = {digitoPositivo}{digito}*
@@ -56,10 +59,15 @@ llaveCierre = \}
 corcheteApertura = \[
 corcheteCierre = \]
 
+puntoComa = ;
+
 %%
+{if}                      {return ops.unidadIf();}
+{while}                   {return ops.unidadWhile();}
+{numeroEntero}            {return ops.unidadEnt();}
+
 {separador}               {}
 {comentario}              {}
-{numeroEntero}            {return ops.unidadEnt();}
 
 {operadorSuma}            {return ops.unidadSuma();}
 {operadorMultiplicacion}  {return ops.unidadMul();}
@@ -78,4 +86,7 @@ corcheteCierre = \]
 {corcheteCierre}          {return ops.unidadCCierre();} 
 {llaveApertura}           {return ops.unidadLAp();}
 {llaveCierre}             {return ops.unidadLCierre();} 
+
+{puntoComa}               {return ops.unidadPuntoComa();}
+
 [^]                       {errores.errorLexico(fila(),columna(),lexema());}  

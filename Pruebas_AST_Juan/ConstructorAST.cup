@@ -32,7 +32,17 @@ terminal BOOL, IF, IFELSE, ELSE, WHILE, FUN, CALL, RETURN, STRUCT, LLEVA,
 
 terminal TokenValue INT;
 
-non terminal  E Exp, Term, Fact;
+non terminal  E S, Exp, Term, Fact;
+
+S   ::= Exp: e1 PUNTOCOMA S: s1 
+   {: RESULT= new InsBin(KindE.COMP,e1,s1); :};
+S   ::= Exp: e1 PUNTOCOMA
+   {: RESULT=e1; :};
+
+Exp ::= IF PAP Exp: e2 PCIERRE LAP S: s2 LCIERRE
+   {: RESULT= new InsBin(KindE.IF,e2,s2); :};
+Exp ::= WHILE PAP Exp: e2 PCIERRE LAP S: s2 LCIERRE
+   {: RESULT= new InsBin(KindE.WHILE,e2,s2); :};
 
 Exp ::= Exp: aDeexp1 SUMA Term: aDeterm 
    {: RESULT= new EBin(KindE.SUMA,aDeexp1,aDeterm); :};
@@ -54,5 +64,4 @@ Fact ::= INT: intValue
    {: RESULT = new Int(intValue.lexema); :};
 Fact ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
-
 

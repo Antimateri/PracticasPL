@@ -1,5 +1,7 @@
 package ast;
 
 public enum KindE {
-  SUMA,MUL,INT,DIV,MOD,POT,AND,OR,MAY,MEN,EQ
+  INT,BOOL,
+  SUMA,MUL,DIV,MOD,POT,AND,OR,MAY,MEN,EQ,
+  IF,WHILE,COMP
 }
