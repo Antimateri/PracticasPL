@@ -30,6 +30,8 @@ import errors.GestionErroresExp;
 %init}
 
 if = if
+ifElse = ifElse
+else = else
 while = while
 igual = \=
 
@@ -70,6 +72,8 @@ puntoComa = ;
 {if}                      {return ops.unidadIf();}
 {while}                   {return ops.unidadWhile();}
 {igual}                   {return ops.unidadIgual();}
+{ifElse}                  {return ops.unidadIfElse();}
+{else}                    {return ops.unidadElse();}
 
 {separador}               {}
 {comentario}              {}

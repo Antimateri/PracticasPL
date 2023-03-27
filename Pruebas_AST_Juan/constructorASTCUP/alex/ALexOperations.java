@@ -21,6 +21,12 @@ public class ALexOperations {
    public UnidadLexica unidadIgual() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IGUAL,"="); 
    } 
+   public UnidadLexica unidadIfElse() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IFELSE,"ifElse"); 
+   } 
+   public UnidadLexica unidadElse() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.ELSE,"else"); 
+   }
 
 
    public UnidadLexica unidadSuma() {

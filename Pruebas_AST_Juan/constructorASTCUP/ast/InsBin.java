@@ -1,19 +1,19 @@
 package ast;
 
-public class InsBin extends E {
-    private E opnd1;
-    private E opnd2;
-    private KindE kind;
+public class InsBin extends I {
+    private Statement opnd1;
+    private Statement opnd2;
+    private KindI kind;
 
-    public InsBin(KindE kind, E opnd1, E opnd2) {
+    public InsBin(KindI kind, Statement opnd1, Statement opnd2) {
         this.opnd1 = opnd1;
         this.opnd2 = opnd2;
         this.kind = kind;
     }
 
-    public KindE kind() {return kind;}
-    public E opnd1() {return opnd1;}
-    public E opnd2() {return opnd2;}   
+    public KindI kind() {return kind;}
+    public Statement opnd1() {return opnd1;}
+    public Statement opnd2() {return opnd2;}   
 
     public String toString() {
         switch(kind){
