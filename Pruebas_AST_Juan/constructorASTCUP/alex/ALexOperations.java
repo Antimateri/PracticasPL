@@ -11,7 +11,6 @@ public class ALexOperations {
    public UnidadLexica unidadEnt() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.INT,alex.lexema()); 
    } 
-
    
    public UnidadLexica unidadIf() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IF,"if"); 
@@ -19,10 +18,16 @@ public class ALexOperations {
    public UnidadLexica unidadWhile() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.WHILE,"while"); 
    } 
+   public UnidadLexica unidadIgual() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IGUAL,"="); 
+   } 
 
 
    public UnidadLexica unidadSuma() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.SUMA,"+"); 
+   } 
+   public UnidadLexica unidadResta() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.RESTA,"-"); 
    } 
    public UnidadLexica unidadMul() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.MUL,"*"); 

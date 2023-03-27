@@ -6,6 +6,7 @@ public class Int extends E {
    this.v = v;   
   }
   public String num() {return v;}
-  public KindE kind() {return KindE.INT;}   
+  public KindE kind() {return KindE.INT;}
   public String toString() {return v;}  
 }
+

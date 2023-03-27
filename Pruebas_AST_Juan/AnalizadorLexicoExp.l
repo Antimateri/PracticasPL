@@ -31,16 +31,19 @@ import errors.GestionErroresExp;
 
 if = if
 while = while
+igual = \=
 
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 parteEntera = {digitoPositivo}{digito}*
-numeroEntero = [\+\-]?{parteEntera}
+int = [\+\-]?{parteEntera}
 
 separador = [ \t\r\b\n]
 comentario = #[^\n]* 
 
+
 operadorSuma = \+
+operadorResta = \-
 operadorMultiplicacion = \*
 operadorDivision = \/
 operadorModulo = \%
@@ -62,14 +65,17 @@ corcheteCierre = \]
 puntoComa = ;
 
 %%
+{int}                     {return ops.unidadEnt();}
+
 {if}                      {return ops.unidadIf();}
 {while}                   {return ops.unidadWhile();}
-{numeroEntero}            {return ops.unidadEnt();}
+{igual}                   {return ops.unidadIgual();}
 
 {separador}               {}
 {comentario}              {}
 
 {operadorSuma}            {return ops.unidadSuma();}
+{operadorResta}           {return ops.unidadResta();}
 {operadorMultiplicacion}  {return ops.unidadMul();}
 {operadorDivision}        {return ops.unidadDiv();}
 {operadorModulo}          {return ops.unidadMod();}

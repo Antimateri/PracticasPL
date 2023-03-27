@@ -21,8 +21,10 @@ public class InsBin extends E {
             return "if("+opnd1().toString()+","+opnd2().toString()+")";
           case WHILE:
             return "while("+opnd1().toString()+","+opnd2().toString()+")";
-          case COMP:
-            return "comp("+opnd1().toString()+","+opnd2().toString()+")";
+          case BLOQUE:
+            return opnd1().toString()+"; \n" + opnd2().toString() + "; \n";
+          case ASIG:
+            return "asig("+opnd1().toString()+","+opnd2().toString()+")";
           default: 
            return super.toString();
         }

@@ -97,9 +97,9 @@ public class AnalizadorLexicoExp implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\2\2\1\3\1\1\1\4\1\5\1\6"+
-    "\1\7\1\1\1\10\1\11\1\12\1\13\1\1\1\14"+
-    "\1\15\1\16\2\1\1\17\1\1\1\20\1\21\1\22"+
-    "\1\23\1\24\1\0\1\25\2\0\1\26";
+    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16"+
+    "\1\17\1\20\2\1\1\21\1\1\1\22\1\23\1\24"+
+    "\1\25\1\26\1\0\1\27\2\0\1\30";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[33];
@@ -712,112 +712,122 @@ public class AnalizadorLexicoExp implements java_cup.runtime.Scanner {
             { errores.errorLexico(fila(),columna(),lexema());
             }
             // fall through
-          case 23: break;
+          case 25: break;
           case 2:
             { 
             }
             // fall through
-          case 24: break;
+          case 26: break;
           case 3:
             { return ops.unidadMod();
             }
             // fall through
-          case 25: break;
+          case 27: break;
           case 4:
             { return ops.unidadPAp();
             }
             // fall through
-          case 26: break;
+          case 28: break;
           case 5:
             { return ops.unidadPCierre();
             }
             // fall through
-          case 27: break;
+          case 29: break;
           case 6:
             { return ops.unidadMul();
             }
             // fall through
-          case 28: break;
+          case 30: break;
           case 7:
             { return ops.unidadSuma();
             }
             // fall through
-          case 29: break;
-          case 8:
-            { return ops.unidadDiv();
-            }
-            // fall through
-          case 30: break;
-          case 9:
-            { return ops.unidadEnt();
-            }
-            // fall through
           case 31: break;
-          case 10:
-            { return ops.unidadPuntoComa();
+          case 8:
+            { return ops.unidadResta();
             }
             // fall through
           case 32: break;
-          case 11:
-            { return ops.unidadMenor();
+          case 9:
+            { return ops.unidadDiv();
             }
             // fall through
           case 33: break;
-          case 12:
-            { return ops.unidadMayor();
+          case 10:
+            { return ops.unidadEnt();
             }
             // fall through
           case 34: break;
-          case 13:
-            { return ops.unidadCAp();
+          case 11:
+            { return ops.unidadPuntoComa();
             }
             // fall through
           case 35: break;
-          case 14:
-            { return ops.unidadCCierre();
+          case 12:
+            { return ops.unidadMenor();
             }
             // fall through
           case 36: break;
-          case 15:
-            { return ops.unidadLAp();
+          case 13:
+            { return ops.unidadIgual();
             }
             // fall through
           case 37: break;
-          case 16:
-            { return ops.unidadLCierre();
+          case 14:
+            { return ops.unidadMayor();
             }
             // fall through
           case 38: break;
-          case 17:
-            { return ops.unidadAnd();
+          case 15:
+            { return ops.unidadCAp();
             }
             // fall through
           case 39: break;
-          case 18:
-            { return ops.unidadPot();
+          case 16:
+            { return ops.unidadCCierre();
             }
             // fall through
           case 40: break;
-          case 19:
-            { return ops.unidadOpIgual();
+          case 17:
+            { return ops.unidadLAp();
             }
             // fall through
           case 41: break;
-          case 20:
-            { return ops.unidadIf();
+          case 18:
+            { return ops.unidadLCierre();
             }
             // fall through
           case 42: break;
-          case 21:
-            { return ops.unidadOr();
+          case 19:
+            { return ops.unidadAnd();
             }
             // fall through
           case 43: break;
-          case 22:
-            { return ops.unidadWhile();
+          case 20:
+            { return ops.unidadPot();
             }
             // fall through
           case 44: break;
+          case 21:
+            { return ops.unidadOpIgual();
+            }
+            // fall through
+          case 45: break;
+          case 22:
+            { return ops.unidadIf();
+            }
+            // fall through
+          case 46: break;
+          case 23:
+            { return ops.unidadOr();
+            }
+            // fall through
+          case 47: break;
+          case 24:
+            { return ops.unidadWhile();
+            }
+            // fall through
+          case 48: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

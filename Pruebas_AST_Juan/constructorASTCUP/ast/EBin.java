@@ -19,6 +19,8 @@ public class EBin extends E {
     switch(kind){
       case SUMA:
         return "sum("+opnd1().toString()+","+opnd2().toString()+")";
+      case RESTA:
+        return "resta("+opnd1().toString()+","+opnd2().toString()+")";
       case MUL:
         return "mul("+opnd1().toString()+","+opnd2().toString()+")";
       case DIV:

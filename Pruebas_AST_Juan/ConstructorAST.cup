@@ -24,44 +24,57 @@ init with {:
 :};
 
 
-terminal BOOL, IF, IFELSE, ELSE, WHILE, FUN, CALL, RETURN, STRUCT, LLEVA, 
-         IDEN, ENT, REAL, 
+terminal IF, WHILE, ASIG,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
          PUNTOCOMA, IGUAL, COMA;
 
-terminal TokenValue INT;
+terminal TokenValue INT, IDEN;
 
-non terminal  E S, Exp, Term, Fact;
+non terminal  E S, Linea, Bloque, Instr, Exp, Op0, Op1, Op2;
+               
 
-S   ::= Exp: e1 PUNTOCOMA S: s1 
-   {: RESULT= new InsBin(KindE.COMP,e1,s1); :};
-S   ::= Exp: e1 PUNTOCOMA
+
+Bloque ::= Linea: l1 Bloque: b1 
+   {: RESULT= new InsBin(KindE.BLOQUE,l1,b1); :};
+Bloque ::= Linea: l1
+   {: RESULT=l1; :};
+
+Linea ::= Instr: i1
+   {: RESULT=i1; :};
+Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
 
-Exp ::= IF PAP Exp: e2 PCIERRE LAP S: s2 LCIERRE
-   {: RESULT= new InsBin(KindE.IF,e2,s2); :};
-Exp ::= WHILE PAP Exp: e2 PCIERRE LAP S: s2 LCIERRE
-   {: RESULT= new InsBin(KindE.WHILE,e2,s2); :};
+Instr ::= IF PAP Exp: e2 PCIERRE LAP Bloque: b2 LCIERRE
+   {: RESULT= new InsBin(KindE.IF,e2,b2); :};
+Instr ::= WHILE PAP Exp: e2 PCIERRE LAP Bloque: b2 LCIERRE
+   {: RESULT= new InsBin(KindE.WHILE,e2,b2); :};
+Instr ::= Exp: e1 IGUAL Exp: e2 PUNTOCOMA
+   {: RESULT= new InsBin(KindE.ASIG,e1,e2); :};
 
-Exp ::= Exp: aDeexp1 SUMA Term: aDeterm 
+Exp ::= Exp: aDeexp1 SUMA Op0: aDeterm 
    {: RESULT= new EBin(KindE.SUMA,aDeexp1,aDeterm); :};
-Exp ::= Term: aDeterm
+Exp ::= Exp: aDeexp1 RESTA Op0: aDeterm 
+   {: RESULT= new EBin(KindE.RESTA,aDeexp1,aDeterm); :};
+Exp ::= Op0: aDeterm
    {: RESULT=aDeterm; :};
    
-Term ::= Term: aDeterm1 MUL Fact: aDefact
+Op0 ::= Op0: aDeterm1 MUL Op1: aDefact
    {: RESULT= new EBin(KindE.MUL,aDeterm1,aDefact); :};
-Term ::= Term: aDeterm1 DIV Fact: aDefact
+Op0 ::= Op0: aDeterm1 DIV Op1: aDefact
    {: RESULT= new EBin(KindE.DIV,aDeterm1,aDefact); :};
-Term ::= Term: aDeterm1 POT Fact: aDefact
-   {: RESULT= new EBin(KindE.POT,aDeterm1,aDefact); :};
-Term ::= Term: aDeterm1 MOD Fact: aDefact
-   {: RESULT= new EBin(KindE.MOD,aDeterm1,aDefact); :};
-Term ::= Fact: aDefact
-   {: RESULT=aDefact; :};  
+Op0 ::= Op1: aDeterm2
+   {: RESULT=aDeterm2; :};
 
-Fact ::= INT: intValue           
+Op1 ::= Op1: aDeterm1 POT Op2: aDefact
+   {: RESULT= new EBin(KindE.POT,aDeterm1,aDefact); :};
+Op1 ::= Op1: aDeterm1 MOD Op2: aDefact
+   {: RESULT= new EBin(KindE.MOD,aDeterm1,aDefact); :};
+Op1 ::= Op2: aDefact
+   {: RESULT=aDefact; :};
+
+Op2 ::= INT: intValue           
    {: RESULT = new Int(intValue.lexema); :};
-Fact ::= PAP Exp: aDeexp PCIERRE
+Op2 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
 
