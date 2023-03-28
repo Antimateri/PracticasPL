@@ -35,10 +35,12 @@ else = else
 while = while
 igual = \=
 
+letra  = ([A-Z]|[a-z])
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 parteEntera = {digitoPositivo}{digito}*
 int = [\+\-]?{parteEntera}
+identificador = {letra}({letra}|{digito})*
 
 separador = [ \t\r\b\n]
 comentario = #[^\n]* 
@@ -55,6 +57,9 @@ operadorOr = \|\|
 operadorMayor = \>
 operadorMenor = \<
 operadorIgual = \=\=
+
+tipoInt = int
+tipoBool = bool
 
 
 parentesisApertura = \(
@@ -97,6 +102,11 @@ puntoComa = ;
 {llaveApertura}           {return ops.unidadLAp();}
 {llaveCierre}             {return ops.unidadLCierre();} 
 
+{tipoInt}                 {return ops.unidadTipoInt();}
+{tipoBool}                {return ops.unidadTipoBool();}
+
 {puntoComa}               {return ops.unidadPuntoComa();}
+
+{identificador}           {return ops.unidadId();}
 
 [^]                       {errores.errorLexico(fila(),columna(),lexema());}  

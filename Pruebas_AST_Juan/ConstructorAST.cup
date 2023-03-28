@@ -1,6 +1,7 @@
 package constructorast;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
 import alex.AnalizadorLexicoExp;
 import alex.UnidadLexica;
 import alex.TokenValue;
@@ -27,32 +28,44 @@ init with {:
 terminal IF, WHILE, ASIG, IFELSE, ELSE,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
-         PUNTOCOMA, IGUAL, COMA;
+         PUNTOCOMA, IGUAL, COMA,
+         TIPOINT, TIPOBOOL;
 
 terminal TokenValue INT, IDEN;
 
-non terminal  Statement S, Linea, Bloque, Instr, Exp, Op0, Op1, Op2;
-               
+non terminal  Statement Linea, Instr, Exp, Op0, Op1, Op2, Op3, Op4, Tipo, Dec, Ident;
+non terminal  Bloque Bl;
 
 
-Bloque ::= Linea: l1 Bloque: b1 
-   {: RESULT= new InsBin(KindI.BLOQUE,l1,b1); :};
-Bloque ::= Linea: l1
-   {: RESULT=l1; :};
+Bl ::= Bl: b1 Linea: l1 
+   {: b1.append(l1);
+      RESULT= b1; :};
+Bl ::= Linea: l1
+   {: RESULT=new Bloque(l1); :};
 
 Linea ::= Instr: i1
    {: RESULT=i1; :};
+Linea ::= Dec: d1 PUNTOCOMA
+   {: RESULT=d1; :};
 Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
 
-Instr ::= IF PAP Exp: e2 PCIERRE LAP Bloque: b2 LCIERRE
-   {: RESULT= new InsBin(KindI.IF,e2,b2); :};
-Instr ::= WHILE PAP Exp: e2 PCIERRE LAP Bloque: b2 LCIERRE
-   {: RESULT= new InsBin(KindI.WHILE,e2,b2); :};
-Instr ::= Exp: e1 IGUAL Exp: e2 PUNTOCOMA
-   {: RESULT= new InsBin(KindI.ASIG,e1,e2); :};
-Instr ::= IFELSE PAP Exp: e2 PCIERRE LAP Bloque: b2 LCIERRE ELSE LAP Bloque: b3 LCIERRE
-   {: RESULT= new InsTer(KindI.IFELSE,e2,b2,b3); :};
+Instr ::= IF PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+   {: ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(e2); array.add(b2);
+      RESULT= new InsBin(KindI.IF,array); :};
+Instr ::= WHILE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+   {: ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(e2); array.add(b2); 
+      RESULT= new InsBin(KindI.WHILE,array); :};
+Instr ::= Ident: id1 IGUAL Exp: e2 PUNTOCOMA
+   {: ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(id1); array.add(e2);
+      RESULT= new InsBin(KindI.ASIG,array); :};
+Instr ::= IFELSE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
+   {: ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(e2); array.add(b2); array.add(b3);
+      RESULT= new InsBin(KindI.IFELSE,array); :};
 
 Exp ::= Exp: aDeexp1 SUMA Op0: aDeterm 
    {: RESULT= new EBin(KindE.SUMA,aDeexp1,aDeterm); :};
@@ -75,8 +88,38 @@ Op1 ::= Op1: aDeterm1 MOD Op2: aDefact
 Op1 ::= Op2: aDefact
    {: RESULT=aDefact; :};
 
-Op2 ::= INT: intValue           
+Op2 ::= Op2: aDeterm1 AND Op3: aDefact
+   {: RESULT= new EBin(KindE.AND,aDeterm1,aDefact); :};
+Op2 ::= Op2: aDeterm1 OR Op3: aDefact
+   {: RESULT= new EBin(KindE.OR,aDeterm1,aDefact); :};
+Op2 ::= Op3: aDefact
+   {: RESULT=aDefact; :};
+
+Op3 ::= Op3: aDeterm1 MAYOR Op4: aDefact
+   {: RESULT= new EBin(KindE.MAY,aDeterm1,aDefact); :};
+Op3 ::= Op3: aDeterm1 MENOR Op4: aDefact
+   {: RESULT= new EBin(KindE.MEN,aDeterm1,aDefact); :};
+Op3 ::= Op3: aDeterm1 OPIGUAL Op4: aDefact
+   {: RESULT= new EBin(KindE.EQ,aDeterm1,aDefact); :};
+Op3 ::= Op4: aDefact
+   {: RESULT=aDefact; :};
+
+Op4 ::= INT: intValue           
    {: RESULT = new Int(intValue.lexema); :};
-Op2 ::= PAP Exp: aDeexp PCIERRE
+Op4 ::= Ident: id          
+   {: RESULT = id; :};
+Op4 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
 
+Tipo ::= TIPOINT
+   {: RESULT = new TSimple(KindT.INT); :};
+Tipo ::= TIPOBOOL
+   {: RESULT = new TSimple(KindT.BOOL); :};
+
+Ident ::= IDEN: idValue
+   {: RESULT = new Iden(idValue.lexema); :};
+
+Dec ::= Tipo: t1 Ident: id
+   {: ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(t1); array.add(id);
+      RESULT= new Dec(KindD.VAR, array); :};

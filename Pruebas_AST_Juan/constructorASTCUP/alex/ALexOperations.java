@@ -11,6 +11,9 @@ public class ALexOperations {
    public UnidadLexica unidadEnt() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.INT,alex.lexema()); 
    } 
+   public UnidadLexica unidadId() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IDEN,alex.lexema()); 
+   } 
    
    public UnidadLexica unidadIf() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IF,"if"); 
@@ -85,6 +88,14 @@ public class ALexOperations {
 
    public UnidadLexica unidadPuntoComa() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PUNTOCOMA,";"); 
+   }
+
+
+   public UnidadLexica unidadTipoInt() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TIPOINT,"int"); 
+   }
+   public UnidadLexica unidadTipoBool() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TIPOBOOL,"bool"); 
    }
 
 

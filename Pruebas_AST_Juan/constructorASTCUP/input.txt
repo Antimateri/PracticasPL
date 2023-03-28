@@ -1,11 +1,14 @@
-if(5 % 3){
-    while(3 - 4){ 
-        5 = 3; 
+if(5 % 3){ 
+    while(3 > 4){ 
+        5 - 3; 
+        bool var;
     }
 }
-ifElse(2){
+
+ifElse(2 && 4){
     4 * 4;
 }
 else{
-    3 = 9;
+    int x;
+    x = 25 * x;
 }
