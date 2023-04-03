@@ -12,3 +12,13 @@ else{
     int x;
     x = 25 * x;
 }
+
+fun int cabra(int a, bool b){
+    int c;
+    c = a + b;
+};
+
+struct cocido tiene{
+    int a,
+    bool b
+};
