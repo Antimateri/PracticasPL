@@ -17,7 +17,12 @@ public class Bloque extends I{
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
-		for (Statement s : opnd) strb.append(s.toString());
+        strb.append("\n{\n");
+		for (Statement s : opnd) {
+            strb.append(s.toString());
+            strb.append(";\n");
+        }
+        strb.append("}\n");
 		return strb.toString();
 	}
 }
