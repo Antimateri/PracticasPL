@@ -22,3 +22,5 @@ struct cocido tiene{
     int a,
     bool b
 };
+
+x = funcion llama (1,2,a=3, b=4);
