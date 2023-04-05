@@ -1,5 +1,5 @@
 package ast;
 
 public enum KindD {
-    VAR, TYPE, FUN, PROC, STRUCT, STRUCTINS
+    VAR, TYPE, FUN, PROC, STRUCT
 }

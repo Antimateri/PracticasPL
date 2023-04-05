@@ -12,9 +12,6 @@ public class ALexOperations {
    public UnidadLexica unidadInt(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.INT); 
    } 
-   public UnidadLexica unidadBool(){
-      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.BOOL); 
-   }
    public UnidadLexica unidadIf(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IF); 
    }
@@ -41,6 +38,30 @@ public class ALexOperations {
    }
    public UnidadLexica unidadLleva(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.LLEVA); 
+   }
+   public UnidadLexica unidadNull(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.NULL); 
+   }
+   public UnidadLexica unidadPrint(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PRINT); 
+   }
+   public UnidadLexica unidadRead(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.READ); 
+   }
+   public UnidadLexica unidadRef(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.REF); 
+   }
+   public UnidadLexica unidadPuntero(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PUNTERO); 
+   }
+   public UnidadLexica unidadTrue(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TRUE); 
+   }
+   public UnidadLexica unidadFalse(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.FALSE); 
+   }
+   public UnidadLexica unidadTipeDef(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TIPEDEF); 
    }
    public UnidadLexica unidadId(){
      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IDEN,alex.lexema()); 
@@ -114,6 +135,12 @@ public class ALexOperations {
    public UnidadLexica unidadComa() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.COMA); 
    } 
+   public UnidadLexica unidadPunto() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PUNTO); 
+   }
+   public UnidadLexica unidadDosPuntos() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.DOSPUNTOS); 
+   }
    public UnidadLexica unidadPuntoComa() {
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PUNTOCOMA); 
    } 

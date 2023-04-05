@@ -1,5 +1,5 @@
 package ast;
 
 public enum KindT {
-    INT, BOOL
+    INT, BOOL, COMP, POINTER
 }

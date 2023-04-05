@@ -2,7 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
-public class StructIns extends D {
+public class StructIns extends E {
 
     private Iden nombre=null;
     private ArrayList<Statement> args;
@@ -37,8 +37,8 @@ public class StructIns extends D {
     }
 
     @Override
-    public KindD kind() {
-        return KindD.STRUCTINS;
+    public KindE kind() {
+        return KindE.STRUCTINS;
     }
     
 }

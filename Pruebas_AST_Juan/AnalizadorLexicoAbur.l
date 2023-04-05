@@ -40,6 +40,14 @@ call = llama
 return = return
 struct  = struct
 lleva = tiene
+null = null
+print = print
+read = read
+puntero = apunta
+ref = ref
+tipedef = tipedef
+true = true
+false = false
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
@@ -78,6 +86,8 @@ corcheteApertura = \[
 corcheteCierre = \]
 igual = \=
 coma  = ,
+punto = \.
+dospuntos = \:
 puntoComa = ;
 
 
@@ -94,6 +104,14 @@ puntoComa = ;
 {return}                  {return ops.unidadReturn();}
 {struct}                  {return ops.unidadStruct();}
 {lleva}                   {return ops.unidadLleva();}
+{null}                    {return ops.unidadNull();}
+{print}                   {return ops.unidadPrint();}
+{read}                    {return ops.unidadRead();}
+{ref}                     {return ops.unidadRef();}
+{puntero}                 {return ops.unidadPuntero();}
+{tipedef}                 {return ops.unidadTipeDef();}
+{true}                    {return ops.unidadTrue();}
+{false}                   {return ops.unidadFalse();}
 
 {separador}               {}
 {comentario}              {}
@@ -121,5 +139,7 @@ puntoComa = ;
 
 {igual}                   {return ops.unidadIgual();} 
 {coma}                    {return ops.unidadComa();}
+{punto}                   {return ops.unidadPunto();}
+{dospuntos}               {return ops.unidadDosPuntos();}
 {puntoComa}               {return ops.unidadPuntoComa();}
 [^]                       {errores.errorLexico(fila(),columna(),lexema());}  

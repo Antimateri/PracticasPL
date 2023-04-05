@@ -25,15 +25,18 @@ init with {:
 :};
 
 
-terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, CALL, RETURN, STRUCT, LLEVA,
+terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL,
+         PRINT, READ,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
-         PUNTOCOMA, IGUAL, COMA,
-         TIPOINT, TIPOBOOL;
+         PUNTOCOMA, IGUAL, COMA, PUNTO, DOSPUNTOS,
+         TIPOINT, TIPOBOOL, NULL, REF, PUNTERO,
+         TRUE, FALSE;
 
-terminal TokenValue INT, IDEN, BOOL;
+terminal TokenValue INT, IDEN;
 
-non terminal  Statement Linea, Instr, DefFun, DefStruct, Exp, Op0, Op1, Op2, Op3, Op4, Op5;
+non terminal  Statement Linea, Instr, DefFun, DefStruct;
+non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl;
 non terminal  StructDef StructBodyDef;
 non terminal  D Dec;
@@ -71,6 +74,12 @@ Instr ::= IFELSE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2); array.add(b3);
       RESULT= new InsBin(KindI.IFELSE,array); :};
+Instr ::= RETURN Exp: e1 PUNTOCOMA
+   {: RESULT=new Return(e1); :};
+Instr ::= PRINT PAP Exp: e1 PCIERRE
+   {: RESULT= new Print(e1); :};
+Instr ::= READ PAP Ident: id1 PCIERRE
+   {: RESULT= new Read(id1); :};
 
 Asign ::= Ident: id1 IGUAL Exp: e2
    {: ArrayList<Statement> array = new ArrayList<Statement>();
@@ -83,6 +92,9 @@ Exp ::= Exp: aDeexp1 RESTA Op0: aDeterm
    {: RESULT= new EBin(KindE.RESTA,aDeexp1,aDeterm); :};
 Exp ::= Op0: aDeterm
    {: RESULT=aDeterm; :};
+Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
+   {: args1.addUnnamedArg(arg2);
+      RESULT= args1; :};
    
 Op0 ::= Op0: aDeterm1 MUL Op1: aDefact
    {: RESULT= new EBin(KindE.MUL,aDeterm1,aDefact); :};
@@ -123,10 +135,16 @@ Op4 ::= Op5: aDefact
 
 Op5 ::= INT: intValue           
    {: RESULT = new Int(intValue.lexema); :};
+Op5 ::= TRUE
+   {: RESULT = new Bool("true"); :};        
+Op5 ::= FALSE
+   {: RESULT = new Bool("false"); :};
 Op5 ::= Ident: id          
    {: RESULT = id; :};
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
+Op5 ::= PUNTERO PAP Ident: id PCIERRE
+   {: RESULT = new GetPointerVal(id); :};
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);
@@ -144,12 +162,24 @@ StructInitOrden ::= Asign: arg
       RESULT= args1; :};
 
 Tipo ::= TIPOINT
-   {: RESULT = new TSimple(KindT.INT); :};
+   {: RESULT = new TSimple(KindT.INT, RefMode.VALUE); :};
 Tipo ::= TIPOBOOL
-   {: RESULT = new TSimple(KindT.BOOL); :};
+   {: RESULT = new TSimple(KindT.BOOL, RefMode.VALUE); :};
+Tipo ::= Ident: id
+   {: RESULT = new TComp(id, RefMode.VALUE); :};
+Tipo ::= REF TIPOINT
+   {: RESULT = new TSimple(KindT.INT, RefMode.REF); :};
+Tipo ::= REF TIPOBOOL
+   {: RESULT = new TSimple(KindT.BOOL, RefMode.REF); :};
+Tipo ::= REF Ident: id
+   {: RESULT = new TComp(id, RefMode.REF); :};
+Tipo ::= PUNTERO Tipo: t1
+   {: RESULT = new Pointer(t1); :};
 
 Ident ::= IDEN: idValue
    {: RESULT = new Iden(idValue.lexema); :};
+Ident ::= IDEN: idValue PUNTO Ident: id2
+   {: RESULT = new IdenComp(idValue.lexema, id2); :};
 
 Dec ::= Tipo: t1 Ident: id
    {: ArrayList<Statement> array = new ArrayList<Statement>();
@@ -160,6 +190,8 @@ Dec ::= FUN Tipo : t1 Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIER
 Dec ::= STRUCT Ident: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
    {: st1.setName(id1);
       RESULT= st1; :};
+Dec ::= TIPEDEF Ident: id1 Tipo: id2
+   {: RESULT= new TypeDef(id1,id2); :};
 
 StructBodyDef ::= StructBodyDef: st1 COMA Dec: d1
    {: st1.append(d1);

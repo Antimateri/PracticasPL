@@ -1,7 +1,7 @@
 package ast;
 
 public enum KindE {
-  INT,BOOL,
+  INT,BOOL, IDEN, IDENCOMP,
   SUMA,RESTA,MUL,DIV,MOD,POT,AND,OR,MAY,MEN,EQ,
-  FUNCT
+  FUNCT, STRUCTINS
 }
