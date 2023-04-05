@@ -1,8 +1,12 @@
 package ast;
 
+//operaciones binarias
 public class EBin extends E {
+   //un lado de la operación binaria
    private Statement opnd1;
+   //otro lado de la operación binaria
    private Statement opnd2;
+   //tipo de operación
    private KindE kind;
 
    public EBin(KindE kind, Statement opnd1, Statement opnd2) {

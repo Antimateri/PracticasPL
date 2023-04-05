@@ -1,5 +1,6 @@
 package ast;
 
+// nodo basico para representar valores y operaciones que devulenvan valores
 public abstract class E extends Statement { //Expresiones aritmético-lógicas
     public abstract KindE kind();
 

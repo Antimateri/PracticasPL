@@ -2,11 +2,15 @@ package ast;
 
 import java.util.ArrayList;
 
+// sucesion de nodos, representa los cuerpos de funciones, condicionales, bucles y programas
+//en definitiva, todo lo que sea una sucesion de comandos
 public class Bloque extends I{
+    // la susodicha sucesion de comandos
     private ArrayList<Statement> opnd;
 
     public Bloque(Statement opnd1) {
         this.opnd = new ArrayList<Statement>();
+        //usamos null para lineas que solo contienen un ;
         if(opnd1!=null)this.opnd.add(opnd1);
     }
 

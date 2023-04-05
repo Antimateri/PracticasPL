@@ -2,7 +2,9 @@ package ast;
 
 import java.util.ArrayList;
 
+// nodo principal de declaracion de variables
 public class Dec extends D{
+    //el primer operador es el tipo y el segundo el identificador
     private ArrayList<Statement> opnd;
     private KindD kind;
 

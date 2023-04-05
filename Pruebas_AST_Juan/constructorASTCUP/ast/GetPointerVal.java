@@ -1,5 +1,6 @@
 package ast;
 
+// devuelve el valor al que apunta un puntero
 public class GetPointerVal extends E{
 
     private E e;

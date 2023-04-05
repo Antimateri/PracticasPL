@@ -1,7 +1,9 @@
 package ast;
 
+// identificador compuesto: para acceder a campos de registros
 public class IdenComp extends Iden {
 
+    // identificador del campo de v al que se quiere acceder
     private Iden iden;
 
     public IdenComp(String v, Iden iden) {

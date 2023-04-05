@@ -1,33 +1,23 @@
 package ast;
 
-import java.util.ArrayList;
-
+//definicion de tipo struct
 public class StructDef extends D{
-    private ArrayList<D> opnd;
-    private Iden name=null;
+    //nombre del tipo
+    private TStruct data;
+    //definicion de la estructura como struct anonimo
+    private Iden name;
 
-    public StructDef(D opnd1) {
-        this.opnd = new ArrayList<D>();
-        this.opnd.add(opnd1);
+    public StructDef(Iden name, TStruct data) {
+        this.name = name;
+        this.data = data;
     }
-
-    public void append(D st) { opnd.add(st); }
-    public void setName(Iden name) { this.name = name; }
-
-    public Statement opnd(int i) {return opnd.get(i);}
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
         strb.append("struct(");
-        if(name!=null) strb.append(name.toString()+", ");
-        else strb.append("_anonimo_, ");
-		for (D s : opnd) {
-            strb.append(s.toString());
-            strb.append(", ");
-        }
-        strb.deleteCharAt(strb.length()-1);
-        strb.deleteCharAt(strb.length()-1);
-        strb.append(")");
+        strb.append("name="+name.toString()+", ");
+        //se usa el sub aqui para escribir menos codigo
+        strb.append(data.toStringSub());
 		return strb.toString();
 	}
 

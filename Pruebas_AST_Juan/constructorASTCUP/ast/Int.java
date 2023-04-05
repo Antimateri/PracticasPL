@@ -1,5 +1,6 @@
 package ast;
 
+// valor entero
 public class Int extends E {
   private String v;
   public Int(String v) {

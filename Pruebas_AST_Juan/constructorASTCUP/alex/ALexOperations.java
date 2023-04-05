@@ -54,6 +54,9 @@ public class ALexOperations {
    public UnidadLexica unidadPuntero(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PUNTERO); 
    }
+   public UnidadLexica unidadValorPunt() {
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.VALPTR); 
+   }
    public UnidadLexica unidadTrue(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TRUE); 
    }

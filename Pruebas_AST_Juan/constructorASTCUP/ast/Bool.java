@@ -1,5 +1,6 @@
 package ast;
 
+// nodo que representa valores binarios (true o false)
 public class Bool extends E{
     private String v;
     public Bool(String v) {

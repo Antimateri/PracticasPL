@@ -36,16 +36,17 @@ ifelse = ifElse
 else = else
 while = while
 fun = fun
-call = llama
+call = eval
 return = return
 struct  = struct
-lleva = tiene
+lleva = has
 null = null
 print = print
 read = read
-puntero = apunta
+puntero = pointer
+valorpunt = ptrval
 ref = ref
-tipedef = tipedef
+tipedef = typedef
 true = true
 false = false
 
@@ -109,6 +110,7 @@ puntoComa = ;
 {read}                    {return ops.unidadRead();}
 {ref}                     {return ops.unidadRef();}
 {puntero}                 {return ops.unidadPuntero();}
+{valorpunt}               {return ops.unidadValorPunt();}
 {tipedef}                 {return ops.unidadTipeDef();}
 {true}                    {return ops.unidadTrue();}
 {false}                   {return ops.unidadFalse();}

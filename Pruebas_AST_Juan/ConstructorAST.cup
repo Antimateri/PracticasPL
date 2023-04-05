@@ -30,7 +30,7 @@ terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEV
          PRINT, READ,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
          PUNTOCOMA, IGUAL, COMA, PUNTO, DOSPUNTOS,
-         TIPOINT, TIPOBOOL, NULL, REF, PUNTERO,
+         TIPOINT, TIPOBOOL, NULL, REF, PUNTERO, VALPTR,
          TRUE, FALSE;
 
 terminal TokenValue INT, IDEN;
@@ -38,7 +38,7 @@ terminal TokenValue INT, IDEN;
 non terminal  Statement Linea, Instr, DefStruct;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl;
-non terminal  StructDef StructBodyDef;
+non terminal  TStruct StructBodyDef;
 non terminal  D Dec;
 non terminal  Iden Ident;
 non terminal  T Tipo;
@@ -145,8 +145,10 @@ Op5 ::= Ident: id
    {: RESULT = id; :};
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
-Op5 ::= PUNTERO PAP Ident: id PCIERRE
+Op5 ::= VALPTR PAP Ident: id PCIERRE
    {: RESULT = new GetPointerVal(id); :};
+Op5 ::= PUNTERO PAP Ident: id PCIERRE
+   {: RESULT = new GetVarDir(id); :};
 Op5 ::= NULL
    {: RESULT = new Null(); :};
 
@@ -171,6 +173,8 @@ Tipo ::= TIPOBOOL
    {: RESULT = new TSimple(KindT.BOOL, RefMode.VALUE); :};
 Tipo ::= Ident: id
    {: RESULT = new TComp(id, RefMode.VALUE); :};
+Tipo ::= PAP StructBodyDef: args1 PCIERRE
+   {: RESULT = args1; :};
 Tipo ::= REF TIPOINT
    {: RESULT = new TSimple(KindT.INT, RefMode.REF); :};
 Tipo ::= REF TIPOBOOL
@@ -192,8 +196,7 @@ Dec ::= Tipo: t1 Ident: id
 Dec ::= FUN Tipo : t1 Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(t1, id1, st1, b1); :};
 Dec ::= STRUCT Ident: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
-   {: st1.setName(id1);
-      RESULT= st1; :};
+   {: RESULT= new StructDef(id1, st1); :};
 Dec ::= TIPEDEF Ident: id1 Tipo: id2
    {: RESULT= new TypeDef(id1,id2); :};
 
@@ -201,5 +204,5 @@ StructBodyDef ::= StructBodyDef: st1 COMA Dec: d1
    {: st1.append(d1);
       RESULT= st1; :};
 StructBodyDef ::= Dec: d1
-   {: RESULT= new StructDef(d1); :};
+   {: RESULT= new TStruct(d1); :};
 

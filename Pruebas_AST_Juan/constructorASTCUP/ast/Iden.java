@@ -1,5 +1,6 @@
 package ast;
 
+// variable/funcion/tipo, palabras "reservadas" por el usuario
 public class Iden extends E{
     private String name;
     public Iden(String v) {

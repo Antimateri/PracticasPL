@@ -1,7 +1,9 @@
 package ast;
 
+// Recibe un tipo y devuelve un puntero de ese tipo
 public class Pointer extends T{
 
+    //el tipo a transformar
     private T t;
 
     public Pointer(T t) {

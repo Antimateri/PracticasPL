@@ -1,5 +1,6 @@
 package ast;
 
+// instrucciones ternarias de momento solo esta el if-else
 public class InsTer extends I {
     private Statement opnd1;
     private Statement opnd2;

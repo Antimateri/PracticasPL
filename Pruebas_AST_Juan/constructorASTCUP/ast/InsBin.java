@@ -2,6 +2,7 @@ package ast;
 
 import java.util.ArrayList;
 
+// instrucciones binarias
 public class InsBin extends I {
     private ArrayList<Statement> opnd;
     private KindI kind;

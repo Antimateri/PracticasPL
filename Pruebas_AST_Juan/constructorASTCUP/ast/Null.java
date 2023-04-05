@@ -1,5 +1,6 @@
 package ast;
 
+//Para punteros vacios
 public class Null extends E{
 
     public Null() {}

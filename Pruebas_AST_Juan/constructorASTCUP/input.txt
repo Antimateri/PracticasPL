@@ -1,8 +1,9 @@
-tipedef entero int;
+typedef entero int;
+typedef fraccion (int n, int d);
 
-fun int funcion(ref int a, apunta ref int b, int c, int d){
+fun int funcion(ref int a, pointer int b, int c, int d){
     int x;
-    x = a + apunta(b) + c + d;
+    x = a + d + ptrval(b) + c;
     while(true){
         ifElse(x > 10){
             x = x - 10;
@@ -14,12 +15,17 @@ fun int funcion(ref int a, apunta ref int b, int c, int d){
     return x;
 };
 
-x = funcion llama (1,2,d=3, c=4);
-apunta int y;
+int y;
+y=2;
+x = funcion eval (1,pointer(y),d=3, c=4);
+pointer int y;
 y = null;
-struct cocido tiene{
+struct cocido has{
     int a,
-    bool b
+    bool b,
+    fun int funcion(ref int a){
+        return a;
+    }
 };
 
 cocido madrileno;

@@ -1,16 +1,18 @@
 package ast;
 
+// tipos definidos por el usuario por typedef o struct por ejemplo
 public class TComp extends T{
-    private KindT kind;
+ 
+    //identificador del tipo
     private Iden iden;
+    // modo de referencia
     private RefMode refMode;
 
     public TComp(Iden iden, RefMode refMode) {
-        this.kind = KindT.COMP;
         this.iden = iden;
     }
 
-    public KindT kind() {return kind;}
+    public KindT kind() {return KindT.COMP;}
 
     public RefMode refMode() {return refMode;}
 

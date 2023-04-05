@@ -1,7 +1,10 @@
 package ast;
 
+//tipos predefinidos (int y bool)
 public class TSimple extends T{
+    // tipo
     private KindT kind;
+    // modo de referencia (valor o referencia). en principio solo afectara a la asignacion
     private RefMode refMode;
 
     public TSimple(KindT kind, RefMode refMode) {
