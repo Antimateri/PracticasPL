@@ -10,7 +10,7 @@ public class Return extends I{
     }
 
     public String toString() {
-        return "return " + e.toString() + ";";
+        return "return " + e.toString();
     }
 
     @Override

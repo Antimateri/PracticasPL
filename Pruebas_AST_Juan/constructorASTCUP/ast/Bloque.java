@@ -7,10 +7,10 @@ public class Bloque extends I{
 
     public Bloque(Statement opnd1) {
         this.opnd = new ArrayList<Statement>();
-        this.opnd.add(opnd1);
+        if(opnd1!=null)this.opnd.add(opnd1);
     }
 
-    public void append(Statement st) { opnd.add(st); }
+    public void append(Statement st) { if(st!=null)opnd.add(st); }
 
     public KindI kind() {return KindI.BLOQUE;}
     public Statement opnd(int i) {return opnd.get(i);}
@@ -22,7 +22,7 @@ public class Bloque extends I{
             strb.append(s.toString());
             strb.append(";\n");
         }
-        strb.append("}\n");
+        strb.append("}");
 		return strb.toString();
 	}
 }

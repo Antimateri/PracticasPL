@@ -24,16 +24,19 @@ public class StructIns extends E {
     }
 
     public String toString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         if (nombre != null) {
-            res += nombre.toString() + " ";
+            res.append(nombre.toString() + " ");
         }
-        res += "{";
+        res.append("{");
         for (Statement arg : args) {
-            res += arg.toString() + ", ";
+            res.append(arg.toString());
+            res.append(", ");
         }
-        res += "}";
-        return res;
+        res.deleteCharAt(res.length()-1);
+        res.deleteCharAt(res.length()-1);
+        res.append("}");
+        return res.toString();
     }
 
     @Override

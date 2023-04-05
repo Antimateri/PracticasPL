@@ -18,14 +18,16 @@ public class StructDef extends D{
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
-        strb.append("struct ");
-        if(name!=null) strb.append(name.toString());
-        strb.append(" {\n");
+        strb.append("struct(");
+        if(name!=null) strb.append(name.toString()+", ");
+        else strb.append("_anonimo_, ");
 		for (D s : opnd) {
             strb.append(s.toString());
-            strb.append(";\n");
+            strb.append(", ");
         }
-        strb.append("}\n");
+        strb.deleteCharAt(strb.length()-1);
+        strb.deleteCharAt(strb.length()-1);
+        strb.append(")");
 		return strb.toString();
 	}
 

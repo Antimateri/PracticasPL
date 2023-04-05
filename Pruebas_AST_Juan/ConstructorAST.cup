@@ -35,7 +35,7 @@ terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEV
 
 terminal TokenValue INT, IDEN;
 
-non terminal  Statement Linea, Instr, DefFun, DefStruct;
+non terminal  Statement Linea, Instr, DefStruct;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl;
 non terminal  StructDef StructBodyDef;
@@ -59,6 +59,8 @@ Linea ::= Dec: d1 PUNTOCOMA
    {: RESULT=d1; :};
 Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
+Linea ::= PUNTOCOMA
+   {: RESULT=null; :};
 
 Instr ::= IF PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
    {: ArrayList<Statement> array = new ArrayList<Statement>();
@@ -76,9 +78,9 @@ Instr ::= IFELSE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
       RESULT= new InsBin(KindI.IFELSE,array); :};
 Instr ::= RETURN Exp: e1 PUNTOCOMA
    {: RESULT=new Return(e1); :};
-Instr ::= PRINT PAP Exp: e1 PCIERRE
+Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
    {: RESULT= new Print(e1); :};
-Instr ::= READ PAP Ident: id1 PCIERRE
+Instr ::= READ PAP Ident: id1 PCIERRE PUNTOCOMA
    {: RESULT= new Read(id1); :};
 
 Asign ::= Ident: id1 IGUAL Exp: e2
@@ -145,6 +147,8 @@ Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
 Op5 ::= PUNTERO PAP Ident: id PCIERRE
    {: RESULT = new GetPointerVal(id); :};
+Op5 ::= NULL
+   {: RESULT = new Null(); :};
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);

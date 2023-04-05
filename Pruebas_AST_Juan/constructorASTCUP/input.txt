@@ -15,7 +15,8 @@ fun int funcion(ref int a, apunta ref int b, int c, int d){
 };
 
 x = funcion llama (1,2,d=3, c=4);
-
+apunta int y;
+y = null;
 struct cocido tiene{
     int a,
     bool b
@@ -24,5 +25,6 @@ struct cocido tiene{
 cocido madrileno;
 int input;
 read(input);
+;
 madrileno = (input,true);
 print(madrileno.a == 1);

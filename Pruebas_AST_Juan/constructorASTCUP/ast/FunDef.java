@@ -19,11 +19,12 @@ public class FunDef extends D{
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
+        strb.append("funDef(");
         strb.append(type.toString());
-        strb.append(" ");
-        strb.append(name.toString());
-        strb.append(params.toString());
-        strb.append(body.toString());
+        strb.append(",");
+        strb.append(name.toString()+",");
+        strb.append(params.toString()+",");
+        strb.append(body.toString()+")");
 		return strb.toString();
 	}
     
