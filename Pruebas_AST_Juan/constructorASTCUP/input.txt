@@ -1,5 +1,6 @@
 typedef entero int;
 typedef fraccion (int n, int d);
+typedef nuevo :fraccion;
 
 fun int funcion(ref int a, pointer int b, int c, int d){
     int x;
@@ -28,9 +29,9 @@ struct cocido has{
     }
 };
 
-pointer int[4][5] array;
+pointer (int n, int d)[4][5] array;
 
-print(array[1][2]);
+print((ptrval(array)+a)[2]);
 
 (pointer int)[1] x;
 

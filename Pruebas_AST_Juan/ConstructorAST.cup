@@ -25,7 +25,8 @@ init with {:
 :};
 
 
-terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA,
+terminal IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PROC, EXEC,
+         CLASS, ATRIBUTES, CONSTRUCTOR, METHODS,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL,
          PRINT, READ,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
@@ -82,6 +83,12 @@ Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
    {: RESULT= new Print(e1); :};
 Instr ::= READ PAP Ident: id1 PCIERRE PUNTOCOMA
    {: RESULT= new Read(id1); :};
+Instr ::= Ident: id1 EXEC PAP Exp: args PCIERRE
+   {: RESULT= new FunctCall(id1,args); :};
+Instr ::= Ident: id1 EXEC Ident: args
+   {: RESULT= new FunctCall(id1,args); :};
+Instr ::= Ident: id1 EXEC PAP PCIERRE
+   {: RESULT= new FunctCall(id1,null); :};
 
 Asign ::= Ident: id1 IGUAL Exp: e2
    {: ArrayList<Statement> array = new ArrayList<Statement>();
@@ -132,7 +139,9 @@ Op3 ::= Op3: aDeterm1 OPIGUAL Op4: aDefact
 Op3 ::= Op4: aDefact
    {: RESULT=aDefact; :};
 
-Op4 ::= Ident: id1 CALL PAP StructInitOrden: args PCIERRE
+Op4 ::= Ident: id1 CALL PAP Exp: args PCIERRE
+   {: RESULT= new FunctCall(id1,args); :};
+Op4 ::= Ident: id1 CALL Ident: args
    {: RESULT= new FunctCall(id1,args); :};
 Op4 ::= Ident: id1 CALL PAP PCIERRE
    {: RESULT= new FunctCall(id1,null); :};
@@ -214,6 +223,12 @@ Dec ::= Tipo: t1 Ident: id
       RESULT= new Dec(KindD.VAR, array); :};
 Dec ::= FUN Tipo : t1 Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(t1, id1, st1, b1); :};
+Dec ::= FUN Tipo : t1 Ident: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+   {: RESULT= new FunDef(t1, id1, null, b1); :};
+Dec ::= PROC Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
+   {: RESULT= new FunDef(null, id1, st1, b1); :};
+Dec ::= PROC Ident: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+   {: RESULT= new FunDef(null, id1, null, b1); :};
 Dec ::= STRUCT Ident: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
    {: RESULT= new StructDef(id1, st1); :};
 Dec ::= TIPEDEF Ident: id1 Tipo: id2

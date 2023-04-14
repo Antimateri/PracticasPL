@@ -49,6 +49,12 @@ ref = ref
 tipedef = typedef
 true = true
 false = false
+exec = exec
+procedure = proc
+class = class
+atributes = atributes
+constructor = constructor
+methods = methods
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
@@ -114,6 +120,12 @@ puntoComa = ;
 {tipedef}                 {return ops.unidadTipeDef();}
 {true}                    {return ops.unidadTrue();}
 {false}                   {return ops.unidadFalse();}
+{exec}                    {return ops.unidadExec();}
+{procedure}               {return ops.unidadProc();}
+{class}                   {return ops.unidadClass();}
+{atributes}               {return ops.unidadAtributes();}
+{constructor}             {return ops.unidadConstructor();}
+{methods}                 {return ops.unidadMethods();}
 
 {separador}               {}
 {comentario}              {}

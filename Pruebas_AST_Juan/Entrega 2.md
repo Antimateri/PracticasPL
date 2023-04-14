@@ -122,7 +122,7 @@ Juan, al darse cuenta de que podía hacer su propio lenguaje de programación, s
         }
     }
     ```
-    Para inicializar una clase se usará la palabra reservada `create` seguida del nombre de la clase y de los atributos que tiene su constructor. Para acceder a los métodos de una clase se usa el operador `.` seguido del nombre del método y los argumentos que necesite. El siguiente código declara y crea una clase:
+    Para inicializar una clase se usará la palabra reservada `constructor` seguida del nombre de la clase y de los atributos que tiene su constructor. Para acceder a los métodos de una clase se usa el operador `.` seguido del nombre del método y los argumentos que necesite. El siguiente código declara y crea una clase:
     ```
     typeDef pair (int fst, int snd);
     class clase {
@@ -149,7 +149,7 @@ Juan, al darse cuenta de que podía hacer su propio lenguaje de programación, s
     int b = 4;
     pair par = (a, b);
     
-    clase mi_clase = create clase(a, refval(par)); # crea la clase
+    :clase mi_clase = constructor clase(a, refval(par)); # crea la clase
     
     int c = mi_clase.getNum();   #llama a getNum de la clase
     mi_clase.print_pair();       #llama a print_pair de la clase

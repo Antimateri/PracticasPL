@@ -25,11 +25,17 @@ public class FunDef extends D{
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
-        strb.append("funDef(");
-        strb.append(type.toString());
-        strb.append(",");
+        if(type==null){
+            strb.append("procDef(");
+        }
+        else{
+            strb.append("funDef(");
+            strb.append(type.toString());
+            strb.append(",");
+        }
         strb.append(name.toString()+",");
-        strb.append(params.toString()+",");
+        if(params!=null)strb.append(params.toString()+",");
+        else strb.append("null,");
         strb.append(body.toString()+")");
 		return strb.toString();
 	}

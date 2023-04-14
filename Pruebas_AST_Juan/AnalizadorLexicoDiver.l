@@ -1,22 +1,22 @@
 package alex;
 
-import errors.GestionErroresTiny;
+import errors.GestionErroresExp;
 
 %%
 %cup
-%line
 %column
-%class AnalizadorLexicoTiny
+%line
+%class AnalizadorLexicoExp
 %unicode
 %public
 
 %{
   private ALexOperations ops;
-  private GestionErroresTiny errores;
+  private GestionErroresExp errores;
   public String lexema() {return yytext();}
   public int fila() {return yyline+1;}
   public int columna() {return yycolumn+1;}
-  public void fijaGestionErrores(GestionErroresTiny errores) {
+  public void fijaGestionErrores(GestionErroresExp errores) {
    this.errores = errores;
   }
 %}
@@ -30,22 +30,37 @@ import errors.GestionErroresTiny;
 %init}
 
 int = int
-bool = bool
-if = pican
-ifelse = si_pican
-else = no_pican
+bool = depende
+if = padron
+ifelse = sipica
+else = nopica
 while = ajo
 fun = cabra
 call = come
-return = return
+return = caga
 struct  = cocido
 lleva = lleva
+null = cero
+print = pafuera
+read = padentro
+puntero = apunta
+valorpunt = palante
+ref = ref
+tipedef = segunyo
+true = pica
+false = vallamierda
+exec = rumia
+procedure = baca
+class = ganado
+atributes = miembros
+constructor = pare
+methods = cosasquehacer
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
 bucle = {while}
 registro = ({struct}|{lleva})
-funcion = ({fun}|{come})
+funcion = ({fun}|{call})
 reservada = ({tipo}|{condicional}|{bucle}|{registro}|{funcion})
 
 
@@ -78,13 +93,15 @@ corcheteApertura = \[
 corcheteCierre = \]
 igual = \=
 coma  = ,
+punto = \.
+dospuntos = :
 puntoComa = ;
 
 
 %%
 
-{int}                     {return ops.unidadInt();}
-{bool}                    {return ops.unidadBool();}
+{int}                     {return ops.unidadTipoInt();}
+{bool}                    {return ops.unidadTipoBool();}
 {if}                      {return ops.unidadIf();}
 {ifelse}                  {return ops.unidadIfElse();}
 {else}                    {return ops.unidadElse();}
@@ -94,12 +111,26 @@ puntoComa = ;
 {return}                  {return ops.unidadReturn();}
 {struct}                  {return ops.unidadStruct();}
 {lleva}                   {return ops.unidadLleva();}
+{null}                    {return ops.unidadNull();}
+{print}                   {return ops.unidadPrint();}
+{read}                    {return ops.unidadRead();}
+{ref}                     {return ops.unidadRef();}
+{puntero}                 {return ops.unidadPuntero();}
+{valorpunt}               {return ops.unidadValorPunt();}
+{tipedef}                 {return ops.unidadTipeDef();}
+{true}                    {return ops.unidadTrue();}
+{false}                   {return ops.unidadFalse();}
+{exec}                    {return ops.unidadExec();}
+{procedure}               {return ops.unidadProc();}
+{class}                   {return ops.unidadClass();}
+{atributes}               {return ops.unidadAtributes();}
+{constructor}             {return ops.unidadConstructor();}
+{methods}                 {return ops.unidadMethods();}
 
 {separador}               {}
 {comentario}              {}
 {identificador}           {return ops.unidadId();}
 {numeroEntero}            {return ops.unidadEnt();}
-{numeroReal}              {return ops.unidadReal();}
 
 {operadorSuma}            {return ops.unidadSuma();}
 {operadorResta}           {return ops.unidadResta();}
@@ -122,5 +153,7 @@ puntoComa = ;
 
 {igual}                   {return ops.unidadIgual();} 
 {coma}                    {return ops.unidadComa();}
+{punto}                   {return ops.unidadPunto();}
+{dospuntos}               {return ops.unidadDosPuntos();}
 {puntoComa}               {return ops.unidadPuntoComa();}
 [^]                       {errores.errorLexico(fila(),columna(),lexema());}  
