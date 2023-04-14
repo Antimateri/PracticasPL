@@ -3,9 +3,9 @@ package ast;
 // Devuelve la direccion de una variable, para inicializar punteros
 public class GetVarDir extends E{
     
-    private Iden name;
+    private E name;
 
-    public GetVarDir(Iden name) {
+    public GetVarDir(E name) {
         this.name = name;
     }
 

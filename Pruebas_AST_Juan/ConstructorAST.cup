@@ -35,13 +35,13 @@ terminal IF, WHILE, ASIG, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEV
 
 terminal TokenValue INT, IDEN;
 
-non terminal  Statement Linea, Instr, DefStruct;
+non terminal  Statement Linea, Instr;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl;
 non terminal  TStruct StructBodyDef;
 non terminal  D Dec;
 non terminal  Iden Ident;
-non terminal  T Tipo, Tipo2, Tipo3;
+non terminal  T Tipo, Tipo2, Tipo3, Tipo4;
 non terminal  StructIns StructInitAsign;
 non terminal  StructIns StructInitOrden;
 non terminal  InsBin Asign;
@@ -100,6 +100,7 @@ Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
 Exp ::= PAP StructInitOrden: args1 COMA Asign: arg2 PCIERRE
    {: args1.addNamedArg(arg2);
       RESULT= args1; :};
+
    
 Op0 ::= Op0: aDeterm1 MUL Op1: aDefact
    {: RESULT= new EBin(KindE.MUL,aDeterm1,aDefact); :};
@@ -150,10 +151,12 @@ Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
 Op5 ::= VALPTR PAP Ident: id PCIERRE
    {: RESULT = new GetPointerVal(id); :};
-Op5 ::= PUNTERO PAP Ident: id PCIERRE
+Op5 ::= PUNTERO PAP Exp: id PCIERRE
    {: RESULT = new GetVarDir(id); :};
 Op5 ::= NULL
    {: RESULT = new Null(); :};
+Op5 ::= Op5: exp1 CAP Exp: exp2 CCIERRE
+   {: RESULT = new ListAccess(exp1,exp2); :};
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);
@@ -184,7 +187,7 @@ Tipo3 ::= TIPOINT
    {: RESULT = new TSimple(KindT.INT, RefMode.VALUE); :};
 Tipo3 ::= TIPOBOOL
    {: RESULT = new TSimple(KindT.BOOL, RefMode.VALUE); :};
-Tipo3 ::= Ident: id
+Tipo3 ::= DOSPUNTOS Ident: id
    {: RESULT = new TComp(id, RefMode.VALUE); :};
 Tipo3 ::= PAP StructBodyDef: args1 PCIERRE
    {: RESULT = args1; :};
@@ -194,6 +197,11 @@ Tipo3 ::= REF TIPOBOOL
    {: RESULT = new TSimple(KindT.BOOL, RefMode.REF); :};
 Tipo3 ::= REF Ident: id
    {: RESULT = new TComp(id, RefMode.REF); :};
+Tipo3 ::= Tipo4: t1
+   {: RESULT = t1; :};
+
+Tipo4 ::= PAP Tipo : t1 PCIERRE
+   {: RESULT = t1; :};
 
 Ident ::= IDEN: idValue
    {: RESULT = new Iden(idValue.lexema); :};

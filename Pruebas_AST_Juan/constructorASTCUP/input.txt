@@ -30,7 +30,11 @@ struct cocido has{
 
 pointer int[4][5] array;
 
-cocido madrileno;
+print(array[1][2]);
+
+(pointer int)[1] x;
+
+:cocido madrileno;
 int input;
 read(input);
 ;

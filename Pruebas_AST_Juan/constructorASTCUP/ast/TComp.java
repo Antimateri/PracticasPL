@@ -9,6 +9,7 @@ public class TComp extends T{
     private RefMode refMode;
 
     public TComp(Iden iden, RefMode refMode) {
+        this.refMode = refMode;
         this.iden = iden;
     }
 
