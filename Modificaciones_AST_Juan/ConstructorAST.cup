@@ -34,7 +34,7 @@ terminal IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PRO
          TIPOINT, TIPOBOOL, NULL, REF, PUNTERO, VALPTR,
          TRUE, FALSE;
 
-terminal TokenValue INT, ID_VAL, ID_TYPE, ID_FUN;
+terminal TokenValue INT, IDEN;
 
 non terminal  Statement Linea, Instr;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
@@ -142,7 +142,7 @@ Op3 ::= Op3: aDeterm1 OPIGUAL Op4: aDefact
 Op3 ::= Op4: aDefact
    {: RESULT=aDefact; :};                                   
 
-Op4 ::= IdFun: id1 CALL PAP Exp: args PCIERRE
+Op4 ::= IdFun: id1 CALL PAP StructInitOrden: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
 Op4 ::= IdFun: id1 CALL IdVar: args
    {: RESULT= new FunctCall(id1,args); :};
@@ -214,24 +214,24 @@ Tipo4 ::= PAP Tipo : t1 PCIERRE
    {: RESULT = t1; :};
 
 
-IdVar ::= ID_VAL: idValue
-   {: RESULT = new IdVar(idValue.lexema); :};
-IdType ::= ID_TYPE: idValue
-   {: RESULT = new IdType(idValue.lexema); :};
-IdFun ::= ID_FUN: idValue
-   {: RESULT = new IdFun(idValue.lexema); :};
+IdVar ::= IDEN: idValue 
+   {: RESULT = new IdenVar(idValue.lexema); :};
+IdType ::= IDEN: idValue
+   {: RESULT = new IdenType(idValue.lexema); :};
+IdFun ::= IDEN: idValue
+   {: RESULT = new IdenFun(idValue.lexema); :};
 
 
 Decl ::= Tipo: t1 IdVar: id1
    {:RESULT= new DecVar(t1, id1); :};
 Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new FunDef(t1, id1, st1, b1); :};
+   {: RESULT= new DecFun(t1, id1, st1, b1); :};
 Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new FunDef(t1, id1, null, b1); :};
+   {: RESULT= new DecFun(t1, id1, null, b1); :};
 Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new FunDef(null, id1, st1, b1); :};
+   {: RESULT= new DecFun(null, id1, st1, b1); :};
 Decl ::= PROC IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new FunDef(null, id1, null, b1); :};
+   {: RESULT= new DecFun(null, id1, null, b1); :};
 Decl ::= STRUCT IdType: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
    {: RESULT= new DecStruct(id1, st1); :};
 Decl ::= TIPEDEF IdType: id1 Tipo: t1
@@ -251,5 +251,5 @@ Des ::= Des: d1 CAP Exp: e1 CCIERRE
 {: RESULT = new DesigPosArray(d1,e1); :};
 Des ::= Des: d1 PUNTO IdVar: id1
 {: RESULT = new DesigCampo(d1,id1); :};
-Des ::= REF Des: d1
+Des ::= PUNTERO PAP Des: d1 PCIERRE
 {: RESULT = new DesigRef(d1); :};

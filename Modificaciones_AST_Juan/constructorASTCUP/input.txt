@@ -31,7 +31,7 @@ struct cocido has{
 
 pointer (int n, int d)[4][5] array;
 
-print((ptrval(array)+a)[2]);
+print(pointer(array)[2]);
 
 (pointer int)[1] x;
 
