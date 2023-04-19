@@ -1,0 +1,43 @@
+typedef entero int;
+typedef fraccion (int n, int d);
+typedef nuevo :fraccion;
+
+fun int funcion(ref int a, pointer int b, int c, int d){
+    int x;
+    x = a + d + ptrval(b) + c;
+    while(true){
+        ifElse(x > 10){
+            x = x - 10;
+        }
+        else{
+            x = x + 10;
+        }
+    }
+    return x;
+};
+
+int y;
+y=2;
+x = funcion eval (1,pointer(y),d=3, c=4);
+pointer int y;
+y = null;
+struct cocido has{
+    int a,
+    bool b,
+    fun int funcion(ref int a){
+        return a;
+    }
+};
+
+pointer (int n, int d)[4][5] array;
+
+print((ptrval(array)+a)[2]);
+
+(pointer int)[1] x;
+
+:cocido madrileno;
+int input;
+read(input);
+;
+madrileno = (input,true);
+print(madrileno.a == 1);
