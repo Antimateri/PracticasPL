@@ -41,5 +41,3 @@ read(input);
 ;
 madrileno = (input,true);
 print(madrileno.a == 1);
-
-int x;
