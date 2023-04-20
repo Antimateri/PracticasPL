@@ -1,22 +1,20 @@
 package ast;
 
-// Recibe un tipo y devuelve un puntero de ese tipo
+// Tipo lista con tamaño definido
 public class TList extends T{
-    //el tipo a transformar
-    private T t;
-    private int size;
+    private T t; //tipo de sus elementos
+    private int length; //longitud de la lista
 
-    public TList(T t, int size) {
+    public TList(T t, int length) {
         this.t = t;
-        this.size = size;
+        this.length = length;
     }
 
     public String toString(){
-        return "T["+Integer.toString(size)+"](" + t.toString() +")";
+        return "T["+Integer.toString(length)+"](" + t.toString() +")";
     }
 
-    public KindT kind() {
-        return KindT.LIST;
-    }
+    public KindT kind() { return KindT.LIST; }
     
+    public int getSize(){ return length * t.getSize(); }
 }

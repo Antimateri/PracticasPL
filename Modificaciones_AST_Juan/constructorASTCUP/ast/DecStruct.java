@@ -10,6 +10,7 @@ public class DecStruct extends Dec{
     public DecStruct(IdenType name, TStruct data) {
         this.name = name;
         this.data = data;
+        name.setSize(data.getSize());
     }
 
     public String toString() {
@@ -21,6 +22,12 @@ public class DecStruct extends Dec{
 		return strb.toString();
 	}
 
-    @Override
     public KindDec kind() { return KindDec.STRUCT;}
+
+    public int getSize(){ return name.getSize(); }
+
+    public int setDelta(int last){
+        data.setDelta(0);
+        return last;
+    }
 }

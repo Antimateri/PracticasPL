@@ -4,7 +4,7 @@ package ast;
 public class TSimple extends T{
     // tipo
     private KindT kind;
-    // modo de referencia (valor o referencia). en principio solo afectara a la asignacion
+    // modo de referencia (valor o referencia). En principio solo afectará a la asignación
     private RefMode refMode;
 
     public TSimple(KindT kind, RefMode refMode) {

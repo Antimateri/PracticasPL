@@ -6,4 +6,5 @@ public abstract class T extends Statement{
     public NodeKind nodeKind() {return NodeKind.TYPE;}
     public RefMode refMode() {return RefMode.VALUE;}
     public String toString() {return "";}
+    public int getSize(){ return 0; };
 }

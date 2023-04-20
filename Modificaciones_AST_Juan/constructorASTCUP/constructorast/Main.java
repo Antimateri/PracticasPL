@@ -10,6 +10,7 @@ public class Main {
      Reader input = new InputStreamReader(new FileInputStream(args[0]));
 	 AnalizadorLexicoExp alex = new AnalizadorLexicoExp(input);
 	 ConstructorASTExp constructorast = new ConstructorASTExp(alex);
+	 //constructorast.parse();
 	 System.out.println(constructorast.parse().value);
  }
 }   

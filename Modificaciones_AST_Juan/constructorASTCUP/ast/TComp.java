@@ -19,4 +19,11 @@ public class TComp extends T{
     public String toString() {
         return "("+this.refMode+")"+iden.toString();
     }
+
+    public int getSize(){ 
+        if(refMode == RefMode.REF)
+            return 1;
+        else 
+            return iden.getSize(); //devuelve el tamaño asociado al identificador de tipo
+    }
 }

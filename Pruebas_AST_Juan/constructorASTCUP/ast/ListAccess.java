@@ -1,5 +1,13 @@
 package ast;
 
+
+
+
+//   Clase en proceso de eliminación. Ahora está en forma de designador   //
+
+
+
+
 // Recibe una expresion (se asumira que es una lista) y un indice y devuelve el elemento de la lista en esa posicion
 public class ListAccess extends E{
     //el indice

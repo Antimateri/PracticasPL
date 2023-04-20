@@ -29,4 +29,12 @@ public class Bloque extends I{
         strb.append("}");
 		return strb.toString();
 	}
+
+    public int setDelta(int last){
+        int res = last;
+        for (Statement s : opnd) {
+            res = s.setDelta(res);
+        }
+        return res;
+    }
 }

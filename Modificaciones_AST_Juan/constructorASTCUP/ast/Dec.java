@@ -5,4 +5,8 @@ public abstract class Dec extends Statement{
     public abstract KindDec kind(); //Devuelve el tipo de declaración
     public NodeKind nodeKind() {return NodeKind.DECLARATION;}
     public String toString() {return "";}
+
+    public int getSize() { return 0; }
+
+    public int setDelta(int last){ return last; } 
 }
