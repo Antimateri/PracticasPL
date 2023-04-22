@@ -30,7 +30,7 @@ public class FunctCall extends E{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		nombre.bind(envs);
 		if(args!=null)args.bind(envs);
 	}

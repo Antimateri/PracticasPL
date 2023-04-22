@@ -18,6 +18,6 @@ public class Null extends E{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {}
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}
     
 }

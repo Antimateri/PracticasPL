@@ -40,8 +40,10 @@ public class DecStruct extends Dec{
     }
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
-		envs.getFirst().put(name.name, this);
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+    	if(envs.getFirst().containsKey(name.name)) 
+			throw new RedefinedVariableException(name.name);
+    	envs.getFirst().put(name.name, this);
         name.bind(envs);
 		data.bind(envs);
 	}

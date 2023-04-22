@@ -20,12 +20,13 @@ public class DesigCampo extends Desig{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		des.bind(envs);
 		System.out.println(des.getDeclaration().toString());
-		envs.push((des.getDeclaration()).getEnv());
+		Map<String, Dec> env = des.getDeclaration().getEnv();
+		if(env!=null)envs.push(env);
 		id.bind(envs);
-		envs.pop();
+		if(env!=null)envs.pop();
 	}
 
 	@Override

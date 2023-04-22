@@ -54,7 +54,7 @@ public class EBin extends E {
 	  }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		opnd1.bind(envs);
 		if(opnd2!=null)opnd2.bind(envs);
 	}

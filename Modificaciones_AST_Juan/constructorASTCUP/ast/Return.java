@@ -23,7 +23,7 @@ public class Return extends I{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		e.bind(envs);
 	}
     
