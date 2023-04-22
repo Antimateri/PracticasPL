@@ -46,7 +46,9 @@ public class DecFun extends Dec{
 		envs.getFirst().put(name.name, this);
         if(this.params!=null)this.params.bind(envs);
         this.type.bind(envs);
+        envs.push(params.getEnv());
         this.body.bind(envs);
+        envs.pop();
 	}
     
 }
