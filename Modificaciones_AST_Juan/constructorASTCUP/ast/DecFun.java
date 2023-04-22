@@ -52,12 +52,8 @@ public class DecFun extends Dec{
 	public void bind(LinkedList<Map<String, Dec>> envs) {
 		envs.getFirst().put(name.name, this);
         if(this.params!=null)this.params.bind(envs);
-<<<<<<< HEAD
         this.type.bind(envs);
         envs.push(params.getEnv());
-=======
-        this.name.bind(envs);
->>>>>>> 0f218bb3c7cf4bfd83495e767f9112802dbdea1f
         this.body.bind(envs);
         envs.pop();
 	}
