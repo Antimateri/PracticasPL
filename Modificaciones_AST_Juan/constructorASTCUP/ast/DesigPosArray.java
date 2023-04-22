@@ -19,6 +19,7 @@ public class DesigPosArray extends Desig{
         return des.toString() + "[" + exp.toString() + "]";
     }
 
+
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) {
 		des.bind(envs);

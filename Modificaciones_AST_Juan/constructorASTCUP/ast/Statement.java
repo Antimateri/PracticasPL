@@ -8,4 +8,6 @@ public abstract class Statement implements ASTNode{
     public String toString() {return "";}
 
     public int setDelta(int last){ return last; }
+
+    public String generateCode(){ return ""; }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 interface ASTNode {
     //public ?? type() // for the future
     public void bind(LinkedList<Map<String, Dec>> envs); // for the future
-    // public ?? generateCode() // for the future
+    public String generateCode();
     public NodeKind nodeKind();
     public String toString();
     public int setDelta(int last);

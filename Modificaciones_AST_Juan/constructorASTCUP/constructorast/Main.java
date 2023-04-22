@@ -16,8 +16,8 @@ public class Main {
 	 ConstructorASTExp constructorast = new ConstructorASTExp(alex);
 	 Statement raiz = (Statement)constructorast.parse().value;
 	 //System.out.println(constructorast.parse().value);
-	 raiz.setDelta(0);
 	 raiz.bind(new LinkedList<Map<String,Dec>>());
+	 raiz.setDelta(0);
 	 System.out.println(raiz);
  }
 }   

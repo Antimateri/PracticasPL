@@ -12,7 +12,7 @@ public abstract class Iden extends E{
         this.name = v;   
     }
     public NodeKind nodeKind() {return NodeKind.IDEN;}
-    public String toString() {return name + ((this.nodeDec!=null)?"<-"+ this.nodeDec.toString():"");}
+    public String toString() {return ((this.nodeDec!=null)? name :"Unknown");}
 
     public KindE kind() {return KindE.IDEN;}  
     
@@ -23,6 +23,10 @@ public abstract class Iden extends E{
     			nodeDec = i.get(name);
     			break;
     		}
+          /*else{
+                lanzar mensaje de error: se ha hecho uso de una variable no declarada
+          }*/
+            
     	}
     }
 }
