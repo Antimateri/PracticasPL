@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 // Recibe un tipo y devuelve un puntero de ese tipo
 public class TPointer extends T{
     //el tipo a transformar
@@ -16,5 +19,11 @@ public class TPointer extends T{
     public KindT kind() { return KindT.POINTER; }
 
     public int getSize(){ return 1; } //el tamaño de un puntero es la de la dirección, que es 32b
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		t.bind(envs);
+		
+	}
     
 }

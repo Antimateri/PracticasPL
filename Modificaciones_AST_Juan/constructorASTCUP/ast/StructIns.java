@@ -1,6 +1,9 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 // inicializador de estructuras
 public class StructIns extends E {
@@ -41,5 +44,12 @@ public class StructIns extends E {
     public KindE kind() {
         return KindE.STRUCTINS;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		for(Statement a : args) {
+			a.bind(envs);
+		}
+	}
     
 }

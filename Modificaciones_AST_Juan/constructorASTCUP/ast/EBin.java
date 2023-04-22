@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 //operaciones binarias
 public class EBin extends E {
    //un lado de la operación binaria
@@ -23,30 +26,36 @@ public class EBin extends E {
     switch(kind){
       case SUMA:
         return "sum("+opnd1().toString()+","+opnd2().toString()+")";
-      case RESTA:
-        return "resta("+opnd1().toString()+","+opnd2().toString()+")";
-      case MUL:
-        return "mul("+opnd1().toString()+","+opnd2().toString()+")";
-      case DIV:
-        return "div("+opnd1().toString()+","+opnd2().toString()+")";
-      case MOD:
-        return "mod("+opnd1().toString()+","+opnd2().toString()+")";
-      case POT:
-        return "pot("+opnd1().toString()+","+opnd2().toString()+")";
-      case AND:
-        return "and("+opnd1().toString()+","+opnd2().toString()+")";
-      case OR:
-        return "or("+opnd1().toString()+","+opnd2().toString()+")";
-      case MAY:
-        return ">("+opnd1().toString()+","+opnd2().toString()+")";
-      case MEN:
-        return "<("+opnd1().toString()+","+opnd2().toString()+")";
-      case EQ:
-        return "==("+opnd1().toString()+","+opnd2().toString()+")";
-      case MEM:
-        return opnd1().toString();
-      default: 
-       return super.toString();
-    }
-  }
+	  case RESTA:
+	    return "resta("+opnd1().toString()+","+opnd2().toString()+")";
+	  case MUL:
+	    return "mul("+opnd1().toString()+","+opnd2().toString()+")";
+	  case DIV:
+	    return "div("+opnd1().toString()+","+opnd2().toString()+")";
+	  case MOD:
+	    return "mod("+opnd1().toString()+","+opnd2().toString()+")";
+	  case POT:
+	    return "pot("+opnd1().toString()+","+opnd2().toString()+")";
+	  case AND:
+	    return "and("+opnd1().toString()+","+opnd2().toString()+")";
+	  case OR:
+	    return "or("+opnd1().toString()+","+opnd2().toString()+")";
+	  case MAY:
+	    return ">("+opnd1().toString()+","+opnd2().toString()+")";
+	  case MEN:
+	    return "<("+opnd1().toString()+","+opnd2().toString()+")";
+	  case EQ:
+	    return "==("+opnd1().toString()+","+opnd2().toString()+")";
+	      case MEM:
+	        return opnd1().toString();
+	      default: 
+	       return super.toString();
+	    }
+	  }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		opnd1.bind(envs);
+		if(opnd2!=null)opnd2.bind(envs);
+	}
 }

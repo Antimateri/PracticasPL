@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 // Nodo para la definición de un nuevo tipo por parte del usuario (alias, typedef)
 public class DecTipo extends Dec{
     // Identificador del nuevo tipo:
@@ -19,4 +22,10 @@ public class DecTipo extends Dec{
 
     public KindDec kind() { return KindDec.TYPE; }
     
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		envs.getFirst().put(name.name, this);
+		type.bind(envs);
+	}
+	
 }

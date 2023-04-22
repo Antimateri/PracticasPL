@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 // funcion print de output
 public class Print extends I{
 
@@ -18,5 +21,11 @@ public class Print extends I{
     public KindI kind() {
         return KindI.PRINT;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		e.bind(envs);
+	}
+    
     
 }

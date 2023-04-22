@@ -1,6 +1,7 @@
 package ast;
 
-import java.sql.Struct;
+import java.util.LinkedList;
+import java.util.Map;
 
 //llamada a una funcion
 public class FunctCall extends E{
@@ -10,7 +11,7 @@ public class FunctCall extends E{
     //argumentos de la funcion en forma de struct
     //Parecia conveniente al hacer el ast pero se puede cambiar si complica el resto del proceso
     private E args;
-
+    
     public FunctCall(Iden nombre, E args) {
         this.nombre = nombre;
         this.args = args;
@@ -27,5 +28,11 @@ public class FunctCall extends E{
     public KindE kind() {
         return KindE.FUNCT;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		nombre.bind(envs);
+		if(args!=null)args.bind(envs);
+	}
     
 }

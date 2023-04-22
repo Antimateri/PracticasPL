@@ -1,12 +1,16 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 // sucesion de nodos, representa los cuerpos de funciones, condicionales, bucles y programas
 //en definitiva, todo lo que sea una sucesion de comandos
 public class Bloque extends I{
     // la susodicha sucesion de comandos
-    private ArrayList<Statement> opnd;
+    private List<Statement> opnd;
 
     public Bloque(Statement opnd1) {
         this.opnd = new ArrayList<Statement>();
@@ -36,5 +40,14 @@ public class Bloque extends I{
             res = s.setDelta(res);
         }
         return res;
+    }
+
+    @Override
+    public void bind(LinkedList<Map<String, Dec>> envs) {
+        envs.push(new HashMap<String, Dec>());
+        for (Statement s : opnd) {
+            s.bind(envs);
+        }
+        envs.pop();
     }
 }

@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 //tipos predefinidos (int y bool)
 public class TSimple extends T{
     // tipo
@@ -28,4 +31,7 @@ public class TSimple extends T{
     }
 
     public int getSize(){ return 1; } //en cualquier caso, sea int o bool, sea por valor o por referencia
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {}
 }

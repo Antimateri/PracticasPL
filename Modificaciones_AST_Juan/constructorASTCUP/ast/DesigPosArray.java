@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 //Designadores a posición de un array:
 public class DesigPosArray extends Desig{
     private E exp;
@@ -15,4 +18,15 @@ public class DesigPosArray extends Desig{
     public String toString(){
         return des.toString() + "[" + exp.toString() + "]";
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		des.bind(envs);
+		exp.bind(envs);
+	}
+
+	@Override
+	public Dec getDeclaration() {
+		return des.getDeclaration();
+	}
 }

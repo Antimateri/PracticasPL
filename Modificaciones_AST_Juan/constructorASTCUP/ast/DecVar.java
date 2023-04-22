@@ -1,5 +1,9 @@
 package ast;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 // Nodo para la declaración de variables:
 public class DecVar extends Dec{
     private T tipo; //Tipo de la variable declarada
@@ -23,4 +27,15 @@ public class DecVar extends Dec{
         identificador.setDelta(last);
         return last + tipo.getSize();
     }
+    
+    public Map<String, Dec> getEnv(){
+    	boolean x = (this.tipo instanceof TStruct);
+    	return x? ((TStruct)tipo).getEnv() : new HashMap<String, Dec>();
+    }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		envs.getFirst().put(identificador.name, this);
+		tipo.bind(envs);
+	}
 }

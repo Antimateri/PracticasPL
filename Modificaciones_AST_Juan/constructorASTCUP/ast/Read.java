@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 // Funcion Read de input
 public class Read extends I{
     private IdenVar id;
@@ -16,6 +19,11 @@ public class Read extends I{
     public KindI kind() {
         return KindI.READ;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		id.bind(envs);
+	}
     
     
 }

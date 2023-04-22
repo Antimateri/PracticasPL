@@ -1,7 +1,7 @@
 package ast;
 
-
-
+import java.util.LinkedList;
+import java.util.Map;
 
 //   Clase en proceso de eliminación. Ahora está en forma de designador   //
 
@@ -28,4 +28,10 @@ public class ListAccess extends E{
     public KindE kind() {
         return KindE.LISTACCESS;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		index.bind(envs);
+		list.bind(envs);
+	}
 }

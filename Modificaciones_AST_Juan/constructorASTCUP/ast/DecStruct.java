@@ -1,5 +1,9 @@
 package ast;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+
 //Declaración de tipo struct
 public class DecStruct extends Dec{
     //Identificador del nuevo tipo struct:
@@ -30,4 +34,14 @@ public class DecStruct extends Dec{
         data.setDelta(0);
         return last;
     }
+    
+    public Map<String, Dec> getEnv(){
+    	return data.getEnv();
+    }
+    
+    @Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		envs.getFirst().put(name.name, this);
+		data.bind(envs);
+	}
 }

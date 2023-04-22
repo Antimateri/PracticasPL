@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 //define una funcion
 public class DecFun extends Dec{
     public KindDec kind() {return KindDec.FUN;}
@@ -36,6 +39,14 @@ public class DecFun extends Dec{
         else strb.append("null,");
         strb.append(body.toString()+")");
 		return strb.toString();
+	}
+    
+    @Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		envs.getFirst().put(name.name, this);
+        if(this.params!=null)this.params.bind(envs);
+        this.type.bind(envs);
+        this.body.bind(envs);
 	}
     
 }

@@ -1,5 +1,8 @@
 package ast;
 
+import java.util.LinkedList;
+import java.util.Map;
+
 // Devuelve la direccion de una variable, para inicializar punteros
 public class GetVarDir extends E{
     
@@ -20,5 +23,11 @@ public class GetVarDir extends E{
     public KindE kind() {
         return KindE.IDEN;
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		name.bind(envs);
+		
+	}
 
 }

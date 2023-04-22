@@ -1,12 +1,17 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 // Tipo declarado como struct anonimo
 // (int a, int b) a; por ejemplo 
 public class TStruct extends T{
     //lista de elementos de la estructura, son todos declaraciones de variables
     private ArrayList<Dec> opnd;
+    //definimos su env particular
+    private Map<String, Dec> env;
 
     public TStruct(Dec opnd1) {
         this.opnd = new ArrayList<Dec>();
@@ -62,4 +67,18 @@ public class TStruct extends T{
         }
         return res;
     }
+    
+    public Map<String, Dec> getEnv(){
+    	return new HashMap<String, Dec>();
+    }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		this.env=new HashMap<String, Dec>();
+		envs.push(env);
+		for(Dec aux : opnd) {
+			aux.bind(envs);
+		}
+		envs.pop();
+	}
 }

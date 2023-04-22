@@ -1,6 +1,8 @@
 package ast;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Map;
 
 // instrucciones binarias
 public class InsBin extends I {
@@ -29,6 +31,15 @@ public class InsBin extends I {
            return super.toString();
         }
     }
+
+	@Override
+	public void bind(LinkedList<Map<String, Dec>> envs) {
+		//asumo que recibe bloques como argumento
+		for(Statement aux: opnd) {
+			if(aux!=null)aux.bind(envs);
+		}
+		
+	}
 	
 }
 	
