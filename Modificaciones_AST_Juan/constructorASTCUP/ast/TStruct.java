@@ -69,7 +69,7 @@ public class TStruct extends T{
     }
     
     public Map<String, Dec> getEnv(){
-    	return new HashMap<String, Dec>();
+    	return env;
     }
 
 	@Override
