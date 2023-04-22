@@ -43,6 +43,8 @@ public class EBin extends E {
         return "<("+opnd1().toString()+","+opnd2().toString()+")";
       case EQ:
         return "==("+opnd1().toString()+","+opnd2().toString()+")";
+      case MEM:
+        return opnd1().toString();
       default: 
        return super.toString();
     }

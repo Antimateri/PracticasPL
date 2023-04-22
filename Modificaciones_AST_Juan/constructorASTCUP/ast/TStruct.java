@@ -45,4 +45,21 @@ public class TStruct extends T{
 	}
 
     public KindT kind() { return KindT.STRUCT;}
+
+
+    public int getSize(){ 
+        int res = 0;
+        for (Dec d : opnd) { //sumamos el total de variables declaradas dentro del struct
+            res = res + d.getSize();
+        }
+        return res;
+    }
+
+    public int setDelta(int x){ //en este caso ignoramos el parámetro, no nos hace falta
+        int res = 0;
+        for (Dec d : opnd) { 
+            res = res + d.setDelta(res);
+        }
+        return res;
+    }
 }

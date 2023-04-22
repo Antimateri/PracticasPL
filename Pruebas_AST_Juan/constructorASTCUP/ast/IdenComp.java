@@ -1,8 +1,11 @@
 package ast;
 
+
+//     en proceso de eliminación, será sustituido por un designador    //
+
+
 // identificador compuesto: para acceder a campos de registros
 public class IdenComp extends Iden {
-
     // identificador del campo de v al que se quiere acceder
     private Iden iden;
 

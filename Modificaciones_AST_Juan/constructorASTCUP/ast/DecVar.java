@@ -16,4 +16,11 @@ public class DecVar extends Dec{
     public String toString() {
         return "var("+tipo.toString()+","+identificador.toString()+")";
     }
+
+    public int getSize(){ return tipo.getSize(); }
+
+    public int setDelta(int last){ 
+        identificador.setDelta(last);
+        return last + tipo.getSize();
+    }
 }

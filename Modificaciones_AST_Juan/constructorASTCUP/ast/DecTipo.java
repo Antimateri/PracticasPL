@@ -10,6 +10,7 @@ public class DecTipo extends Dec{
     public DecTipo(IdenType name, T type) {
         this.name = name;
         this.type = type;
+        name.setSize(type.getSize());
     }
 
     public String toString() {

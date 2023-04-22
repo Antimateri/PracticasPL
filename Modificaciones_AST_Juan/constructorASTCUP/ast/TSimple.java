@@ -26,4 +26,6 @@ public class TSimple extends T{
            return super.toString();
         }
     }
+
+    public int getSize(){ return 1; } //en cualquier caso, sea int o bool, sea por valor o por referencia
 }

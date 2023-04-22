@@ -34,18 +34,21 @@ terminal IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PRO
          TIPOINT, TIPOBOOL, NULL, REF, PUNTERO, VALPTR,
          TRUE, FALSE;
 
-terminal TokenValue INT, IDEN;
+terminal TokenValue INT, ID_VAL, ID_TYPE, ID_FUN;
 
 non terminal  Statement Linea, Instr;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl;
 non terminal  TStruct StructBodyDef;
-non terminal  D Dec;
-non terminal  Iden Ident;
+non terminal  Dec Decl;
+non terminal  IdenType IdType;
+non terminal  IdenVar IdVar;
+non terminal  IdenFun IdFun;
 non terminal  T Tipo, Tipo2, Tipo3, Tipo4;
 non terminal  StructIns StructInitAsign;
 non terminal  StructIns StructInitOrden;
 non terminal  InsBin Asign;
+non terminal  Desig Des;
 
 
 Bl ::= Bl: b1 Linea: l1 
@@ -56,7 +59,7 @@ Bl ::= Linea: l1
 
 Linea ::= Instr: i1
    {: RESULT=i1; :};
-Linea ::= Dec: d1 PUNTOCOMA
+Linea ::= Decl: d1 PUNTOCOMA
    {: RESULT=d1; :};
 Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
@@ -81,18 +84,18 @@ Instr ::= RETURN Exp: e1 PUNTOCOMA
    {: RESULT=new Return(e1); :};
 Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
    {: RESULT= new Print(e1); :};
-Instr ::= READ PAP Ident: id1 PCIERRE PUNTOCOMA
+Instr ::= READ PAP IdVar: id1 PCIERRE PUNTOCOMA
    {: RESULT= new Read(id1); :};
-Instr ::= Ident: id1 EXEC PAP Exp: args PCIERRE
+Instr ::= IdFun: id1 EXEC PAP Exp: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
-Instr ::= Ident: id1 EXEC Ident: args
+Instr ::= IdFun: id1 EXEC IdVar: args
    {: RESULT= new FunctCall(id1,args); :};
-Instr ::= Ident: id1 EXEC PAP PCIERRE
+Instr ::= IdFun: id1 EXEC PAP PCIERRE
    {: RESULT= new FunctCall(id1,null); :};
 
-Asign ::= Ident: id1 IGUAL Exp: e2
+Asign ::= Des: d1 IGUAL Exp: e2
    {: ArrayList<Statement> array = new ArrayList<Statement>();
-      array.add(id1); array.add(e2);
+      array.add(d1); array.add(e2);
       RESULT= new InsBin(KindI.ASIG,array); :};
 
 Exp ::= Exp: aDeexp1 SUMA Op0: aDeterm 
@@ -137,13 +140,13 @@ Op3 ::= Op3: aDeterm1 MENOR Op4: aDefact
 Op3 ::= Op3: aDeterm1 OPIGUAL Op4: aDefact
    {: RESULT= new EBin(KindE.EQ,aDeterm1,aDefact); :};
 Op3 ::= Op4: aDefact
-   {: RESULT=aDefact; :};
+   {: RESULT=aDefact; :};                                   
 
-Op4 ::= Ident: id1 CALL PAP Exp: args PCIERRE
+Op4 ::= IdFun: id1 CALL PAP Exp: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
-Op4 ::= Ident: id1 CALL Ident: args
+Op4 ::= IdFun: id1 CALL IdVar: args
    {: RESULT= new FunctCall(id1,args); :};
-Op4 ::= Ident: id1 CALL PAP PCIERRE
+Op4 ::= IdFun: id1 CALL PAP PCIERRE
    {: RESULT= new FunctCall(id1,null); :};
 Op4 ::= Op5: aDefact
    {: RESULT=aDefact; :};
@@ -154,18 +157,14 @@ Op5 ::= TRUE
    {: RESULT = new Bool("true"); :};        
 Op5 ::= FALSE
    {: RESULT = new Bool("false"); :};
-Op5 ::= Ident: id          
-   {: RESULT = id; :};
+Op5 ::= Des: d1    
+   {: RESULT = new EBin(KindE.MEM, d1, null); :};
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
-Op5 ::= VALPTR PAP Ident: id PCIERRE
+Op5 ::= VALPTR PAP IdVar: id PCIERRE
    {: RESULT = new GetPointerVal(id); :};
-Op5 ::= PUNTERO PAP Exp: id PCIERRE
-   {: RESULT = new GetVarDir(id); :};
 Op5 ::= NULL
    {: RESULT = new Null(); :};
-Op5 ::= Op5: exp1 CAP Exp: exp2 CCIERRE
-   {: RESULT = new ListAccess(exp1,exp2); :};
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);
@@ -182,8 +181,10 @@ StructInitOrden ::= Asign: arg
       args1.addNamedArg(arg);
       RESULT= args1; :};
 
+
+
 Tipo ::= PUNTERO Tipo2: t1
-   {: RESULT = new Pointer(t1); :};
+   {: RESULT = new TPointer(t1); :};
 Tipo ::= Tipo2: t1
    {: RESULT = t1; :};
 
@@ -196,7 +197,7 @@ Tipo3 ::= TIPOINT
    {: RESULT = new TSimple(KindT.INT, RefMode.VALUE); :};
 Tipo3 ::= TIPOBOOL
    {: RESULT = new TSimple(KindT.BOOL, RefMode.VALUE); :};
-Tipo3 ::= DOSPUNTOS Ident: id
+Tipo3 ::= DOSPUNTOS IdType: id
    {: RESULT = new TComp(id, RefMode.VALUE); :};
 Tipo3 ::= PAP StructBodyDef: args1 PCIERRE
    {: RESULT = args1; :};
@@ -204,7 +205,7 @@ Tipo3 ::= REF TIPOINT
    {: RESULT = new TSimple(KindT.INT, RefMode.REF); :};
 Tipo3 ::= REF TIPOBOOL
    {: RESULT = new TSimple(KindT.BOOL, RefMode.REF); :};
-Tipo3 ::= REF Ident: id
+Tipo3 ::= REF IdType: id
    {: RESULT = new TComp(id, RefMode.REF); :};
 Tipo3 ::= Tipo4: t1
    {: RESULT = t1; :};
@@ -212,31 +213,43 @@ Tipo3 ::= Tipo4: t1
 Tipo4 ::= PAP Tipo : t1 PCIERRE
    {: RESULT = t1; :};
 
-Ident ::= IDEN: idValue
-   {: RESULT = new Iden(idValue.lexema); :};
-Ident ::= IDEN: idValue PUNTO Ident: id2
-   {: RESULT = new IdenComp(idValue.lexema, id2); :};
 
-Dec ::= Tipo: t1 Ident: id
-   {: ArrayList<Statement> array = new ArrayList<Statement>();
-      array.add(t1); array.add(id);
-      RESULT= new Dec(KindD.VAR, array); :};
-Dec ::= FUN Tipo : t1 Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
+IdVar ::= ID_VAL: idValue
+   {: RESULT = new IdVar(idValue.lexema); :};
+IdType ::= ID_TYPE: idValue
+   {: RESULT = new IdType(idValue.lexema); :};
+IdFun ::= ID_FUN: idValue
+   {: RESULT = new IdFun(idValue.lexema); :};
+
+
+Decl ::= Tipo: t1 IdVar: id1
+   {:RESULT= new DecVar(t1, id1); :};
+Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(t1, id1, st1, b1); :};
-Dec ::= FUN Tipo : t1 Ident: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(t1, id1, null, b1); :};
-Dec ::= PROC Ident: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(null, id1, st1, b1); :};
-Dec ::= PROC Ident: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= PROC IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
    {: RESULT= new FunDef(null, id1, null, b1); :};
-Dec ::= STRUCT Ident: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
-   {: RESULT= new StructDef(id1, st1); :};
-Dec ::= TIPEDEF Ident: id1 Tipo: id2
-   {: RESULT= new TypeDef(id1,id2); :};
+Decl ::= STRUCT IdType: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
+   {: RESULT= new DecStruct(id1, st1); :};
+Decl ::= TIPEDEF IdType: id1 Tipo: t1
+   {: RESULT= new DecTipo(id1,t1); :};
 
-StructBodyDef ::= StructBodyDef: st1 COMA Dec: d1
+
+StructBodyDef ::= StructBodyDef: st1 COMA Decl: d1
    {: st1.append(d1);
       RESULT= st1; :};
-StructBodyDef ::= Dec: d1
+StructBodyDef ::= Decl: d1
    {: RESULT= new TStruct(d1); :};
 
+
+Des ::= IdVar: id1
+   {: RESULT= new DesigVar(id1); :};
+Des ::= Des: d1 CAP Exp: e1 CCIERRE
+{: RESULT = new DesigPosArray(d1,e1); :};
+Des ::= Des: d1 PUNTO IdVar: id1
+{: RESULT = new DesigCampo(d1,id1); :};
+Des ::= REF Des: d1
+{: RESULT = new DesigRef(d1); :};

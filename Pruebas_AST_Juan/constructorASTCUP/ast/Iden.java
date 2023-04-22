@@ -8,8 +8,6 @@ public class Iden extends E{
     }
     public NodeKind nodeKind() {return NodeKind.IDEN;}
     public String toString() {return name;}
-    @Override
-    public KindE kind() {
-        return KindE.IDEN;
-    }  
+
+    public KindE kind() {return KindE.IDEN;}  
 }

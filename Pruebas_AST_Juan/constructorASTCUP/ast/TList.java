@@ -2,7 +2,6 @@ package ast;
 
 // Recibe un tipo y devuelve un puntero de ese tipo
 public class TList extends T{
-
     //el tipo a transformar
     private T t;
     private int size;
@@ -16,7 +15,6 @@ public class TList extends T{
         return "T["+Integer.toString(size)+"](" + t.toString() +")";
     }
 
-    @Override
     public KindT kind() {
         return KindT.LIST;
     }

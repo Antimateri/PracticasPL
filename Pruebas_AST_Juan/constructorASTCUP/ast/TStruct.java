@@ -6,22 +6,22 @@ import java.util.ArrayList;
 // (int a, int b) a; por ejemplo 
 public class TStruct extends T{
     //lista de elementos de la estructura, son todos declaraciones de variables
-    private ArrayList<D> opnd;
+    private ArrayList<Dec> opnd;
 
-    public TStruct(D opnd1) {
-        this.opnd = new ArrayList<D>();
+    public TStruct(Dec opnd1) {
+        this.opnd = new ArrayList<Dec>();
         this.opnd.add(opnd1);
     }
 
     // añade un elemento a la lista de elementos de la estructura
-    public void append(D st) { opnd.add(st); }
+    public void append(Dec st) { opnd.add(st); }
 
     public Statement opnd(int i) {return opnd.get(i);}
 
     public String toString() {
 		StringBuilder strb = new StringBuilder();
         strb.append("StructType(");
-		for (D s : opnd) {
+		for (Dec s : opnd) {
             strb.append(s.toString());
             strb.append(", ");
         }
@@ -34,7 +34,7 @@ public class TStruct extends T{
     // para struct con nombre
     public String toStringSub() {
 		StringBuilder strb = new StringBuilder();
-		for (D s : opnd) {
+		for (Dec s : opnd) {
             strb.append(s.toString());
             strb.append(", ");
         }
@@ -44,6 +44,5 @@ public class TStruct extends T{
 		return strb.toString();
 	}
 
-    @Override
     public KindT kind() { return KindT.STRUCT;}
 }
