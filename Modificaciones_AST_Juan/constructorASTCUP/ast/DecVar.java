@@ -8,6 +8,7 @@ import java.util.Map;
 public class DecVar extends Dec{
     private T tipo; //Tipo de la variable declarada
     private IdenVar identificador; //Identificador de la variable declarada
+    private int delta = 0;
 
   //El primer operador es el tipo y el segundo el identificador:
     public DecVar(T tipo, IdenVar id) {
@@ -18,15 +19,17 @@ public class DecVar extends Dec{
     public KindDec kind() {return KindDec.VAR;}
 
     public String toString() {
-        return "var("+tipo.toString()+","+identificador.toString()+")";
+        return "var("+ tipo.toString()+","+ identificador.toString() + ")";
     }
 
     public int getSize(){ return tipo.getSize(); }
 
     public int setDelta(int last){ 
-        identificador.setDelta(last);
+        this.delta = last;
         return last + tipo.getSize();
     }
+
+    public int getDelta(){ return delta; }
     
     public Map<String, Dec> getEnv(){
     	boolean x = (this.tipo instanceof TStruct);
@@ -36,6 +39,7 @@ public class DecVar extends Dec{
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) {
 		envs.getFirst().put(identificador.name, this);
+        identificador.bind(envs);
 		tipo.bind(envs);
 	}
 }

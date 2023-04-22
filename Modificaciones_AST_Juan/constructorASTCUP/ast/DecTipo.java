@@ -25,6 +25,7 @@ public class DecTipo extends Dec{
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) {
 		envs.getFirst().put(name.name, this);
+        name.bind(envs);
 		type.bind(envs);
 	}
 	

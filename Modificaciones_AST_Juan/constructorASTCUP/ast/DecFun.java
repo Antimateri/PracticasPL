@@ -40,13 +40,24 @@ public class DecFun extends Dec{
         strb.append(body.toString()+")");
 		return strb.toString();
 	}
+
+    public int setDelta(int last){
+        int aux = 0;
+        if(this.params!=null)aux = params.setDelta(0);
+        body.setDelta(aux);
+        return last;
+    }
     
     @Override
 	public void bind(LinkedList<Map<String, Dec>> envs) {
 		envs.getFirst().put(name.name, this);
         if(this.params!=null)this.params.bind(envs);
+<<<<<<< HEAD
         this.type.bind(envs);
         envs.push(params.getEnv());
+=======
+        this.name.bind(envs);
+>>>>>>> 0f218bb3c7cf4bfd83495e767f9112802dbdea1f
         this.body.bind(envs);
         envs.pop();
 	}

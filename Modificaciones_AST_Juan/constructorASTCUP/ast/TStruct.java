@@ -61,9 +61,9 @@ public class TStruct extends T{
     }
 
     public int setDelta(int x){ //en este caso ignoramos el parámetro, no nos hace falta
-        int res = 0;
+        int res = x;
         for (Dec d : opnd) { 
-            res = res + d.setDelta(res);
+            res = d.setDelta(res);
         }
         return res;
     }
