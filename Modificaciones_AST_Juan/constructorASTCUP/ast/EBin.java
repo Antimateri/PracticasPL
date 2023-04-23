@@ -46,10 +46,10 @@ public class EBin extends E {
 	    return "<("+opnd1().toString()+","+opnd2().toString()+")";
 	  case EQ:
 	    return "==("+opnd1().toString()+","+opnd2().toString()+")";
-	      case MEM:
-	        return opnd1().toString();
-	      default: 
-	       return super.toString();
+	  case MEM:
+	    return opnd1().toString();
+	  default: 
+	    return super.toString();
 	    }
 	  }
 
@@ -57,5 +57,56 @@ public class EBin extends E {
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		opnd1.bind(envs);
 		if(opnd2!=null)opnd2.bind(envs);
+	}
+
+	
+	public String generateCode(){
+		StringBuilder strb = new StringBuilder();
+		if(kind == KindE.MEM){
+			strb.append(opnd1.generateCode() + "\n");
+			strb.append("i32.load\n");
+		}
+		else{
+			strb.append(opnd2.generateCode() + "\n");
+			strb.append(opnd1.generateCode() + "\n");
+			switch(kind){
+				case SUMA:
+					strb.append("i32.add\n");
+				break;
+				case RESTA:
+					strb.append("i32.sub\n");
+				break;
+				case MUL:
+					strb.append("i32.mul\n");
+				break;
+				case DIV:
+					strb.append("i32.div_s\n");
+				break;
+				case MOD:
+					strb.append("i32.rem_u\n");
+				break;
+				case POT:
+					//
+				break;
+				case AND:
+					strb.append("i32.and\n");
+				break;
+				case OR:
+					strb.append("i32.or\n");
+				break;
+				case MAY:
+					strb.append("i32.gt_u\n");
+				break;
+				case MEN:
+					strb.append("i32.lt_u\n");
+				break;
+				case EQ:
+					strb.append("i32.eq\n");
+				break;
+				default: 
+				break;
+			}
+		}
+		return strb.toString();
 	}
 }
