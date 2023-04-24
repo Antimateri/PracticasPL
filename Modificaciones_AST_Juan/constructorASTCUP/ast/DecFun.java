@@ -49,8 +49,10 @@ public class DecFun extends Dec{
     }
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
-		envs.getFirst().put(name.name, this);
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+    	if(envs.getFirst().containsKey(name.name)) 
+			throw new RedefinedVariableException(name.name);
+    	envs.getFirst().put(name.name, this);
         if(this.params!=null)this.params.bind(envs);
         this.type.bind(envs);
         envs.push(params.getEnv());

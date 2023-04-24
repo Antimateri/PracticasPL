@@ -21,7 +21,7 @@ public class DesigPosArray extends Desig{
 
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		des.bind(envs);
 		exp.bind(envs);
 	}

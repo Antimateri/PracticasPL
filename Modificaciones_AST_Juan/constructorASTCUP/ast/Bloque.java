@@ -43,7 +43,7 @@ public class Bloque extends I{
     }
 
     @Override
-    public void bind(LinkedList<Map<String, Dec>> envs) {
+    public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
         envs.push(new HashMap<String, Dec>());
         for (Statement s : opnd) {
             s.bind(envs);

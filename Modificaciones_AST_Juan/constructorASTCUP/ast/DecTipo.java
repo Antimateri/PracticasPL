@@ -23,7 +23,9 @@ public class DecTipo extends Dec{
     public KindDec kind() { return KindDec.TYPE; }
     
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+		if(envs.getFirst().containsKey(name.name)) 
+			throw new RedefinedVariableException(name.name);
 		envs.getFirst().put(name.name, this);
         name.bind(envs);
 		type.bind(envs);

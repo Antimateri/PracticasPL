@@ -1,6 +1,5 @@
 package ast;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -32,12 +31,13 @@ public class DecVar extends Dec{
     public int getDelta(){ return delta; }
     
     public Map<String, Dec> getEnv(){
-    	boolean x = (this.tipo instanceof TStruct);
-    	return x? ((TStruct)tipo).getEnv() : new HashMap<String, Dec>();
+    	return tipo.getEnv();
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+		if(envs.getFirst().containsKey(identificador.name)) 
+			throw new RedefinedVariableException(identificador.name);
 		envs.getFirst().put(identificador.name, this);
         identificador.bind(envs);
 		tipo.bind(envs);

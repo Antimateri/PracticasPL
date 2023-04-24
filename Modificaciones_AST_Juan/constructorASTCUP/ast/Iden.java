@@ -17,16 +17,15 @@ public abstract class Iden extends E{
     public KindE kind() {return KindE.IDEN;}  
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+    	boolean found=false;
     	for(Map<String, Dec> i : envs) {
     		if(i.containsKey(name)) {
     			nodeDec = i.get(name);
+    			found=true;
     			break;
     		}
-          /*else{
-                lanzar mensaje de error: se ha hecho uso de una variable no declarada
-          }*/
-            
     	}
+    	if(!found)throw new UndefinedVariableException(name);
     }
 }

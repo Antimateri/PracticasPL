@@ -18,7 +18,7 @@ public class DesigVar extends Desig{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		iden.bind(envs);
 	}
 

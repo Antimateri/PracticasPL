@@ -10,7 +10,7 @@ public abstract class Dec extends Statement{
     public String toString() {return "";}
     //para structs
     public Map<String, Dec> getEnv(){
-    	return new HashMap<String, Dec>();
+    	return null;
     }
 
     public int getSize() { return 0; }

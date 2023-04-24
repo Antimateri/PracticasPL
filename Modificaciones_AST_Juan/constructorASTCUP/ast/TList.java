@@ -22,7 +22,7 @@ public class TList extends T{
     public int getSize(){ return length * t.getSize(); }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		t.bind(envs);
 	}
 }

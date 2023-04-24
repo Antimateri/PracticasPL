@@ -33,7 +33,7 @@ public class InsBin extends I {
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		//asumo que recibe bloques como argumento
 		for(Statement aux: opnd) {
 			if(aux!=null)aux.bind(envs);

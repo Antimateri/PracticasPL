@@ -13,5 +13,5 @@ public class Bool extends E{
     public KindE kind() {return KindE.BOOL;}
     public String toString() {return v;}
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {} 
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {} 
 }

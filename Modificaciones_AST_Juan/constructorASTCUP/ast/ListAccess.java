@@ -30,7 +30,7 @@ public class ListAccess extends E{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		index.bind(envs);
 		list.bind(envs);
 	}

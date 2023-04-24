@@ -15,6 +15,6 @@ public class Int extends E {
 	public KindE kind() {return KindE.INT;}
 	public String toString() {return "int("+v+")";}
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {}  
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}  
 }
 

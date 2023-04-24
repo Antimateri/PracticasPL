@@ -69,11 +69,11 @@ public class TStruct extends T{
     }
     
     public Map<String, Dec> getEnv(){
-    	return new HashMap<String, Dec>();
+    	return env;
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) {
+	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		this.env=new HashMap<String, Dec>();
 		envs.push(env);
 		for(Dec aux : opnd) {
