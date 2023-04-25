@@ -64,4 +64,11 @@ public class Bloque extends I{
         }
         return out;
     }
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        for(Statement s : opnd){
+            str.append(s.generateCode());
+        }
+        return str.toString();
+    }
 }

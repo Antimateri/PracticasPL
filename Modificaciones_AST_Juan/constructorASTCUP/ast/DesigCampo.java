@@ -41,4 +41,12 @@ public class DesigCampo extends Desig{
 			else throw new IllegalArgumentException("El struct no contiene el campo " + id.toString());
 		}
 	}
+
+	public String generateCode(){
+		StringBuilder str = new StringBuilder();
+		str.append(des.generateCode());
+		str.append("i32.const " + id.getDelta() + "\n");
+		str.append("i32.add\n");
+		return str.toString();
+	}
 }

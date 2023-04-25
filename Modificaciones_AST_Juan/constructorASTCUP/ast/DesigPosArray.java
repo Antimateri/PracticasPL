@@ -37,4 +37,14 @@ public class DesigPosArray extends Desig{
         else
             return ((TList)(des.type())).prevType().type();
     }
+
+    public String generateCode(){ //no está bien
+        StringBuilder str = new StringBuilder();
+        str.append(des.generateCode()+"\n");
+        //str.append("i32.const"+des.get+"\n");
+        str.append("i32.mul\n");
+        str.append(exp.generateCode()+"\n");
+        str.append("i32.add\n");
+        return str.toString();
+    }
 }

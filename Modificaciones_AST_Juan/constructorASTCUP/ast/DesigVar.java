@@ -26,4 +26,12 @@ public class DesigVar extends Desig{
 	public Dec getDeclaration() {
 		return iden.nodeDec;
 	}
+
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        str.append("i32.const"+iden.getDelta()+"\n");
+        str.append("get_global $MP\n");
+        str.append("i32.add\n");
+        return str.toString();
+    }
 }

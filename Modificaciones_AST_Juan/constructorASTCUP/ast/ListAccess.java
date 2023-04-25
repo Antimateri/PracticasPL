@@ -1,4 +1,4 @@
-package ast;
+/*package ast;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class ListAccess extends E{
     //el indice
     private E index;
     //la lista
-    private E list;
+    private Des list;
     
     public ListAccess(E index, E list) {
         this.index = index;
@@ -41,4 +41,6 @@ public class ListAccess extends E{
         }
         throw new RuntimeException("Error: ListAccess applied to non-list type");
     }
-}
+
+    
+}*/
