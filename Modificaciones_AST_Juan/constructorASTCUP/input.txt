@@ -44,3 +44,4 @@ madrileno = (input,true);
 print(madrileno.a == 1);
 int bad;
 bad= bad + bad;
+!true!=false;

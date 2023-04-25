@@ -51,10 +51,6 @@ true = true
 false = false
 exec = exec
 procedure = proc
-class = class
-atributes = atributes
-constructor = constructor
-methods = methods
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
@@ -85,6 +81,8 @@ operadorOr = \|\|
 operadorMayor = \>
 operadorMenor = \<
 operadorIgual = \=\=
+operadorNot = \!
+operadorDist = \!\=
 parentesisApertura = \(
 parentesisCierre = \)
 llaveApertura = \{
@@ -122,10 +120,6 @@ puntoComa = ;
 {false}                   {return ops.unidadFalse();}
 {exec}                    {return ops.unidadExec();}
 {procedure}               {return ops.unidadProc();}
-{class}                   {return ops.unidadClass();}
-{atributes}               {return ops.unidadAtributes();}
-{constructor}             {return ops.unidadConstructor();}
-{methods}                 {return ops.unidadMethods();}
 
 {separador}               {}
 {comentario}              {}
@@ -143,6 +137,8 @@ puntoComa = ;
 {operadorMayor}           {return ops.unidadMayor();}
 {operadorMenor}           {return ops.unidadMenor();}
 {operadorIgual}           {return ops.unidadOpIgual();}
+{operadorNot}             {return ops.unidadNot();}
+{operadorDist}            {return ops.unidadDist();}
 
 {parentesisApertura}      {return ops.unidadPAp();}
 {parentesisCierre}        {return ops.unidadPCierre();} 

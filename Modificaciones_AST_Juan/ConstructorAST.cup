@@ -26,8 +26,7 @@ init with {:
 
 
 terminal IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PROC, EXEC,
-         CLASS, ATRIBUTES, CONSTRUCTOR, METHODS,
-         SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL,
+         SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL, DIST, NOT,
          PRINT, READ,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
          PUNTOCOMA, IGUAL, COMA, PUNTO, DOSPUNTOS,
@@ -45,7 +44,6 @@ non terminal  IdenType IdType;
 non terminal  IdenVar IdVar;
 non terminal  IdenFun IdFun;
 non terminal  T Tipo, Tipo2, Tipo3, Tipo4;
-non terminal  StructIns StructInitAsign;
 non terminal  StructIns StructInitOrden;
 non terminal  InsBin Asign;
 non terminal  Desig Des;
@@ -107,40 +105,38 @@ Exp ::= Op0: aDeterm
 Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
    {: args1.addUnnamedArg(arg2);
       RESULT= args1; :};
-Exp ::= PAP StructInitOrden: args1 COMA Asign: arg2 PCIERRE
-   {: args1.addNamedArg(arg2);
-      RESULT= args1; :};
 
-   
-Op0 ::= Op0: aDeterm1 MUL Op1: aDefact
+Op0 ::= Op0: aDeterm1 MAYOR Op1: aDefact
+   {: RESULT= new EBin(KindE.MAY,aDeterm1,aDefact); :};
+Op0 ::= Op0: aDeterm1 MENOR Op1: aDefact
+   {: RESULT= new EBin(KindE.MEN,aDeterm1,aDefact); :};
+Op0 ::= Op0: aDeterm1 OPIGUAL Op1: aDefact
+   {: RESULT= new EBin(KindE.EQ,aDeterm1,aDefact); :};
+Op0 ::= Op0: aDeterm1 DIST Op1: aDefact
+   {: RESULT= new EBin(KindE.NEQ,aDeterm1,aDefact); :};
+Op0 ::= Op1: aDefact
+   {: RESULT=aDefact; :};    
+
+Op1 ::= Op1: aDeterm1 MUL Op2: aDefact
    {: RESULT= new EBin(KindE.MUL,aDeterm1,aDefact); :};
-Op0 ::= Op0: aDeterm1 DIV Op1: aDefact
+Op1 ::= Op1: aDeterm1 DIV Op2: aDefact
    {: RESULT= new EBin(KindE.DIV,aDeterm1,aDefact); :};
-Op0 ::= Op1: aDeterm2
+Op1 ::= Op2: aDeterm2
    {: RESULT=aDeterm2; :};
 
-Op1 ::= Op1: aDeterm1 POT Op2: aDefact
+Op2 ::= Op2: aDeterm1 POT Op3: aDefact
    {: RESULT= new EBin(KindE.POT,aDeterm1,aDefact); :};
-Op1 ::= Op1: aDeterm1 MOD Op2: aDefact
+Op2 ::= Op2: aDeterm1 MOD Op3: aDefact
    {: RESULT= new EBin(KindE.MOD,aDeterm1,aDefact); :};
-Op1 ::= Op2: aDefact
-   {: RESULT=aDefact; :};
-
-Op2 ::= Op2: aDeterm1 AND Op3: aDefact
-   {: RESULT= new EBin(KindE.AND,aDeterm1,aDefact); :};
-Op2 ::= Op2: aDeterm1 OR Op3: aDefact
-   {: RESULT= new EBin(KindE.OR,aDeterm1,aDefact); :};
 Op2 ::= Op3: aDefact
    {: RESULT=aDefact; :};
 
-Op3 ::= Op3: aDeterm1 MAYOR Op4: aDefact
-   {: RESULT= new EBin(KindE.MAY,aDeterm1,aDefact); :};
-Op3 ::= Op3: aDeterm1 MENOR Op4: aDefact
-   {: RESULT= new EBin(KindE.MEN,aDeterm1,aDefact); :};
-Op3 ::= Op3: aDeterm1 OPIGUAL Op4: aDefact
-   {: RESULT= new EBin(KindE.EQ,aDeterm1,aDefact); :};
+Op3 ::= Op3: aDeterm1 AND Op4: aDefact
+   {: RESULT= new EBin(KindE.AND,aDeterm1,aDefact); :};
+Op3 ::= Op3: aDeterm1 OR Op4: aDefact
+   {: RESULT= new EBin(KindE.OR,aDeterm1,aDefact); :};
 Op3 ::= Op4: aDefact
-   {: RESULT=aDefact; :};                                   
+   {: RESULT=aDefact; :};                                  
 
 Op4 ::= IdFun: id1 CALL PAP StructInitOrden: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
@@ -165,6 +161,8 @@ Op5 ::= VALPTR PAP IdVar: id PCIERRE
    {: RESULT = new GetPointerVal(id); :};
 Op5 ::= NULL
    {: RESULT = new Null(); :};
+Op5 ::= NOT Op5: arg
+   {: RESULT = new EBin(KindE.NOT, arg, null); :};
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);
@@ -173,15 +171,6 @@ StructInitOrden ::= Exp: arg2
    {: StructIns args1 = new StructIns();
       args1.addUnnamedArg(arg2);
       RESULT= args1; :};
-StructInitOrden ::= StructInitOrden: args1 COMA Asign: arg 
-   {: args1.addNamedArg(arg);
-      RESULT= args1; :};
-StructInitOrden ::= Asign: arg
-   {: StructIns args1 = new StructIns();
-      args1.addNamedArg(arg);
-      RESULT= args1; :};
-
-
 
 Tipo ::= PUNTERO Tipo2: t1
    {: RESULT = new TPointer(t1); :};

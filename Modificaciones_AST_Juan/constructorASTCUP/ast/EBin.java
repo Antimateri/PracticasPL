@@ -46,6 +46,10 @@ public class EBin extends E {
 	    return "<("+opnd1().toString()+","+opnd2().toString()+")";
 	  case EQ:
 	    return "==("+opnd1().toString()+","+opnd2().toString()+")";
+	  case NEQ:
+	    return "!=("+opnd1().toString()+","+opnd2().toString()+")";
+	  case NOT:
+	    return "not("+opnd1().toString()+")";
 	  case MEM:
 	    return opnd1().toString();
 	  default: 
@@ -74,12 +78,18 @@ public class EBin extends E {
 				else
 					throw new RuntimeException("Error de tipos en operacion binaria");
 			case EQ:
+			case NEQ:
 				if(opnd1.type().compatible(opnd2.type()))
 					return new TSimple(KindT.BOOL, RefMode.VALUE);
 				else
 					throw new RuntimeException("tipos no compatibles en igualacion");
 			case MEM:
 				return opnd1.type();
+			case NOT:
+				if(opnd1.type().kind() == KindT.BOOL)
+					return opnd1.type();
+				else
+					throw new RuntimeException("Error de tipos en operacion binaria");
 			default:
 				
 		};
