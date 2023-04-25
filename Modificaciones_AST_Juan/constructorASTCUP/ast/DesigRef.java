@@ -34,4 +34,11 @@ public class DesigRef extends Desig{
     public T type() {
         return new TPointer(des.type());
     }
+
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        str.append(des.generateCode()+"\n");
+        str.append("i32.load\n");
+        return str.toString();
+    }
 }
