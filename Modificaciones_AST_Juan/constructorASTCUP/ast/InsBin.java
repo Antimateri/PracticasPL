@@ -69,7 +69,14 @@ public class InsBin extends I {
         str.append("end\n");
         break;
       case WHILE:
-        
+        str.append("block\n");
+        str.append("loop\n");
+        str.append(opnd(0).generateCode() + "\n");
+        str.append("i32.eqz\n");
+        str.append("br_if 1\n");
+        str.append(opnd(1).generateCode() + "\n");
+        str.append("br 0\n");
+        str.append("end\n");
       case ASIG:
         str.append(opnd(0).generateCode() + "\n");
         str.append(opnd(1).generateCode() + "\n");
