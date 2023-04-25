@@ -32,6 +32,24 @@ public class InsBin extends I {
         }
     }
 
+  public T type() {
+    switch (kind) {
+      case IF:
+      case WHILE:
+      case IFELSE:
+        if(opnd(0).type().kind() != KindT.BOOL)
+          throw new RuntimeException("Error de tipos en la condición de un if o while");
+        break;
+      case ASIG:
+        if(opnd(0).type().kind() != opnd(1).type().kind())
+          throw new RuntimeException("Error de tipos en la asignación");
+        break;
+      default:
+        return super.type();
+    }
+    return null;
+  }
+
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		//asumo que recibe bloques como argumento

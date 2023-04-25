@@ -14,4 +14,5 @@ public class Bool extends E{
     public String toString() {return v;}
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {} 
+    public T type() {return new TSimple(KindT.BOOL, RefMode.VALUE);}
 }

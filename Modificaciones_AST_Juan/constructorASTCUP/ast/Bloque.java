@@ -50,4 +50,18 @@ public class Bloque extends I{
         }
         envs.pop();
     }
+
+    public T type() {
+        T out=null;
+        for(Statement s : opnd){
+            T aux = s.type();
+            if(s.nodeKind()==NodeKind.INSTRUCTION && ((I)s).kind()==KindI.RETURN){
+                if(out==null)out=aux;
+                else if(!out.compatible(aux)){
+                    throw new RuntimeException("Return statements with different types in the same function");
+                }
+            }
+        }
+        return out;
+    }
 }

@@ -47,4 +47,8 @@ public class DecStruct extends Dec{
         name.bind(envs);
 		data.bind(envs);
 	}
+
+    public T type(){
+        return data.type();
+    }
 }

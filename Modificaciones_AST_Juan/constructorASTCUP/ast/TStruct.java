@@ -18,6 +18,10 @@ public class TStruct extends T{
         this.opnd.add(opnd1);
     }
 
+    public TStruct() {
+        this.opnd = new ArrayList<Dec>();
+    }
+
     // añade un elemento a la lista de elementos de la estructura
     public void append(Dec st) { opnd.add(st); }
 
@@ -51,6 +55,12 @@ public class TStruct extends T{
 
     public KindT kind() { return KindT.STRUCT;}
 
+    public Dec getDec(String id) {
+        if(env.containsKey(id))
+            return env.get(id);
+        return null;
+    }
+
 
     public int getSize(){ 
         int res = 0;
@@ -81,4 +91,17 @@ public class TStruct extends T{
 		}
 		envs.pop();
 	}
+
+    public boolean compatible(T t){
+        if(this.kind() != t.type().kind())
+            return false;
+        TStruct aux = (TStruct)(t.type());
+        if(this.opnd.size() != aux.opnd.size())
+            return false;
+        for(int i = 0; i < this.opnd.size(); i++){
+            if(!this.opnd.get(i).type().compatible(aux.opnd.get(i).type()))
+                return false;
+        }
+        return true;
+    }
 }

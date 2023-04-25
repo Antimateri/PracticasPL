@@ -17,6 +17,10 @@ public class Null extends E{
         return KindE.NULL;
     }
 
+    public T type() {
+        return new TPointer(new TSimple(KindT.INT, RefMode.VALUE));
+    }
+
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}
     

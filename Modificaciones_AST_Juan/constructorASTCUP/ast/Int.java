@@ -16,5 +16,6 @@ public class Int extends E {
 	public String toString() {return "int("+v+")";}
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}  
+	public T type() {return new TSimple(KindT.INT, RefMode.VALUE);}
 }
 

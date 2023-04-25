@@ -42,4 +42,8 @@ public class DecVar extends Dec{
         identificador.bind(envs);
 		tipo.bind(envs);
 	}
+
+    public T type(){
+        return tipo.type();
+    }
 }

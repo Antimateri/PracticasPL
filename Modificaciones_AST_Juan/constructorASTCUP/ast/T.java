@@ -13,4 +13,8 @@ public abstract class T extends Statement{
     public Map<String, Dec> getEnv(){
     	return null;
     }
+    public T type(){ return this;}
+    public boolean compatible(T t){
+        return this.kind() == t.type().kind();
+    }
 }

@@ -17,6 +17,7 @@ public class Main {
 	 Statement raiz = (Statement)constructorast.parse().value;
 	 //System.out.println(constructorast.parse().value);
 	 raiz.bind(new LinkedList<Map<String,Dec>>());
+	 raiz.type();
 	 raiz.setDelta(0);
 	 System.out.println(raiz);
  }

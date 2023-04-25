@@ -17,4 +17,5 @@ public abstract class Dec extends Statement{
 
     public int setDelta(int last){ return last; } 
     public int getDelta(){ return 0; }
+    public abstract T type();
 }

@@ -6,4 +6,7 @@ public abstract class I extends Statement{ //Instrucciones
     //public String num() {throw new UnsupportedOperationException("num");}
     public NodeKind nodeKind() {return NodeKind.INSTRUCTION;}
     public String toString() {return "";}
+    public T type(){
+        return null;
+    }
 }

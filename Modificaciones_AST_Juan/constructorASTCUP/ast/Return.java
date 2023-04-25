@@ -26,5 +26,9 @@ public class Return extends I{
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		e.bind(envs);
 	}
+
+    public T type() {
+        return e.type();
+    }
     
 }

@@ -22,7 +22,6 @@ public class DesigCampo extends Desig{
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		des.bind(envs);
-		System.out.println(des.getDeclaration().toString());
 		Map<String, Dec> env = des.getDeclaration().getEnv();
 		if(env!=null)envs.push(env);
 		id.bind(envs);
@@ -32,5 +31,14 @@ public class DesigCampo extends Desig{
 	@Override
 	public Dec getDeclaration() {
 		return id.nodeDec;
+	}
+
+	public T type() {
+		if(des.type().kind()!=KindT.STRUCT) throw new IllegalArgumentException("Se intenta acceder a un campo de un tipo no struct");
+		else{
+			TStruct t = (TStruct)des.type();
+			if(t.getDec(id.toString())!=null) return t.getDec(id.toString()).type();
+			else throw new IllegalArgumentException("El struct no contiene el campo " + id.toString());
+		}
 	}
 }

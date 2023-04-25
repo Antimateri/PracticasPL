@@ -34,4 +34,11 @@ public class ListAccess extends E{
 		index.bind(envs);
 		list.bind(envs);
 	}
+
+    public T type() {
+        if(list.type().kind() == KindT.LIST && index.type().kind() == KindT.INT) {
+            return ((TList)(list.type())).prevType();
+        }
+        throw new RuntimeException("Error: ListAccess applied to non-list type");
+    }
 }

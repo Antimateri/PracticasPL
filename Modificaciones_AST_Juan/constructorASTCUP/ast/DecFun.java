@@ -24,6 +24,10 @@ public class DecFun extends Dec{
         this.body = body;
     }
 
+    public TStruct getParams(){
+        return params;
+    }
+
     public String toString() {
 		StringBuilder strb = new StringBuilder();
         if(type==null){
@@ -59,5 +63,13 @@ public class DecFun extends Dec{
         this.body.bind(envs);
         envs.pop();
 	}
+
+    public T type(){
+        T b= body.type();
+        if((b==null && type!=null) || (type==null && b!=null) || (b!=null && type!=null && !type.type().compatible(b)))
+            throw new RuntimeException("Return type does not match function type");
+        if(type!=null)return type.type();
+        else return null; 
+    }
     
 }

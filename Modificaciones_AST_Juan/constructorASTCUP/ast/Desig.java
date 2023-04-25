@@ -6,4 +6,6 @@ public abstract class Desig extends Statement{
     public abstract KindDesig kind(); //Devuelve el tipo de declaración
     public NodeKind nodeKind() {return NodeKind.DESIGNATION;}
     public String toString() {return "";}
+
+    public T type() {return getDeclaration().type();}
 }

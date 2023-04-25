@@ -40,4 +40,12 @@ public class TComp extends T{
     public Map<String, Dec> getEnv(){
     	return iden.nodeDec.getEnv();
     }
+
+    public T type(){
+        return iden.nodeDec.type();
+    }
+
+    public boolean compatible(T t){
+        return this.type().compatible(t.type());
+    }
 }

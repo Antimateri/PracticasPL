@@ -30,4 +30,8 @@ public class DesigRef extends Desig{
 	public Dec getDeclaration() {
 		return des.getDeclaration();
 	}
+
+    public T type() {
+        return new TPointer(des.type());
+    }
 }

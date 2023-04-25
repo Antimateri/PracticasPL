@@ -30,5 +30,9 @@ public class DecTipo extends Dec{
         name.bind(envs);
 		type.bind(envs);
 	}
+
+    public T type(){
+        return type.type();
+    }
 	
 }

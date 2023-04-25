@@ -30,4 +30,11 @@ public class DesigPosArray extends Desig{
 	public Dec getDeclaration() {
 		return des.getDeclaration();
 	}
+
+    public T type() {
+        if(des.type().kind()!=KindT.LIST) throw new IllegalArgumentException("Se intenta acceder a una posición de un tipo no array");
+        if(exp.type().kind()!=KindT.INT) throw new IllegalArgumentException("Solo enteros pueden indexar arrays");
+        else
+            return ((TList)(des.type())).prevType().type();
+    }
 }

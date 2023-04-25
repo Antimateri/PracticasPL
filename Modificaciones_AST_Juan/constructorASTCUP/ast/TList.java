@@ -21,8 +21,14 @@ public class TList extends T{
     
     public int getSize(){ return length * t.getSize(); }
 
+    public T prevType(){ return t; }
+
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		t.bind(envs);
 	}
+
+    public boolean compatible(T t){
+        return this.kind() == t.type().kind() && this.t.compatible(((TList)(t.type())).t.type()) && ((TList)(t.type())).length == this.length;
+    }
 }

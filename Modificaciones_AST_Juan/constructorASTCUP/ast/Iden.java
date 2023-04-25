@@ -28,4 +28,9 @@ public abstract class Iden extends E{
     	}
     	if(!found)throw new UndefinedVariableException(name);
     }
+
+    @Override
+    public T type() {
+        return nodeDec.type();
+    }
 }

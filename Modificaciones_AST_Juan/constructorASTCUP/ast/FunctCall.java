@@ -34,5 +34,20 @@ public class FunctCall extends E{
 		nombre.bind(envs);
 		if(args!=null)args.bind(envs);
 	}
+
+    public T type(){
+        if(((DecFun)(nombre.nodeDec)).getParams()!=null){
+            TStruct trueArgs = ((DecFun)(nombre.nodeDec)).getParams();
+            if(args.type()==null)
+                throw new IllegalArgumentException("Incompatible types");
+            if(!args.type().compatible(trueArgs))
+            throw new IllegalArgumentException("Incompatible types");
+        }
+        else if(args != null){
+            throw new IllegalArgumentException("Incompatible types");
+        }
+        return nombre.type();
+       
+    }
     
 }

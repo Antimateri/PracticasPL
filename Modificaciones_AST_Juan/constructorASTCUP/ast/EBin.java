@@ -53,6 +53,39 @@ public class EBin extends E {
 	    }
 	  }
 
+	public T type() {
+		switch (kind) {
+			case SUMA:
+			case RESTA:
+			case MUL:
+			case DIV:
+			case MOD:
+			case POT:
+			case MAY:
+			case MEN:
+				if(opnd1.type().kind() == KindT.INT && opnd2.type().kind() == KindT.INT)
+					return opnd1.type();
+				else
+					throw new RuntimeException("Error de tipos en operacion binaria");
+			case AND:
+			case OR:
+				if(opnd1.type().kind() == KindT.BOOL && opnd2.type().kind() == KindT.BOOL)
+					return opnd1.type();
+				else
+					throw new RuntimeException("Error de tipos en operacion binaria");
+			case EQ:
+				if(opnd1.type().compatible(opnd2.type()))
+					return new TSimple(KindT.BOOL, RefMode.VALUE);
+				else
+					throw new RuntimeException("tipos no compatibles en igualacion");
+			case MEM:
+				return opnd1.type();
+			default:
+				
+		};
+		return null;
+	}
+
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		opnd1.bind(envs);

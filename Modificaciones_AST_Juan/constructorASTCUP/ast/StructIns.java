@@ -2,7 +2,6 @@ package ast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 // inicializador de estructuras
@@ -51,5 +50,16 @@ public class StructIns extends E {
 			a.bind(envs);
 		}
 	}
+
+    public T type(){
+        TStruct t = new TStruct();
+        for(Statement a : args) {
+            if(a.type()!=null)
+                t.append(new DecVar(a.type(), null));
+            else
+                throw new RuntimeException("Error en tipado");
+        }
+        return t;
+    }
     
 }

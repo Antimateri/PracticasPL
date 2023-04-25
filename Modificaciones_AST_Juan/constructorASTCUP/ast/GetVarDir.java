@@ -30,4 +30,8 @@ public class GetVarDir extends E{
 		
 	}
 
+    public T type() {
+        return new TPointer(name.type());
+    }
+
 }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 interface ASTNode {
-    //public ?? type() // for the future
+    public T type(); // for the future
     public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException; // for the future
     public String generateCode();
     public NodeKind nodeKind();

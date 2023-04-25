@@ -25,5 +25,12 @@ public class GetPointerVal extends E{
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		e.bind(envs);
 	}
+
+    public T type() {
+        if(e.type().kind() == KindT.POINTER) {
+            return ((TPointer)(e.type())).prevType();
+        }
+        throw new RuntimeException("Error: getPointerVal applied to non-pointer type");
+    }
     
 }
