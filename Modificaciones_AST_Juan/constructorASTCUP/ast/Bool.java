@@ -15,4 +15,11 @@ public class Bool extends E{
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {} 
     public T type() {return new TSimple(KindT.BOOL, RefMode.VALUE);}
+
+    public String generateCode(){
+        if(v.equals("true"))
+		    return "i32.const" + 1 + "\n" ;
+        else
+            return "i32.const" + 0 + "\n" ;
+	}
 }

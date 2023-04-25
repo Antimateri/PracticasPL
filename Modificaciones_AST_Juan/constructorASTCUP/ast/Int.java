@@ -17,5 +17,9 @@ public class Int extends E {
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}  
 	public T type() {return new TSimple(KindT.INT, RefMode.VALUE);}
+
+	public String generateCode(){
+		return "i32.const" + v + "\n" ;
+	}
 }
 

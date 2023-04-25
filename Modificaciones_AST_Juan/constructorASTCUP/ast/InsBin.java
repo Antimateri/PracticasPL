@@ -59,5 +59,32 @@ public class InsBin extends I {
 		
 	}
 	
+  public String generateCode(){
+    StringBuilder str = new StringBuilder();
+    switch(kind){
+      case IF:
+        str.append(opnd(0).generateCode() + "\n");
+        str.append("if\n");
+        str.append(opnd(1).generateCode() + "\n");
+        str.append("end\n");
+        break;
+      case WHILE:
+        
+      case ASIG:
+        str.append(opnd(0).generateCode() + "\n");
+        str.append(opnd(1).generateCode() + "\n");
+        str.append("i32.store\n");
+      case IFELSE:
+        str.append(opnd(0).generateCode() + "\n");
+        str.append("if\n");
+        str.append(opnd(1).generateCode() + "\n");
+        str.append("else\n");
+        str.append(opnd(2).generateCode() + "\n");
+        str.append("end\n");
+        break;
+      default:
+       return "";
+    }
+    return str.toString();
+  }
 }
-	
