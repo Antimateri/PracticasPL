@@ -8,4 +8,5 @@ public abstract class E extends Statement { //Expresiones aritmético-lógicas
     public NodeKind nodeKind() {return NodeKind.EXPRESSION;}
     public String toString() {return "";}
 
+    public String copyParam(int d){return "";}
 }

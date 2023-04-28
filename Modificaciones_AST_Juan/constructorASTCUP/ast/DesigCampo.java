@@ -49,4 +49,6 @@ public class DesigCampo extends Desig{
 		str.append("i32.add\n");
 		return str.toString();
 	}
+
+	public int getSize(){ return id.getSize(); }
 }

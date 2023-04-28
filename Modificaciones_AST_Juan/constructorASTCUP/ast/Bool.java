@@ -22,4 +22,6 @@ public class Bool extends E{
         else
             return "i32.const" + 0 + "\n" ;
 	}
+
+    public int getSize(){ return 4; }
 }

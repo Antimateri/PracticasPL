@@ -152,4 +152,6 @@ public class EBin extends E {
 		}
 		return strb.toString();
 	}
+
+	public int getSize(){ return opnd1.getSize(); }
 }

@@ -41,4 +41,6 @@ public class DesigRef extends Desig{
         str.append("i32.load\n");
         return str.toString();
     }
+
+    public int getSize(){ return 4; }
 }

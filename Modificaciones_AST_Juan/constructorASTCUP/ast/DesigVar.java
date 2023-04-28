@@ -36,4 +36,18 @@ public class DesigVar extends Desig{
         str.append("i32.add\n");
         return str.toString();
     }
+
+    public int getSize(){ return iden.getSize(); }
+
+
+    
+    public String copyParam(int d){ //falta por terminar
+        StringBuilder str = new StringBuilder();
+        str.append("get_global $SP\n");
+        str.append("i32.const 8 \n");
+        str.append("i32.add\n");
+        //hemos dejado SP+8 en la cima de la pila
+
+        return str.toString();
+    }
 }

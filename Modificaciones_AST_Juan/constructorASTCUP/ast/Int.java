@@ -21,5 +21,7 @@ public class Int extends E {
 	public String generateCode(){
 		return "i32.const" + v + "\n" ;
 	}
+
+	public int getSize(){ return 4; }
 }
 

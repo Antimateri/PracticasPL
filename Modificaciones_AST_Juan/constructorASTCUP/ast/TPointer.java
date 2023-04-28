@@ -18,7 +18,7 @@ public class TPointer extends T{
 
     public KindT kind() { return KindT.POINTER; }
 
-    public int getSize(){ return 1; } //el tamaño de un puntero es la de la dirección, que es 32b
+    public int getSize(){ return 4; } //el tamaño de un puntero es la de la dirección, que es 32b
 
     public T prevType(){ return t; }
 

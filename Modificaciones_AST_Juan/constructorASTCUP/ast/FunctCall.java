@@ -69,5 +69,7 @@ public class FunctCall extends E{
         str.append("call $" + nombre.toString() + "\n");
         return str.toString();
     }
+
+    public int getSize(){ return nombre.getSize(); }
     
 }
