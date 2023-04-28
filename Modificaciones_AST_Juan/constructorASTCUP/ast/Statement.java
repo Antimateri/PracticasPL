@@ -10,4 +10,6 @@ public abstract class Statement implements ASTNode{
     public int setDelta(int last){ return last; }
 
     public String generateCode(){ return ""; }
+
+    public int maxMem(){ return 0; }
 }

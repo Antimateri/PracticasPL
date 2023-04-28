@@ -71,4 +71,13 @@ public class Bloque extends I{
         }
         return str.toString();
     }
+
+    //Devuelve el espacio en memoria necesaria para las variables locales declaradas y llamadas a funcion (que tambien funcionarán así)
+    public int maxMem(){
+        int mem = 0;
+        for(Statement s : opnd){
+            mem = mem + s.maxMem();
+        }
+        return mem;
+    }
 }

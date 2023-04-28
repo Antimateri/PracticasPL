@@ -61,5 +61,27 @@ public class StructIns extends E {
         }
         return t;
     }
+
+    public String paramsToStack(){
+        StringBuilder str = new StringBuilder();
+
+        for(Statement a : args){
+            //copiar en la memoria del nuevo marco todos los parámetros que vayamos a pasar (en orden)
+            str.append("get_global $SP\n");
+            str.append("i32.const 8 \n");
+            str.append("i32.add\n");
+            //hemos dejado SP+8 en la cima de la pila
+            if(a.nodeKind() == NodeKind.DESIGNATION){
+                str.append(a.generateCode());
+                str.append("memory.copy\n"); //esta instruccion hay que ver bien como es 
+            }
+            else if(a.nodeKind() == NodeKind.EXPRESSION){
+                //copiar en memoria el valor resultante de la expresion
+            }
+            
+        }
+
+        return str.toString();
+    }
     
 }

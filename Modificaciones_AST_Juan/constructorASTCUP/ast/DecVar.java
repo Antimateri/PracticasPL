@@ -46,4 +46,8 @@ public class DecVar extends Dec{
     public T type(){
         return tipo.type();
     }
+
+    public int maxMem(){
+        return getSize();
+    }
 }
