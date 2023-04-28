@@ -181,10 +181,10 @@ Tipo ::= Tipo2: t1
 
 dimensiones ::= CAP INT: intValue
    {: ArrayList <Integer> ret = new ArrayList <Integer> ();
-      ret.add(intValue);
+      ret.add(Integer.parseInt(intValue.lexema));
       RESULT = ret; :};
 dimensiones ::= dimensiones: d CCIERRE CAP INT: intValue
-   {: d.add(intValue); 
+   {: d.add(Integer.parseInt(intValue.lexema)); 
       RESULT = d; :};
 
 //Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE

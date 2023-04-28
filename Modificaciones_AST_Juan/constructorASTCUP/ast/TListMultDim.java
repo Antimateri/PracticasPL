@@ -15,7 +15,7 @@ public class TListMultDim extends T{
         this.t = t;
         this.dim = dim;
         this.length = 1;
-        for (Intger i: dim) this.length *= i;
+        for (Integer i: dim) this.length *= i;
     }
 
     public String toString(){
