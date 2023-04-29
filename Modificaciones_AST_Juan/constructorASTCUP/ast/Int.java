@@ -23,5 +23,13 @@ public class Int extends E {
 	}
 
 	public int getSize(){ return 4; }
+
+	public String codeCopyParam(int d){
+		StringBuilder str = new StringBuilder();
+		str.append("get_global $SP\n");
+		str.append(this.generateCode());
+		str.append("i32.store offset=" + d + "\n");
+		return str.toString();
+	}
 }
 

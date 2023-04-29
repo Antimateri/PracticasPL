@@ -41,12 +41,15 @@ public class DesigVar extends Desig{
 
 
     
-    public String copyParam(int d){ //falta por terminar
+    public String codeCopyParam(int d){ //falta por terminar. solo funciona para designadores de variables de tipo simple
+        //¿Cómo copiar a memoria (stack) el contrnido de un array/struct?
+        
         StringBuilder str = new StringBuilder();
         str.append("get_global $SP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
-        //hemos dejado SP+8 en la cima de la pila
+        str.append(this.generateCode());
+        str.append("i32.load\n");
+        str.append("i32.store offset=" + d + "\n");
+
 
         return str.toString();
     }

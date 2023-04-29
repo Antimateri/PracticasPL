@@ -7,6 +7,6 @@ public abstract class E extends Statement { //Expresiones aritmético-lógicas
     //public String num() {throw new UnsupportedOperationException("num");}
     public NodeKind nodeKind() {return NodeKind.EXPRESSION;}
     public String toString() {return "";}
-
-    public String copyParam(int d){return "";}
+    
+    public String codeCopyParam(int d){ return ""; } //solo para expresiones en llamadas a funcion
 }

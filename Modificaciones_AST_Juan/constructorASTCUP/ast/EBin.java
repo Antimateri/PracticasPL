@@ -153,5 +153,20 @@ public class EBin extends E {
 		return strb.toString();
 	}
 
+	//Devuelve el tamaño del resultado (típticamente un int o bool)
 	public int getSize(){ return opnd1.getSize(); }
+
+	public String codeCopyParam(int d){
+		StringBuilder str = new StringBuilder();
+
+		if(kind==KindE.MEM){
+			str.append(((Desig)opnd1).codeCopyParam(d));
+		}
+		else{
+			str.append("get_global $SP\n");
+			str.append(this.generateCode());
+			str.append("i32.store offset=" + d + "\n");
+		}
+		return str.toString();
+	}
 }

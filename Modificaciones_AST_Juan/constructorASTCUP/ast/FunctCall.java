@@ -53,9 +53,9 @@ public class FunctCall extends E{
         return nombre.type().getSize();
     }
 
-    public String generateCode(){
+    public String generateCode(){//falta por terminar
         StringBuilder str = new StringBuilder();
-        //metemos en la pila los argumentos con los que llamamos a la función: (?)
+        //metemos en la pila los argumentos con los que llamamos a la función:
         str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:

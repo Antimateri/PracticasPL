@@ -3,6 +3,16 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+
+
+
+//    Clase en desuso. Procede eliminarla. Ahora el acceso a la direccion de una variable se hace a través de DesigRef
+
+
+
+
+/* 
+
 // Devuelve la direccion de una variable, para inicializar punteros
 public class GetVarDir extends E{
     
@@ -35,3 +45,5 @@ public class GetVarDir extends E{
     }
 
 }
+
+*/
