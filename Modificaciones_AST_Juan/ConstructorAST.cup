@@ -179,7 +179,7 @@ Tipo ::= PUNTERO Tipo2: t1
 Tipo ::= Tipo2: t1
    {: RESULT = t1; :};
 
-dimensiones ::= CAP INT: intValue
+/* dimensiones ::= CAP INT: intValue
    {: ArrayList <Integer> ret = new ArrayList <Integer> ();
       ret.add(Integer.parseInt(intValue.lexema));
       RESULT = ret; :};
@@ -187,10 +187,12 @@ dimensiones ::= dimensiones: d CCIERRE CAP INT: intValue
    {: d.add(Integer.parseInt(intValue.lexema)); 
       RESULT = d; :};
 
-//Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
-//   {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
 Tipo2 ::= Tipo3: t1 dimensiones: d1 CCIERRE
    {: RESULT = new TListMultDim(t1, d1); :};
+
+*/
+Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
+   {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
 Tipo2 ::= Tipo3: t1
    {: RESULT = t1; :};
 
