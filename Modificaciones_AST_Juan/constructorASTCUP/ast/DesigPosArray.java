@@ -7,6 +7,7 @@ import java.util.Map;
 public class DesigPosArray extends Desig{
     private E exp;
     private Desig des;
+    private String aux;
 
     public KindDesig kind(){ return KindDesig.POSARRAY; }
 
@@ -16,7 +17,11 @@ public class DesigPosArray extends Desig{
     }
 
     public String toString(){
-        return des.toString() + "[" + exp.toString() + "]";
+        //String ret = "(" + des.toString() + ")" + "[" + exp.toString() + "]";
+        //ret = ret + generateCode();
+        //return ret;
+        aux = generateCode();
+        return "\n" + aux + "\n" + "(" + des.toString() + ")" + "[" + exp.toString() + "]";
     }
 
 
@@ -38,13 +43,21 @@ public class DesigPosArray extends Desig{
             return ((TList)(des.type())).prevType().type();
     }
 
-    public String generateCode(){ //no está bien
+    public String generateCode(){
         StringBuilder str = new StringBuilder();
-        str.append(des.generateCode()+"\n");
-        //str.append("i32.const"+des.get+"\n");
-        str.append("i32.mul\n");
-        str.append(exp.generateCode()+"\n");
-        str.append("i32.add\n");
+        if (des.kind() == KindDesig.VAR){
+            str.append(des.generateCode());
+            str.append(exp.generateCode());
+        }
+        else{
+            str.append(des.generateCode());
+            TList arr = (TList) des.type(); // Esto se supone que tiene que ser un array
+            str.append("i32.const " + Integer.toString(arr.getDim()) + "\n");
+            str.append("i32.mul\n");
+            str.append(exp.generateCode());
+            str.append("i32.add\n");
+        }
+        
         return str.toString();
     }
 }

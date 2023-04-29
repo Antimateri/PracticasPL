@@ -7,19 +7,24 @@ import java.util.Map;
 public class TList extends T{
     private T t; //tipo de sus elementos
     private int length; //longitud de la lista
+    private int dim; // dimensión de la lista
 
     public TList(T t, int length) {
         this.t = t;
         this.length = length;
+        this.dim = length;
+        if (this.t.kind() == KindT.LIST) this.dim *= ((TList) t).getDim();
     }
 
     public String toString(){
-        return "T["+Integer.toString(length)+"](" + t.toString() +")";
+        return "T["+Integer.toString(length)+"](" + t.toString() + ",  dim: " + Integer.toString(dim) +" )" ;
     }
 
     public KindT kind() { return KindT.LIST; }
     
     public int getSize(){ return length * t.getSize(); }
+
+    public int getDim() { return dim; }
 
     public T prevType(){ return t; }
 
