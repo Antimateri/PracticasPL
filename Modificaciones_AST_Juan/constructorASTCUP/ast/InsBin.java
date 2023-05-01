@@ -77,7 +77,7 @@ public class InsBin extends I {
         str.append(opnd(1).generateCode() + "\n");
         str.append("br 0\n");
         str.append("end\n");
-      case ASIG: 
+      case ASIG: //cambiar para que soporte asignaciones de arrays, structs y definidos por el usuario
         str.append(opnd(0).generateCode() + "\n");
         str.append(opnd(1).generateCode() + "\n");
         str.append("i32.store\n");

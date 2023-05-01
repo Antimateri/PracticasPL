@@ -74,7 +74,11 @@ public class StructIns extends E {
 
     public int setDelta(int last){
         this.delta = last;
-        return last + getSize();
+        int res = last;
+        for(E arg : args){
+            res = arg.setDelta(res);
+        }
+        return res; // == last + this.getSize();
     }
 
     public int getDelta(){ return delta; }

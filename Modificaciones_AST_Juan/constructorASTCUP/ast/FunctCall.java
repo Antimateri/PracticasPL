@@ -53,7 +53,7 @@ public class FunctCall extends E{
         return nombre.type().getSize();
     }
 
-    public String generateCode(){//falta por terminar
+    public String generateCode(){
         StringBuilder str = new StringBuilder();
         //metemos en la pila los argumentos con los que llamamos a la función:
         str.append(args.paramsToStack());
@@ -73,18 +73,20 @@ public class FunctCall extends E{
     public int getSize(){ return nombre.getSize(); }
 
     public int setDelta(int last){
+        int res = args.setDelta(last);
+
         if(nombre.type() == null){ //si no devuelve nada (es un procedimiento)
-            return last;
+            return res;
         }
         else{
-            this.delta = last;
-            return last + getSize();
+            this.delta = res;
+            return res + getSize();
         }
     }
 
     public int getDelta(){ return delta; }
 
-    //falta por terminar: ----------------
+
     public String codeCopyParam(int d){
 		StringBuilder str = new StringBuilder();
 
@@ -92,7 +94,11 @@ public class FunctCall extends E{
         str.append(generateCode());
 
         //direccion de origen:
-        //((Desig)opnd1).generateCode();
+        str.append("i32.const"+ getDelta()+"\n");
+        str.append("get_global $MP\n");
+        str.append("i32.const 8 \n");
+        str.append("i32.add\n");
+        str.append("i32.add\n");
 
         //direccion destino: SP + d
         str.append("get_global $SP\n");

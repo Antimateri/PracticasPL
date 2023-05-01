@@ -35,5 +35,5 @@ public abstract class Iden extends Statement{
         return nodeDec.type();
     }
 
-    public int getSize(){ return 0 ;} //type().getSize(); }
+    public int getSize(){ return type().getSize(); }
 }
