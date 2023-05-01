@@ -5,12 +5,12 @@ import java.util.Map;
 
 //llamada a una funcion
 public class FunctCall extends E{
-
-    //funcion llamada
+    //funcion llamada:
     private Iden nombre;
-    //argumentos de la funcion en forma de struct
-    //Parecia conveniente al hacer el ast pero se puede cambiar si complica el resto del proceso
+    //argumentos de la funcion en forma de struct:
     private StructIns args;
+
+    private int delta = 0; //vamos a tratar las llamadas a funcion como si fueran declaraciones de variables (siempre que devuelvan algo)
     
     public FunctCall(Iden nombre, E args) {
         this.nombre = nombre;
@@ -59,8 +59,8 @@ public class FunctCall extends E{
         str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
-        str.append("i32.const"+nombre.getDelta()+"\n");
-        str.append("get_global $SP\n");
+        str.append("i32.const" + nombre.getDelta()+"\n");
+        str.append("get_global $MP\n");
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
         str.append("i32.add\n");
@@ -71,5 +71,45 @@ public class FunctCall extends E{
     }
 
     public int getSize(){ return nombre.getSize(); }
+
+    public int setDelta(int last){
+        if(nombre.type() == null){ //si no devuelve nada (es un procedimiento)
+            return last;
+        }
+        else{
+            this.delta = last;
+            return last + getSize();
+        }
+    }
+
+    public int getDelta(){ return delta; }
+
+    //falta por terminar: ----------------
+    public String codeCopyParam(int d){
+		StringBuilder str = new StringBuilder();
+
+        //Hacemos la llamada a la funcion:
+        str.append(generateCode());
+
+        //direccion de origen:
+        //((Desig)opnd1).generateCode();
+
+        //direccion destino: SP + d
+        str.append("get_global $SP\n");
+        str.append("i32.const " + d + "\n");
+        str.append("i32.add\n");
+
+        //tamaño de los datos:
+        str.append("i32.const " + nombre.getSize() + "\n");
+        
+        //llamamos a la funcion $copyn;
+        str.append("call $copyn\n");
+
+        str.append("get_global $SP\n");
+        this.generateCode();
+        str.append("i32.store offset=" + d + "\n");
+
+		return str.toString();
+	}
     
 }

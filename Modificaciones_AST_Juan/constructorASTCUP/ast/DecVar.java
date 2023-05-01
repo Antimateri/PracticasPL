@@ -34,7 +34,6 @@ public class DecVar extends Dec{
     	return tipo.getEnv();
     }
 
-	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		if(envs.getFirst().containsKey(identificador.name)) 
 			throw new RedefinedVariableException(identificador.name);

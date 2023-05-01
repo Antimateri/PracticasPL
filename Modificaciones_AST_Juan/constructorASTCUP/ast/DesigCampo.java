@@ -51,4 +51,5 @@ public class DesigCampo extends Desig{
 	}
 
 	public int getSize(){ return id.getSize(); }
+
 }

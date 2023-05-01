@@ -3,8 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
-// variable/funcion/tipo, palabras "reservadas" por el usuario
-public abstract class Iden extends E{
+// Identificador de variable/funcion/tipo, palabras "reservadas" por el usuario
+public abstract class Iden extends Statement{
     protected String name;
     protected Dec nodeDec;
     
@@ -34,4 +34,6 @@ public abstract class Iden extends E{
     public T type() {
         return nodeDec.type();
     }
+
+    public int getSize(){ return 0 ;} //type().getSize(); }
 }

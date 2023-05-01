@@ -3,34 +3,43 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
-// devuelve el valor al que apunta un puntero
-public class GetPointerVal extends E{
+// Designador al valor apuntado por un puntero 
+public class GetPointerVal extends Desig{
+    private Desig des; //Designador al puntero
 
-    private E e;
-
-    public GetPointerVal(E e) {
-        this.e = e;
+    public GetPointerVal(Desig des) {
+        this.des = des;
     }
 
     public String toString(){
-        return "getPointerVal(" + e.toString() +")";
+        return "getPointerVal(" + des.toString() +")";
     }
 
-    @Override
-    public KindE kind() {
-        return KindE.IDEN;
+    //Hay que corregir esto:
+    public KindDesig kind() {
+        return KindDesig.PTRVAL;
     }
 
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		e.bind(envs);
+		des.bind(envs);
 	}
 
     public T type() {
-        if(e.type().kind() == KindT.POINTER) {
-            return ((TPointer)(e.type())).prevType();
+        if(des.type().kind() == KindT.POINTER) {
+            return ((TPointer)(des.type())).prevType();
         }
         throw new RuntimeException("Error: getPointerVal applied to non-pointer type");
     }
+
+    public Dec getDeclaration() {
+		return des.getDeclaration();
+	} 
     
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        str.append(des.generateCode()+"\n");
+        str.append("i32.load\n");
+        return str.toString();
+    }
 }

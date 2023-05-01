@@ -9,5 +9,4 @@ public abstract class Desig extends Statement{
 
     public T type() {return getDeclaration().type();}
 
-    public String codeCopyParam(int d){ return ""; }
 }

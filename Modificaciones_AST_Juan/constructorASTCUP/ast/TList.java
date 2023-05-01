@@ -22,13 +22,12 @@ public class TList extends T{
 
     public KindT kind() { return KindT.LIST; }
     
-    public int getSize(){ return length * t.getSize(); }
+    public int getSize(){ return length * t.getSize(); } //tamaño total en memoria del array
 
-    public int getDim() { return dim; }
+    public int getDim() { return dim; } //dimension total (en numero de elementos) del array
 
     public T prevType(){ return t; }
 
-	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		t.bind(envs);
 	}

@@ -30,7 +30,7 @@ public class DesigVar extends Desig{
     public String generateCode(){
         StringBuilder str = new StringBuilder();
         str.append("i32.const"+iden.getDelta()+"\n");
-        str.append("get_global $MP\n");
+        str.append("get_global $MP\n");   //--------- esto hay que cambiarlo, depende de la profundidad de la variable
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
         str.append("i32.add\n");
@@ -39,18 +39,4 @@ public class DesigVar extends Desig{
 
     public int getSize(){ return iden.getSize(); }
 
-
-    
-    public String codeCopyParam(int d){ //falta por terminar. solo funciona para designadores de variables de tipo simple
-        //¿Cómo copiar a memoria (stack) el contrnido de un array/struct?
-        
-        StringBuilder str = new StringBuilder();
-        str.append("get_global $SP\n");
-        str.append(this.generateCode());
-        str.append("i32.load\n");
-        str.append("i32.store offset=" + d + "\n");
-
-
-        return str.toString();
-    }
 }

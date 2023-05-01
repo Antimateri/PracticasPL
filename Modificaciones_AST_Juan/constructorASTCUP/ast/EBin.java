@@ -159,8 +159,20 @@ public class EBin extends E {
 	public String codeCopyParam(int d){
 		StringBuilder str = new StringBuilder();
 
-		if(kind==KindE.MEM){
-			str.append(((Desig)opnd1).codeCopyParam(d));
+		if(kind==KindE.MEM){ //si es un acceso a un designador
+			//direccion de origen:
+			str.append(((Desig)opnd1).generateCode());
+	
+			//direccion destino: SP + d
+			str.append("get_global $SP\n");
+			str.append("i32.const " + d + "\n");
+			str.append("i32.add\n");
+	
+			//tamaño de los datos:
+			str.append("i32.const " + opnd1.getSize() + "\n");
+			
+			//llamamos a la funcion $copyn;
+			str.append("call $copyn\n");
 		}
 		else{
 			str.append("get_global $SP\n");

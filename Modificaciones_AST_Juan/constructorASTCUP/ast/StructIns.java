@@ -12,6 +12,8 @@ public class StructIns extends E {
     //o una asignacion de nombre a valor en tal caso se buscara el nombre de la variable a asignar
     private ArrayList<E> args;
 
+    private int delta = 0;
+
     public StructIns() {
         this.args = new ArrayList<E>();
     }
@@ -70,19 +72,29 @@ public class StructIns extends E {
         return size;
     }
 
-    //Funcion que almacena en memoria los parámetros con los que llamamos a una función, en forma de struct anónimo
+    public int setDelta(int last){
+        this.delta = last;
+        return last + getSize();
+    }
+
+    public int getDelta(){ return delta; }
+
+
+
+    //Funcion que almacena en memoria (una copia de) los parámetros con los que llamamos a una función, en forma de struct anónimo
     //Los almacenará en orden y a partir de SP+8, que es la primera dirección disponible para el marco que se va a crear con la llamada
     public String paramsToStack(){
         StringBuilder str = new StringBuilder();
         int d = 8; //desplazamiento desde SP
-
         for(E a : args){
             //copiar en memoria el valor resultante de la expresión:
             str.append(a.codeCopyParam(d));
-            d = d + a.getSize();   
+            d = d + a.getSize(); 
         }
-
         return str.toString();
     }
+
+
+
     
 }

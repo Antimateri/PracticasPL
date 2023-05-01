@@ -75,10 +75,10 @@ public class DecFun extends Dec{
     public String generateCode(){
         StringBuilder str = new StringBuilder();
         //cabecera:
-        str.append("(fun $"+name.toString()+"\n"); //en princpio las funciones de webassembly no devolverán nada, ni recibirán parámetros
+        str.append("(fun $"+name.toString()+"\n"); //en princpio las funciones de webassembly no devolverán nada
         //secuencia de entrada:
-        str.append("(local $returnDir i32) \n"); //es el primer el valor que hemos de encontrar en la pila
-        //la variable local returnDir guardará la dirección en memoria en la que guardar el resultado de la funcion (el espacio ya se ha reservado)
+        str.append("(param $returnDir i32) \n"); //es el primer el valor que hemos de encontrar en la pila
+        //el parámetro returnDir guardará la dirección en memoria en la que guardar el resultado de la funcion (el espacio ya se ha reservado)
         str.append("(local $localsStart i32) \n");
         str.append("(local $temp i32) \n");
         str.append("set_local $returnDir \n");

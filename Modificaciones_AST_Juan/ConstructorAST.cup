@@ -86,9 +86,7 @@ Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
    {: RESULT= new Print(e1); :};
 Instr ::= READ PAP IdVar: id1 PCIERRE PUNTOCOMA
    {: RESULT= new Read(id1); :};
-Instr ::= IdFun: id1 EXEC PAP Exp: args PCIERRE
-   {: RESULT= new FunctCall(id1,args); :};
-Instr ::= IdFun: id1 EXEC IdVar: args
+Instr ::= IdFun: id1 EXEC PAP StructInitOrden: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
 Instr ::= IdFun: id1 EXEC PAP PCIERRE
    {: RESULT= new FunctCall(id1,null); :};
@@ -142,8 +140,8 @@ Op3 ::= Op4: aDefact
 
 Op4 ::= IdFun: id1 CALL PAP StructInitOrden: args PCIERRE
    {: RESULT= new FunctCall(id1,args); :};
-Op4 ::= IdFun: id1 CALL IdVar: args
-   {: RESULT= new FunctCall(id1,args); :};
+//Op4 ::= IdFun: id1 CALL PAP Exp: args PCIERRE
+//   {: RESULT= new FunctCall(id1,args); :};
 Op4 ::= IdFun: id1 CALL PAP PCIERRE
    {: RESULT= new FunctCall(id1,null); :};
 Op4 ::= Op5: aDefact
@@ -159,8 +157,6 @@ Op5 ::= Des: d1
    {: RESULT = new EBin(KindE.MEM, d1, null); :};
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
-Op5 ::= VALPTR PAP IdVar: id PCIERRE
-   {: RESULT = new GetPointerVal(id); :};
 Op5 ::= NULL
    {: RESULT = new Null(); :};
 Op5 ::= NOT Op5: arg
@@ -179,6 +175,8 @@ Tipo ::= PUNTERO Tipo2: t1
 Tipo ::= Tipo2: t1
    {: RESULT = t1; :};
 
+
+// --- Pruebas para construccion de arrays: ignorar ---
 /* dimensiones ::= CAP INT: intValue
    {: ArrayList <Integer> ret = new ArrayList <Integer> ();
       ret.add(Integer.parseInt(intValue.lexema));
@@ -189,8 +187,9 @@ dimensiones ::= dimensiones: d CCIERRE CAP INT: intValue
 
 Tipo2 ::= Tipo3: t1 dimensiones: d1 CCIERRE
    {: RESULT = new TListMultDim(t1, d1); :};
-
 */
+
+
 Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
    {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
 Tipo2 ::= Tipo3: t1
@@ -253,8 +252,12 @@ StructBodyDef ::= Decl: d1
 Des ::= IdVar: id1
    {: RESULT= new DesigVar(id1); :};
 Des ::= Des: d1 CAP Exp: e1 CCIERRE
-{: RESULT = new DesigPosArray(d1,e1); :};
+   {: RESULT = new DesigPosArray(d1,e1); :};
 Des ::= Des: d1 PUNTO IdVar: id1
-{: RESULT = new DesigCampo(d1,id1); :};
+   {: RESULT = new DesigCampo(d1,id1); :};
 Des ::= PUNTERO PAP Des: d1 PCIERRE
-{: RESULT = new DesigRef(d1); :};
+   {: RESULT = new DesigRef(d1); :};
+Des ::= VALPTR PAP Des: d1 PCIERRE
+   {: RESULT = new GetPointerVal(d1); :};
+
+   

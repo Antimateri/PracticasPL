@@ -17,21 +17,19 @@ public class DesigPosArray extends Desig{
     }
 
     public String toString(){
-        //String ret = "(" + des.toString() + ")" + "[" + exp.toString() + "]";
-        //ret = ret + generateCode();
-        //return ret;
-        aux = generateCode();
-        return "\n" + aux + "\n" + "(" + des.toString() + ")" + "[" + exp.toString() + "]";
+        //Muestra del AST en string:
+        return des.toString() + "[" + exp.toString() + "]";
+        
+        //Para debuggear generacion de codigo
+        //aux = generateCode();
+        //return "\n" + aux + "\n" + "(" + des.toString() + ")" + "[" + exp.toString() + "]";
     }
 
-
-	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
 		des.bind(envs);
 		exp.bind(envs);
 	}
 
-	@Override
 	public Dec getDeclaration() {
 		return des.getDeclaration();
 	}
@@ -60,4 +58,8 @@ public class DesigPosArray extends Desig{
         
         return str.toString();
     }
+
+    //Tamaño del elemento del array al que estamos accediendo en este designador:
+    public int getSize(){ return des.getSize(); } //creo que hay que corregir esto
+
 }
