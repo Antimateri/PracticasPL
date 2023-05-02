@@ -27,10 +27,15 @@ public class DesigVar extends Desig{
 		return iden.nodeDec;
 	}
 
+    //devuelve la direccion del MP en el que fue declarada la variable (no necesariamente en el actual)
+    public String getRealMP(){
+        // --------falta por hacer. hay que utilizar el valor depth
+    }
+
     public String generateCode(){
         StringBuilder str = new StringBuilder();
         str.append("i32.const"+iden.getDelta()+"\n");
-        str.append("get_global $MP\n");   //--------- esto hay que cambiarlo, depende de la profundidad de la variable
+        str.append(getRealMP()); 
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
         str.append("i32.add\n");

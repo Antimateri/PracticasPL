@@ -55,7 +55,7 @@ public class FunctCall extends E{
 
     public String generateCode(){
         StringBuilder str = new StringBuilder();
-        //metemos en la pila los argumentos con los que llamamos a la función:
+        //metemos en la memoria los argumentos con los que llamamos a la función:
         str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
@@ -87,21 +87,23 @@ public class FunctCall extends E{
     public int getDelta(){ return delta; }
 
 
-    public String codeCopyParam(int d){
+    //Método que ejecuta la función (devolviendo en memoria el resultado) y hace una copia en memoria del resultado, concretamente en la dirección MP+d
+	//Sirve para inicializar structs anónimos 
+	public String codeCopyStack(int d){
 		StringBuilder str = new StringBuilder();
 
         //Hacemos la llamada a la funcion:
         str.append(generateCode());
 
-        //direccion de origen:
+        //direccion de origen: MP+8+delta
         str.append("i32.const"+ getDelta()+"\n");
         str.append("get_global $MP\n");
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
         str.append("i32.add\n");
 
-        //direccion destino: SP + d
-        str.append("get_global $SP\n");
+        //direccion destino: MP + d
+        str.append("get_global $MP\n");
         str.append("i32.const " + d + "\n");
         str.append("i32.add\n");
 
@@ -111,11 +113,29 @@ public class FunctCall extends E{
         //llamamos a la funcion $copyn;
         str.append("call $copyn\n");
 
-        str.append("get_global $SP\n");
-        this.generateCode();
-        str.append("i32.store offset=" + d + "\n");
+		return str.toString();
+	}
+
+    public String codeCopyAsign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
+		StringBuilder str = new StringBuilder();
+        //direccion de origen: MP+8+delta
+        str.append("i32.const"+ getDelta()+"\n");
+        str.append("get_global $MP\n");
+        str.append("i32.const 8 \n");
+        str.append("i32.add\n");
+        str.append("i32.add\n");
+
+        //direccion destino:
+        str.append(codeDirDest);
+
+        //tamaño de los datos:
+        str.append("i32.const " + nombre.getSize() + "\n");
+        
+        //llamamos a la funcion $copyn;
+        str.append("call $copyn\n");
 
 		return str.toString();
+
 	}
     
 }

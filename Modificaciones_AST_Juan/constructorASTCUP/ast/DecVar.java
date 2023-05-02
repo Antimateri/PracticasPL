@@ -8,6 +8,7 @@ public class DecVar extends Dec{
     private T tipo; //Tipo de la variable declarada
     private IdenVar identificador; //Identificador de la variable declarada
     private int delta = 0;
+    private int depth = 0;
 
   //El primer operador es el tipo y el segundo el identificador:
     public DecVar(T tipo, IdenVar id) {
@@ -48,5 +49,9 @@ public class DecVar extends Dec{
 
     public int maxMem(){
         return getSize();
+    }
+
+    public void setDepth(int depth){
+        this.depth = depth;
     }
 }

@@ -13,8 +13,6 @@ public abstract class Iden extends Statement{
     }
     public NodeKind nodeKind() {return NodeKind.IDEN;}
     public String toString() {return ((this.nodeDec!=null)? name :"Unknown");}
-
-    public KindE kind() {return KindE.IDEN;}  
     
     @Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {

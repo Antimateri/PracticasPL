@@ -3,7 +3,7 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
-//Para punteros vacios
+//Para punteros o argumentos vacios
 public class Null extends E{
 
     public Null() {}
@@ -12,7 +12,6 @@ public class Null extends E{
         return "null";
     }
 
-    @Override
     public KindE kind() {
         return KindE.NULL;
     }
@@ -20,6 +19,8 @@ public class Null extends E{
     public T type() {
         return new TPointer(new TSimple(KindT.INT, RefMode.VALUE));
     }
+
+    public int getSize(){ return 0; }
 
 	@Override
 	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}
