@@ -46,7 +46,8 @@ non terminal  T Tipo, Tipo2, Tipo3, Tipo4;
 non terminal  StructIns StructInitOrden;
 non terminal  InsBin Asign;
 non terminal  Desig Des;
-non terminal  ArrayList <Integer> dimensiones;
+non terminal  ArrayList <E> ListaExp;
+non terminal  TListIns ArrayAnonimo;
 
 
 
@@ -119,6 +120,23 @@ Asign ::= Des: d1 IGUAL: palinea Exp: e2
       RESULT= out; :};
 
 
+
+ListaExp ::= Exp: e
+   {: ArrayList <E> ret = new ArrayList <E> ();
+      ret.add(e);
+      RESULT = ret; 
+   :};
+
+ListaExp ::= ListaExp: le COMA Exp: e 
+   {: le.add(e);
+      RESULT = le;
+   :};
+
+ArrayAnonimo ::= CAP ListaExp: le CCIERRE
+   {: RESULT = new TListIns(le); :};
+
+
+
 Exp ::= Exp: aDeexp1 SUMA: palinea Op0: aDeterm 
    {: EBin out = new EBin(KindE.SUMA,aDeexp1,aDeterm);
       out.setLine(palinea.fila);
@@ -132,6 +150,8 @@ Exp ::= Op0: aDeterm
 Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
    {: args1.addUnnamedArg(arg2);
       RESULT= args1; :};
+Exp ::= ArrayAnonimo: a
+   {: RESULT = a; :};
 
 Op0 ::= Op0: aDeterm1 MAYOR: palinea Op1: aDefact
    {: EBin out = new EBin(KindE.MAY,aDeterm1,aDefact);
