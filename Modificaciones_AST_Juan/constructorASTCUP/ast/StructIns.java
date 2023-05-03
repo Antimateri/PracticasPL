@@ -76,28 +76,88 @@ public class StructIns extends E {
         this.delta = last;
         int res = last;
         for(E arg : args){
-            res = arg.setDelta(res);
+            if(arg != null){ //por si es un procedimiento sin parámetros
+                arg.setDelta(res);
+                res = res + arg.getSize();
+            }
         }
-        return res; // == last + this.getSize();
+        return last + this.getSize(); // == res
     }
 
     public int getDelta(){ return delta; }
 
+    public int maxMem(){ return getSize(); }
 
 
     //Funcion que almacena en memoria (una copia de) los parámetros con los que llamamos a una función, en forma de struct anónimo
     //Los almacenará en orden y a partir de SP+8, que es la primera dirección disponible para el marco que se va a crear con la llamada
     public String paramsToStack(){
         StringBuilder str = new StringBuilder();
-        int d = 8; //desplazamiento desde SP
+
+        //direccion de origen: MP+8+delta
+        str.append("i32.const"+ getDelta()+"\n");
+        str.append("get_global $MP\n");
+        str.append("i32.const 8 \n");
+        str.append("i32.add\n");
+        str.append("i32.add\n");
+
+        //direccion destino: SP + 8 (inicio del nuevo marco que vamos a crear con la llamada a la funcion)
+        str.append("get_global $SP\n");
+        str.append("i32.const " + 8 + "\n");
+        str.append("i32.add\n");
+
+        //tamaño de los datos:
+        str.append("i32.const " + getSize() + "\n");
+        
+        //llamamos a la funcion $copyn;
+        str.append("call $copyn\n");
+
+        return str.toString();
+    }
+
+    //Inicializacion del struct anónimo: copia en su espacio de memoria todos los campos del struct anónimo definido
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        int d = delta + 8; //desplazamiento desde MP
         for(E a : args){
             //copiar en memoria el valor resultante de la expresión:
-            str.append(a.codeCopyParam(d));
+            str.append(a.codeCopyStack(d));
             d = d + a.getSize(); 
         }
         return str.toString();
     }
 
+    public String codeCopyStack(int d){
+        StringBuilder str = new StringBuilder();
+        for(E a : args){
+            //copiar en memoria el valor resultante de la expresión:
+            str.append(a.codeCopyStack(d));
+            d = d + a.getSize(); 
+        }
+        return str.toString();
+    }
+
+    public String codeCopyAssign(String codeDirDest){
+		StringBuilder str = new StringBuilder();
+
+        //direccion de origen: MP+8+delta
+        str.append("i32.const"+ getDelta()+"\n");
+        str.append("get_global $MP\n");
+        str.append("i32.const 8 \n");
+        str.append("i32.add\n");
+        str.append("i32.add\n");
+
+        //direccion de destino:
+		str.append(codeDirDest);
+
+		//tamaño de los datos:
+        str.append("i32.const " + getSize() + "\n");
+        
+        //llamamos a la funcion $copyn;
+        str.append("call $copyn\n");
+
+		return str.toString();
+    }
 
 
     

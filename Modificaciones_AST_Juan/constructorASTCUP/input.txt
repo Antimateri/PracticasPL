@@ -32,9 +32,11 @@ struct cocido has{
 
 pointer (int n, int d)[4][5] array;
 
+
 print(pointer(array)[2]);
 
 (pointer int)[1] arr;
+
 
 :cocido madrileno;
 int input;
@@ -42,7 +44,7 @@ read(input);
 ;
 madrileno = (input,true);
 print(madrileno.a == 1);
+
 int bad;
-bad= bad + bad;
-!true!=false;
+
 int[2][42][1] array2ElectricBoogaloo;

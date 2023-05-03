@@ -5,7 +5,6 @@ import java.util.Map;
 
 // valor entero
 public class Int extends E {
-	
 	private String v;
 	
 	public Int(String v) {
@@ -24,12 +23,20 @@ public class Int extends E {
 
 	public int getSize(){ return 4; }
 
-	public String codeCopyParam(int d){
+	public String codeCopyStack(int d){
 		StringBuilder str = new StringBuilder();
-		str.append("get_global $SP\n");
+		str.append("get_global $MP\n");
 		str.append(this.generateCode());
-		str.append("i32.store offset=" + d + "\n");
+		str.append("i32.store offset=" + (d + 8) + "\n");
 		return str.toString();
-	}
+    }
+
+	public String codeCopyAssign(String codeDirDest){
+		StringBuilder str = new StringBuilder();
+		str.append(codeDirDest);
+		str.append(this.generateCode());
+		str.append("i32.store offset= \n");
+		return str.toString();
+    }
 }
 

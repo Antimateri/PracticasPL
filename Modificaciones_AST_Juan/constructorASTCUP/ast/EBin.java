@@ -1,4 +1,4 @@
-package ast;
+KindEpackage ast;
 
 import java.util.LinkedList;
 import java.util.Map;
@@ -102,11 +102,12 @@ public class EBin extends E {
 		if(opnd2!=null)opnd2.bind(envs);
 	}
 
+
 	
 	public String generateCode(){
 		StringBuilder strb = new StringBuilder();
 		if(kind == KindE.MEM){
-			strb.append(opnd1.generateCode() + "\n");
+			strb.append(((Desig)opnd1).generateCode() + "\n");
 			strb.append("i32.load\n");
 		}
 		else{
@@ -156,15 +157,17 @@ public class EBin extends E {
 	//Devuelve el tamaño del resultado (típticamente un int o bool)
 	public int getSize(){ return opnd1.getSize(); }
 
-	public String codeCopyParam(int d){
-		StringBuilder str = new StringBuilder();
 
+	//Funcion que copia en memoria el valor de la expresión, concretamente en la dirección MP+d
+	//Sirve para inicializar structs anónimos 
+	public String codeCopyStack(int d){
+		StringBuilder str = new StringBuilder();
 		if(kind==KindE.MEM){ //si es un acceso a un designador
 			//direccion de origen:
 			str.append(((Desig)opnd1).generateCode());
 	
-			//direccion destino: SP + d
-			str.append("get_global $SP\n");
+			//direccion destino: MP+d
+			str.append("get_global $MP\n");
 			str.append("i32.const " + d + "\n");
 			str.append("i32.add\n");
 	
@@ -174,10 +177,56 @@ public class EBin extends E {
 			//llamamos a la funcion $copyn;
 			str.append("call $copyn\n");
 		}
-		else{
-			str.append("get_global $SP\n");
-			str.append(this.generateCode());
+		else{ //si es una expresión aritmetico-lógica:
+			str.append("get_global $MP\n");
+			str.append(this.generateCode()); //genera el resultado
 			str.append("i32.store offset=" + d + "\n");
+		}
+		return str.toString();
+	}
+
+	public String codeCopyReturn(){
+		StringBuilder str = new StringBuilder();
+		if(kind==KindE.MEM){ //si es un acceso a un designador
+			//direccion de origen:
+			str.append(((Desig)opnd1).generateCode());
+	
+			//direccion destino: $returnDir
+			str.append("get_local $returnDir\n");
+
+			//tamaño de los datos:
+			str.append("i32.const " + opnd1.getSize() + "\n");
+			
+			//llamamos a la funcion $copyn;
+			str.append("call $copyn\n");
+		}
+		else{ //si es una expresión aritmetico-lógica:
+			str.append("get_local $returnDir\n"); //direccion de destino
+			str.append(this.generateCode()); //genera el resultado
+			str.append("i32.store \n");
+		}
+		return str.toString();
+	}
+
+	public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
+		StringBuilder str = new StringBuilder();
+		if(kind==KindE.MEM){ //si es un acceso a un designador
+			//direccion de origen:
+			str.append(((Desig)opnd1).generateCode());
+	
+			//direccion destino:
+			str.append(codeDirDest);
+
+			//tamaño de los datos:
+			str.append("i32.const " + opnd1.getSize() + "\n");
+			
+			//llamamos a la funcion $copyn;
+			str.append("call $copyn\n");
+		}
+		else{ //si es una expresión aritmetico-lógica:
+			str.append(codeDirDest); //direccion de destino
+			str.append(this.generateCode()); //genera el resultado
+			str.append("i32.store \n");
 		}
 		return str.toString();
 	}

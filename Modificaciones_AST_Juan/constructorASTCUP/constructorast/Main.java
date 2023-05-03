@@ -19,6 +19,7 @@ public class Main {
 	 raiz.bind(new LinkedList<Map<String,Dec>>());
 	 raiz.type();
 	 raiz.setDelta(0);
+	 raiz.setDepth(0);
 	 System.out.println(raiz);
  }
 }   

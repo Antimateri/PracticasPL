@@ -25,4 +25,6 @@ public abstract class Statement implements ASTNode{
     public int maxMem(){ return 0; }
 
     public int getSize(){ return 0; }
+
+    public void setDepth(int depth){}
 }

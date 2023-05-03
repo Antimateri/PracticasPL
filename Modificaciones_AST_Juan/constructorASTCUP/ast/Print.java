@@ -27,5 +27,12 @@ public class Print extends I{
 		e.bind(envs);
 	}
     
+    public int maxMem(){
+        return e.getSize();
+    }
+
+    public int setDelta(int last){
+        return e.setDelta(last);
+    }
     
 }

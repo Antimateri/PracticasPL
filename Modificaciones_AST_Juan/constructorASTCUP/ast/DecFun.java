@@ -106,5 +106,9 @@ public class DecFun extends Dec{
         str.append("return \n )");
         return str.toString();
     }
+
+    public void setDepth(int depth){
+        body.setDepth(depth+1);
+    }
     
 }

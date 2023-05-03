@@ -11,4 +11,5 @@ interface ASTNode {
     public NodeKind nodeKind();
     public String toString();
     public int setDelta(int last);
+    public void setDepth(int depth);
 }

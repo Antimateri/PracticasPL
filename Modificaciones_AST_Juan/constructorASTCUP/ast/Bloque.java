@@ -72,12 +72,18 @@ public class Bloque extends I{
         return str.toString();
     }
 
-    //Devuelve el espacio en memoria necesaria para las variables locales declaradas y llamadas a funcion (que tambien funcionarán así)
+    //Devuelve el espacio en memoria necesaria para las variables locales declaradas, llamadas a función y estructuras anónimas (que tambien funcionarán así)
     public int maxMem(){
         int mem = 0;
         for(Statement s : opnd){
             mem = mem + s.maxMem();
         }
         return mem;
+    }
+
+    public void setDepth(int depth){
+        for(Statement s : opnd){
+            s.setDepth(depth);
+        }
     }
 }

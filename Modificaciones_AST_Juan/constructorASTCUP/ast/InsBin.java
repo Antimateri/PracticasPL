@@ -58,6 +58,22 @@ public class InsBin extends I {
 		}
 		
 	}
+
+  public int maxMem(){
+    int mem = 0;
+    for(Statement s : opnd){
+        mem = mem + s.maxMem();
+    }
+    return mem;
+  }
+
+  public int setDelta(int last){
+    int res = last;
+    for (Statement s : opnd) {
+        res = s.setDelta(res);
+    }
+    return res;
+  } 
 	
   public String generateCode(){
     StringBuilder str = new StringBuilder();
@@ -78,9 +94,10 @@ public class InsBin extends I {
         str.append("br 0\n");
         str.append("end\n");
       case ASIG: //cambiar para que soporte asignaciones de arrays, structs y definidos por el usuario
-        str.append(opnd(0).generateCode() + "\n");
-        str.append(opnd(1).generateCode() + "\n");
-        str.append("i32.store\n");
+        //opnd(0) siempre será un designador
+        //opnd(1) siempre será una expresión
+        String codeDirDest = ((Desig)opnd(0)).generateCode(); //direccion de destino donde guardar la asignacion
+        str.append(((E)opnd(1)).codeCopyAssign(codeDirDest));
       case IFELSE:
         str.append(opnd(0).generateCode() + "\n");
         str.append("if\n");
@@ -94,4 +111,11 @@ public class InsBin extends I {
     }
     return str.toString();
   }
+
+  public void setDepth(int depth){
+    for (Statement s : opnd) {
+      s.setDepth(depth + 1);
+    }
+  }
+
 }
