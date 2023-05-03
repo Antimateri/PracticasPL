@@ -1,6 +1,17 @@
 package ast;
 
 public abstract class Statement implements ASTNode{
+	
+	protected int line=-1;
+	
+	public void setLine(int line) {
+		this.line=line;
+	}
+
+    public int getLine(){
+        return line;
+    }
+	
     public abstract NodeKind nodeKind();
 
     public Statement opnd(int i) {throw new UnsupportedOperationException("opnd [" + i + "]");} 
