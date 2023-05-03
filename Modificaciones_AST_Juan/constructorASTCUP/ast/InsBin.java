@@ -101,10 +101,10 @@ public class InsBin extends I {
         str.append(opnd(1).generateCode() + "\n");
         str.append("br 0\n");
         str.append("end\n");
-      case ASIG: //cambiar para que soporte asignaciones de arrays, structs y definidos por el usuario
+      case ASIG: 
         //opnd(0) siempre será un designador
         //opnd(1) siempre será una expresión
-        String codeDirDest = ((Desig)opnd(0)).generateCode(); //direccion de destino donde guardar la asignacion
+        String codeDirDest = ((Desig)opnd(0)).generateCode(); //codigo para la direccion de destino donde guardar la asignacion
         str.append(((E)opnd(1)).codeCopyAssign(codeDirDest));
       case IFELSE:
         str.append(opnd(0).generateCode() + "\n");

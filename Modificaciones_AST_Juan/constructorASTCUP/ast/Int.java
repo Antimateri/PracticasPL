@@ -25,9 +25,9 @@ public class Int extends E {
 
 	public String codeCopyStack(int d){
 		StringBuilder str = new StringBuilder();
-		str.append("get_global $MP\n");
+		str.append("get_local $localsStart\n");
 		str.append(this.generateCode());
-		str.append("i32.store offset=" + (d + 8) + "\n");
+		str.append("i32.store offset=" + d + "\n");
 		return str.toString();
     }
 
@@ -35,7 +35,7 @@ public class Int extends E {
 		StringBuilder str = new StringBuilder();
 		str.append(codeDirDest);
 		str.append(this.generateCode());
-		str.append("i32.store offset= \n");
+		str.append("i32.store\n");
 		return str.toString();
     }
 }

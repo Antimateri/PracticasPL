@@ -69,9 +69,7 @@ public class FunctCall extends E{
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
         str.append("i32.const" + nombre.getDelta()+"\n");
-        str.append("get_global $MP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
+        str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
         //llamamos a la funcion declarada en webassembly:
@@ -83,55 +81,33 @@ public class FunctCall extends E{
 
     public int setDelta(int last){
         int res = args.setDelta(last);
+        this.delta = res;
 
-        if(nombre.type() == null){ //si no devuelve nada (es un procedimiento)
+        if(nombre.type() == null) //si no devuelve nada (es un procedimiento)
             return res;
-        }
-        else{
-            this.delta = res;
+        
+        else
             return res + getSize();
-        }
+        
     }
 
     public int getDelta(){ return delta; }
 
 
-    //Método que ejecuta la función (devolviendo en memoria el resultado) y hace una copia en memoria del resultado, concretamente en la dirección MP+d
+    //Método que ejecuta la función (devolviendo en memoria el resultado)
 	//Sirve para inicializar structs anónimos 
 	public String codeCopyStack(int d){
-		StringBuilder str = new StringBuilder();
-
-        //Hacemos la llamada a la funcion:
-        str.append(generateCode());
-
-        //direccion de origen: MP+8+delta
-        str.append("i32.const"+ getDelta()+"\n");
-        str.append("get_global $MP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
-        str.append("i32.add\n");
-
-        //direccion destino: MP + d
-        str.append("get_global $MP\n");
-        str.append("i32.const " + d + "\n");
-        str.append("i32.add\n");
-
-        //tamaño de los datos:
-        str.append("i32.const " + nombre.getSize() + "\n");
-        
-        //llamamos a la funcion $copyn;
-        str.append("call $copyn\n");
-
-		return str.toString();
+        return generateCode();
 	}
 
-    public String codeCopyAsign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
+    public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
 		StringBuilder str = new StringBuilder();
-        //direccion de origen: MP+8+delta
+
+        str.append(generateCode());
+
+        //direccion de origen: $localsStart+delta
         str.append("i32.const"+ getDelta()+"\n");
-        str.append("get_global $MP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
+        str.append("get_global $localsStart\n");
         str.append("i32.add\n");
 
         //direccion destino:

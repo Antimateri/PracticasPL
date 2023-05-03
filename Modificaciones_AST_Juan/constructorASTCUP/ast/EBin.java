@@ -161,16 +161,16 @@ public class EBin extends E {
 	public int getSize(){ return opnd1.getSize(); }
 
 
-	//Funcion que copia en memoria el valor de la expresión, concretamente en la dirección MP+d
-	//Sirve para inicializar structs anónimos 
+	//Funcion que copia en memoria el valor de la expresión, concretamente en la dirección $localsStart + d
+	//Sirve para inicializar structs anónimos
 	public String codeCopyStack(int d){
 		StringBuilder str = new StringBuilder();
 		if(kind==KindE.MEM){ //si es un acceso a un designador
 			//direccion de origen:
 			str.append(((Desig)opnd1).generateCode());
 	
-			//direccion destino: MP+d
-			str.append("get_global $MP\n");
+			//direccion destino: $localsStart + d
+			str.append("get_local $localsStart\n");
 			str.append("i32.const " + d + "\n");
 			str.append("i32.add\n");
 	
@@ -181,32 +181,9 @@ public class EBin extends E {
 			str.append("call $copyn\n");
 		}
 		else{ //si es una expresión aritmetico-lógica:
-			str.append("get_global $MP\n");
+			str.append("get_local $localsStart\n");
 			str.append(this.generateCode()); //genera el resultado
 			str.append("i32.store offset=" + d + "\n");
-		}
-		return str.toString();
-	}
-
-	public String codeCopyReturn(){
-		StringBuilder str = new StringBuilder();
-		if(kind==KindE.MEM){ //si es un acceso a un designador
-			//direccion de origen:
-			str.append(((Desig)opnd1).generateCode());
-	
-			//direccion destino: $returnDir
-			str.append("get_local $returnDir\n");
-
-			//tamaño de los datos:
-			str.append("i32.const " + opnd1.getSize() + "\n");
-			
-			//llamamos a la funcion $copyn;
-			str.append("call $copyn\n");
-		}
-		else{ //si es una expresión aritmetico-lógica:
-			str.append("get_local $returnDir\n"); //direccion de destino
-			str.append(this.generateCode()); //genera el resultado
-			str.append("i32.store \n");
 		}
 		return str.toString();
 	}

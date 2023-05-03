@@ -10,6 +10,5 @@ public abstract class E extends Statement { //Expresiones aritmético-lógicas
     public int setDelta(int last){ return last; }
 
     public String codeCopyStack(int d){ return ""; } //solo para las expresiones en los campos de un struct anónimo 
-    public String codeCopyReturn(){ return ""; } //solo para las expresiones que devolvemos con la instruccion return
     public String codeCopyAssign(String codeDirDest){ return ""; }
 }

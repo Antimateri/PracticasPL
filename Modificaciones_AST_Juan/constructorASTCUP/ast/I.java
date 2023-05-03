@@ -1,7 +1,7 @@
 package ast;
 
-// nodo generico de todas las instrucciones, es decir que no devuelven nada
-public abstract class I extends Statement{ //Instrucciones
+// nodo generico de todas las instrucciones
+public abstract class I extends Statement{ 
     public abstract KindI kind();
     //public String num() {throw new UnsupportedOperationException("num");}
     public NodeKind nodeKind() {return NodeKind.INSTRUCTION;}
