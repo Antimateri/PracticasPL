@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //Declaración de tipo struct
 public class DecStruct extends Dec{
     //Identificador del nuevo tipo struct:
@@ -40,12 +42,16 @@ public class DecStruct extends Dec{
     }
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-    	if(envs.getFirst().containsKey(name.name)) 
-			throw new RedefinedVariableException(name.name);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean out = true;
+    	if(envs.getFirst().containsKey(name.name)){
+			Log.error(Log.ErrorType.REDEFINEDVARIABLE, this);
+            out = false;
+        }
     	envs.getFirst().put(name.name, this);
-        name.bind(envs);
+        out &= name.bind(envs);
 		data.bind(envs);
+        return out;
 	}
 
     public T type(){

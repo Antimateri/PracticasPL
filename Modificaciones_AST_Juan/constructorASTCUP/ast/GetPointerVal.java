@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // Designador al valor apuntado por un puntero 
 public class GetPointerVal extends Desig{
     private Desig des; //Designador al puntero
@@ -21,15 +23,16 @@ public class GetPointerVal extends Desig{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		des.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return des.bind(envs);
 	}
 
     public T type() {
         if(des.type().kind() == KindT.POINTER) {
             return ((TPointer)(des.type())).prevType();
         }
-        throw new RuntimeException("Error: getPointerVal applied to non-pointer type");
+        Log.error(Log.ErrorType.TIPEERROR, this);
+        return new TError();
     }
 
     public Dec getDeclaration() {

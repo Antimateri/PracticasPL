@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //operaciones binarias
 public class EBin extends E {
    //un lado de la operación binaria
@@ -69,37 +71,38 @@ public class EBin extends E {
 			case MEN:
 				if(opnd1.type().kind() == KindT.INT && opnd2.type().kind() == KindT.INT)
 					return opnd1.type();
-				else
-					throw new RuntimeException("Error de tipos en operacion binaria");
+				Log.error(Log.ErrorType.TIPEERROR, this);
+				return new TError();
 			case AND:
 			case OR:
 				if(opnd1.type().kind() == KindT.BOOL && opnd2.type().kind() == KindT.BOOL)
 					return opnd1.type();
-				else
-					throw new RuntimeException("Error de tipos en operacion binaria");
+				Log.error(Log.ErrorType.TIPEERROR, this);
+				return new TError();
 			case EQ:
 			case NEQ:
 				if(opnd1.type().compatible(opnd2.type()))
 					return new TSimple(KindT.BOOL, RefMode.VALUE);
-				else
-					throw new RuntimeException("tipos no compatibles en igualacion");
+				Log.error(Log.ErrorType.TIPEERROR, this);
+				return new TError();
 			case MEM:
 				return opnd1.type();
 			case NOT:
 				if(opnd1.type().kind() == KindT.BOOL)
 					return opnd1.type();
-				else
-					throw new RuntimeException("Error de tipos en operacion binaria");
+				Log.error(Log.ErrorType.TIPEERROR, this);
+				return new TError();
 			default:
-				
 		};
 		return null;
 	}
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		opnd1.bind(envs);
-		if(opnd2!=null)opnd2.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		boolean out = true;
+		out &= opnd1.bind(envs);
+		if(opnd2!=null)out &= opnd2.bind(envs);
+		return out;
 	}
 
 

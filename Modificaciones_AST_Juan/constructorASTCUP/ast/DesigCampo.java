@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //Designadores a campo de un registro:
 public class DesigCampo extends Desig{
     private Desig des;
@@ -20,12 +22,14 @@ public class DesigCampo extends Desig{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		des.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		boolean out = true;
+		out &= des.bind(envs);
 		Map<String, Dec> env = des.getDeclaration().getEnv();
 		if(env!=null)envs.push(env);
-		id.bind(envs);
+		out &= id.bind(envs);
 		if(env!=null)envs.pop();
+		return out;
 	}
 
 	@Override
@@ -34,12 +38,13 @@ public class DesigCampo extends Desig{
 	}
 
 	public T type() {
-		if(des.type().kind()!=KindT.STRUCT) throw new IllegalArgumentException("Se intenta acceder a un campo de un tipo no struct");
+		if(des.type().kind()!=KindT.STRUCT) Log.error(Log.ErrorType.TIPEERROR, this);
 		else{
 			TStruct t = (TStruct)des.type();
 			if(t.getDec(id.toString())!=null) return t.getDec(id.toString()).type();
-			else throw new IllegalArgumentException("El struct no contiene el campo " + id.toString());
+			else Log.error(Log.ErrorType.UNDEFINEDVARIABLE, this);
 		}
+		return new TError();
 	}
 
 	public String generateCode(){

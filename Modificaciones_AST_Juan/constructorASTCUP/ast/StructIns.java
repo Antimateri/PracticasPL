@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // inicializador de estructuras
 public class StructIns extends E {
 
@@ -47,21 +49,29 @@ public class StructIns extends E {
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean res = true;
 		for(E a : args) {
-			a.bind(envs);
+			res &= a.bind(envs);
 		}
+        return res;
 	}
 
     public T type(){
         TStruct t = new TStruct();
+        T out = null;
         for(E a : args) {
             if(a.type()!=null)
                 t.append(new DecVar(a.type(), null));
-            else
-                throw new RuntimeException("Error en tipado");
+            else{
+                Log.error(Log.ErrorType.TIPEERROR, this);
+                out = new TError();
+            }
         }
-        return t;
+        if(out != null)
+            return out;
+        else
+            return t;
     }
 
     public int getSize(){

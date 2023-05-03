@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //llamada a una funcion
 public class FunctCall extends E{
     //funcion llamada:
@@ -30,21 +32,28 @@ public class FunctCall extends E{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		nombre.bind(envs);
-		if(args!=null)args.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean out = true;
+		out &= nombre.bind(envs);
+		if(args!=null)out &= args.bind(envs);
+        return out;
 	}
 
     public T type(){
         if(((DecFun)(nombre.nodeDec)).getParams()!=null){
             TStruct trueArgs = ((DecFun)(nombre.nodeDec)).getParams();
-            if(args.type()==null)
-                throw new IllegalArgumentException("Incompatible types");
-            if(!args.type().compatible(trueArgs))
-            throw new IllegalArgumentException("Incompatible types");
+            if(args.type()==null){
+                Log.error(Log.ErrorType.TIPEERROR, this);
+                return new TError();
+            }
+            if(!args.type().compatible(trueArgs)){
+                Log.error(Log.ErrorType.TIPEERROR, this);
+                return new TError();
+            }
         }
         else if(args != null){
-            throw new IllegalArgumentException("Incompatible types");
+            Log.error(Log.ErrorType.TIPEERROR, this);
+            return new TError();
         }
         return nombre.type();
     }

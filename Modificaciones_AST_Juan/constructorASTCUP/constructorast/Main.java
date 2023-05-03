@@ -16,8 +16,13 @@ public class Main {
 	 ConstructorASTExp constructorast = new ConstructorASTExp(alex);
 	 Statement raiz = (Statement)constructorast.parse().value;
 	 //System.out.println(constructorast.parse().value);
-	 raiz.bind(new LinkedList<Map<String,Dec>>());
-	 raiz.type();
+	 if(!raiz.bind(new LinkedList<Map<String,Dec>>())){
+		throw new Exception("Error de enlazado");
+	 }
+	 T out = raiz.type();
+	 if(out != null && out.kind() == KindT.ERROR){
+		throw new Exception("Error de tipos");
+	 }
 	 raiz.setDelta(0);
 	 raiz.setDepth(0);
 	 System.out.println(raiz);

@@ -83,25 +83,39 @@ public class TStruct extends T{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean res = true;
 		this.env=new HashMap<String, Dec>();
 		envs.push(env);
 		for(Dec aux : opnd) {
-			aux.bind(envs);
+			res &= aux.bind(envs);
 		}
 		envs.pop();
+        return res;
 	}
 
     public boolean compatible(T t){
         if(this.kind() != t.type().kind())
             return false;
         TStruct aux = (TStruct)(t.type());
-        if(this.opnd.size() != aux.opnd.size())
+        if(this.opnd.size() < aux.opnd.size())
             return false;
-        for(int i = 0; i < this.opnd.size(); i++){
-            if(!this.opnd.get(i).type().compatible(aux.opnd.get(i).type()))
+        int i = 0;
+        int j = 0;
+        while(i < this.opnd.size()){
+            while(i < this.opnd.size() && this.opnd.get(i).kind() != KindDec.VAR && this.opnd.get(i).kind() != KindDec.STRUCT)
+                i++;
+            if(j >= aux.opnd.size())
                 return false;
+            if(i < this.opnd.size()){
+                if(!this.opnd.get(i).type().compatible(aux.opnd.get(j).type()))
+                    return false;
+                i++;
+                j++;
+            }
         }
+        if(j < aux.opnd.size())
+            return false;
         return true;
     }
 }

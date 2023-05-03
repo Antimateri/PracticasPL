@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //define una funcion
 public class DecFun extends Dec{
     public KindDec kind() {return KindDec.FUN;}
@@ -53,22 +55,28 @@ public class DecFun extends Dec{
     }
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-    	if(envs.getFirst().containsKey(name.name)) 
-			throw new RedefinedVariableException(name.name);
+	public boolean bind(LinkedList<Map<String, Dec>> envs) {
+        boolean out = true;
+    	if(envs.getFirst().containsKey(name.name)){
+			Log.error(Log.ErrorType.REDEFINEDVARIABLE, this);
+            out=false;
+        }
     	envs.getFirst().put(name.name, this);
-        if(this.params!=null)this.params.bind(envs);
-        this.type.bind(envs);
-        envs.push(params.getEnv());
-        this.body.bind(envs);
-        envs.pop();
+        if(this.params!=null) out &= this.params.bind(envs);
+        out &= this.type.bind(envs);
+        if(this.params!=null) envs.push(params.getEnv());
+        out &= this.body.bind(envs);
+        if(this.params!=null) envs.pop();
+        return out;
 	}
 
     public T type(){
         T b= body.type();
-        if((b==null && type!=null) || (type==null && b!=null) || (b!=null && type!=null && !type.type().compatible(b)))
-            throw new RuntimeException("Return type does not match function type");
-        if(type!=null)return type.type();
+        if((b==null && type!=null) || (type==null && b!=null) || (b!=null && type!=null && !type.type().compatible(b))){
+            Log.error(Log.ErrorType.FUNCTIONRETURNMISSMATCH, this);
+            return new TError();
+        }
+        if(type!=null) return type.type();
         else return null; 
     }
 

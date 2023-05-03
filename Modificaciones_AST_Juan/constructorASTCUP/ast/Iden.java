@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // Identificador de variable/funcion/tipo, palabras "reservadas" por el usuario
 public abstract class Iden extends Statement{
     protected String name;
@@ -15,7 +17,7 @@ public abstract class Iden extends Statement{
     public String toString() {return ((this.nodeDec!=null)? name :"Unknown");}
     
     @Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
     	boolean found=false;
     	for(Map<String, Dec> i : envs) {
     		if(i.containsKey(name)) {
@@ -24,7 +26,11 @@ public abstract class Iden extends Statement{
     			break;
     		}
     	}
-    	if(!found)throw new UndefinedVariableException(name);
+    	if(!found){
+            Log.error(Log.ErrorType.UNDEFINEDVARIABLE, this);
+            return false;
+        }
+        return true;
     }
 
     public int getDelta(){ return nodeDec.getDelta(); }

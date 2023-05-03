@@ -12,8 +12,9 @@ public class Bool extends E{
     //public String num() {return v;}
     public KindE kind() {return KindE.BOOL;}
     public String toString() {return v;}
+
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {} 
+	public boolean bind(LinkedList<Map<String, Dec>> envs){ return true;} 
     public T type() {return new TSimple(KindT.BOOL, RefMode.VALUE);}
 
     public String generateCode(){

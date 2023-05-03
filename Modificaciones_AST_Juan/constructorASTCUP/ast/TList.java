@@ -28,8 +28,8 @@ public class TList extends T{
 
     public T prevType(){ return t; }
 
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		t.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return t.bind(envs);
 	}
 
     public boolean compatible(T t){

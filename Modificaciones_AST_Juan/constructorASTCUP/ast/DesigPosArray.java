@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 //Designadores a posición de un array:
 public class DesigPosArray extends Desig{
     private E exp;
@@ -25,9 +27,11 @@ public class DesigPosArray extends Desig{
         //return "\n" + aux + "\n" + "(" + des.toString() + ")" + "[" + exp.toString() + "]";
     }
 
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		des.bind(envs);
-		exp.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean out = true;
+		out &= des.bind(envs);
+		out &= exp.bind(envs);
+        return out;
 	}
 
 	public Dec getDeclaration() {
@@ -35,10 +39,18 @@ public class DesigPosArray extends Desig{
 	}
 
     public T type() {
-        if(des.type().kind()!=KindT.LIST) throw new IllegalArgumentException("Se intenta acceder a una posición de un tipo no array");
-        if(exp.type().kind()!=KindT.INT) throw new IllegalArgumentException("Solo enteros pueden indexar arrays");
+        T out;
+        if(des.type().kind()!=KindT.LIST){
+            Log.error(Log.ErrorType.TIPEERROR, this);
+            out = new TError();
+        }
         else
-            return ((TList)(des.type())).prevType().type();
+            out = ((TList)(des.type())).prevType().type();
+        if(exp.type().kind()!=KindT.INT){
+            Log.error(Log.ErrorType.TIPEERROR, this);
+            out = new TError();
+        }
+        return out;
     }
 
     public String generateCode(){

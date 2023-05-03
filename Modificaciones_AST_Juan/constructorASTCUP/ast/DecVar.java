@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // Nodo para la declaración de variables:
 public class DecVar extends Dec{
     private T tipo; //Tipo de la variable declarada
@@ -35,12 +37,16 @@ public class DecVar extends Dec{
     	return tipo.getEnv();
     }
 
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		if(envs.getFirst().containsKey(identificador.name)) 
-			throw new RedefinedVariableException(identificador.name);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean out = true;
+		if(envs.getFirst().containsKey(identificador.name)){
+            Log.error(Log.ErrorType.REDEFINEDVARIABLE, this);
+            out = false;
+        }
 		envs.getFirst().put(identificador.name, this);
-        identificador.bind(envs);
-		tipo.bind(envs);
+        out &= identificador.bind(envs);
+		out &= tipo.bind(envs);
+        return out;
 	}
 
     public T type(){

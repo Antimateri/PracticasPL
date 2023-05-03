@@ -32,8 +32,8 @@ public class TComp extends T{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		iden.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return iden.bind(envs);
 	}
 	
 	@Override

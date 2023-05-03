@@ -14,7 +14,7 @@ public class Int extends E {
 	public KindE kind() {return KindE.INT;}
 	public String toString() {return "int("+v+")";}
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}  
+	public boolean bind(LinkedList<Map<String, Dec>> envs){ return true;}  
 	public T type() {return new TSimple(KindT.INT, RefMode.VALUE);}
 
 	public String generateCode(){

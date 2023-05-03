@@ -3,6 +3,8 @@ package ast;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // Nodo para la definición de un nuevo tipo por parte del usuario (alias, typedef)
 public class DecTipo extends Dec{
     // Identificador del nuevo tipo:
@@ -23,12 +25,16 @@ public class DecTipo extends Dec{
     public KindDec kind() { return KindDec.TYPE; }
     
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		if(envs.getFirst().containsKey(name.name)) 
-			throw new RedefinedVariableException(name.name);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		boolean out = true;
+        if(envs.getFirst().containsKey(name.name)){
+            Log.error(Log.ErrorType.REDEFINEDVARIABLE, this);
+            out = false;
+        }
 		envs.getFirst().put(name.name, this);
-        name.bind(envs);
-		type.bind(envs);
+        out &= name.bind(envs);
+		out &= type.bind(envs);
+        return out;
 	}
 
     public T type(){

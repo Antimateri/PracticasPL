@@ -23,6 +23,6 @@ public class Null extends E{
     public int getSize(){ return 0; }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}
+	public boolean bind(LinkedList<Map<String, Dec>> envs) {return true;}
     
 }

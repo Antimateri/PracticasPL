@@ -34,8 +34,9 @@ public class TListMultDim extends T{
     public T prevType(){ return t; }
 
 	// Esto no sé cómo se hace jeje ayuda
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		//t.bind(envs);
+        return true;
 	}
     // Sorpresa, esto tampoco
     public boolean compatible(T t){

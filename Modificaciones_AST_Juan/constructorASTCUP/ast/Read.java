@@ -21,8 +21,8 @@ public class Read extends I{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		id.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return id.bind(envs);
 	}
     
     

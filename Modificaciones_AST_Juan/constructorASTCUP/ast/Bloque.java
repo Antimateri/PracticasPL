@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import errors.Log;
+
 // sucesion de nodos, representa los cuerpos de funciones, condicionales, bucles y programas
 //en definitiva, todo lo que sea una sucesion de comandos
 public class Bloque extends I{
@@ -43,12 +45,14 @@ public class Bloque extends I{
     }
 
     @Override
-    public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+    public boolean bind(LinkedList<Map<String, Dec>> envs){
+        boolean out = true;
         envs.push(new HashMap<String, Dec>());
         for (Statement s : opnd) {
-            s.bind(envs);
+            out &= s.bind(envs);
         }
         envs.pop();
+        return out;
     }
 
     public T type() {
@@ -58,12 +62,14 @@ public class Bloque extends I{
             if(s.nodeKind()==NodeKind.INSTRUCTION && ((I)s).kind()==KindI.RETURN){
                 if(out==null)out=aux;
                 else if(!out.compatible(aux)){
-                    throw new RuntimeException("Return statements with different types in the same function");
+                    out = new TError();
+                    Log.error(Log.ErrorType.INCONSISTENTRETURN, s);
                 }
             }
         }
         return out;
     }
+    
     public String generateCode(){
         StringBuilder str = new StringBuilder();
         for(Statement s : opnd){

@@ -20,10 +20,9 @@ public class DesigRef extends Desig{
         return strb.toString();
     }
 
-
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		des.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return des.bind(envs);
 	}
 
 	@Override

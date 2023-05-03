@@ -33,5 +33,5 @@ public class TSimple extends T{
     public int getSize(){ return 4; } //en cualquier caso, sea int o bool, sea por valor o por referencia
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {}
+	public boolean bind(LinkedList<Map<String, Dec>> envs){return true;}
 }

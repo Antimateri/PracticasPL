@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
+import errors.Log;
+
 // instrucciones binarias
 public class InsBin extends I {
     private ArrayList<Statement> opnd;
@@ -37,12 +39,16 @@ public class InsBin extends I {
       case IF:
       case WHILE:
       case IFELSE:
-        if(opnd(0).type().kind() != KindT.BOOL)
-          throw new RuntimeException("Error de tipos en la condición de un if o while");
+        if(!opnd(0).type().compatible(new TSimple(KindT.BOOL, RefMode.VALUE))){
+          Log.error(Log.ErrorType.TIPEERROR, this);
+          return new TError();
+        }
         break;
       case ASIG:
-        if(opnd(0).type().kind() != opnd(1).type().kind())
-          throw new RuntimeException("Error de tipos en la asignación");
+        if(!opnd(0).type().compatible(opnd(1).type())){
+          Log.error(Log.ErrorType.TIPEERROR, this);
+          return new TError();
+        }
         break;
       default:
         return super.type();
@@ -51,11 +57,13 @@ public class InsBin extends I {
   }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+    boolean out =true;
 		//asumo que recibe bloques como argumento
 		for(Statement aux: opnd) {
-			if(aux!=null)aux.bind(envs);
+			if(aux!=null)out &= aux.bind(envs);
 		}
+    return out;
 		
 	}
 

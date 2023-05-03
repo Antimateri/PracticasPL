@@ -25,15 +25,14 @@ init with {:
 :};
 
 
-terminal IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PROC, EXEC,
+terminal TokenValue IF, WHILE, IFELSE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PROC, EXEC,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL, DIST, NOT,
          PRINT, READ,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
          PUNTOCOMA, IGUAL, COMA, PUNTO, DOSPUNTOS,
          TIPOINT, TIPOBOOL, NULL, REF, PUNTERO, VALPTR,
-         TRUE, FALSE;
-
-terminal TokenValue INT, IDEN;
+         TRUE, FALSE,
+         INT, IDEN;
 
 non terminal  Statement Linea, Instr;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
@@ -55,7 +54,10 @@ Bl ::= Bl: b1 Linea: l1
    {: b1.append(l1);
       RESULT= b1; :};
 Bl ::= Linea: l1
-   {: RESULT=new Bloque(l1); :};
+   {: Bloque out = new Bloque(l1);
+      out.setLine(l1.getLine());
+      RESULT= out; :};
+
 
 Linea ::= Instr: i1
    {: RESULT=i1; :};
@@ -66,101 +68,161 @@ Linea ::= Exp: e1 PUNTOCOMA
 Linea ::= PUNTOCOMA
    {: RESULT=null; :};
 
-Instr ::= IF PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+
+Instr ::= IF: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2);
-      RESULT= new InsBin(KindI.IF,array); :};
-Instr ::= WHILE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+      InsBin out = new InsBin(KindI.IF,array);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Instr ::= WHILE: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2); 
-      RESULT= new InsBin(KindI.WHILE,array); :};
+      InsBin out = new InsBin(KindI.WHILE,array);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Instr ::= Asign: a1 PUNTOCOMA
    {: RESULT=a1; :};
-Instr ::= IFELSE PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
+Instr ::= IFELSE: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2); array.add(b3);
-      RESULT= new InsBin(KindI.IFELSE,array); :};
+      InsBin out = new InsBin(KindI.IFELSE,array);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Instr ::= RETURN Exp: e1 PUNTOCOMA
-   {: RESULT=new Return(e1); :};
+   {: Return out = new Return(e1);
+      out.setLine(e1.getLine());
+      RESULT= out; :}; 
 Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
-   {: RESULT= new Print(e1); :};
+   {: Print out = new Print(e1);
+      out.setLine(e1.getLine());
+      RESULT= out; :};
 Instr ::= READ PAP IdVar: id1 PCIERRE PUNTOCOMA
-   {: RESULT= new Read(id1); :};
+   {: Read out = new Read(id1);
+      out.setLine(id1.getLine());
+      RESULT= out; :};
 Instr ::= IdFun: id1 EXEC PAP StructInitOrden: args PCIERRE
-   {: RESULT= new FunctCall(id1,args); :};
-Instr ::= IdFun: id1 EXEC PAP PCIERRE
-   {: RESULT= new FunctCall(id1,null); :};
+   {: FunctCall out = new FunctCall(id1,args);
+      out.setLine(id1.getLine());
+      RESULT= out; :};
+Instr ::= IdFun: id1 EXEC: palinea PAP PCIERRE
+   {: FunctCall out = new FunctCall(id1,null);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 
-Asign ::= Des: d1 IGUAL Exp: e2
+
+Asign ::= Des: d1 IGUAL: palinea Exp: e2
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(d1); array.add(e2);
-      RESULT= new InsBin(KindI.ASIG,array); :};
+      InsBin out = new InsBin(KindI.ASIG,array);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 
-Exp ::= Exp: aDeexp1 SUMA Op0: aDeterm 
-   {: RESULT= new EBin(KindE.SUMA,aDeexp1,aDeterm); :};
-Exp ::= Exp: aDeexp1 RESTA Op0: aDeterm 
-   {: RESULT= new EBin(KindE.RESTA,aDeexp1,aDeterm); :};
+
+Exp ::= Exp: aDeexp1 SUMA: palinea Op0: aDeterm 
+   {: EBin out = new EBin(KindE.SUMA,aDeexp1,aDeterm);
+      out.setLine(palinea.fila);
+      RESULT= out; :}; 
+Exp ::= Exp: aDeexp1 RESTA: palinea Op0: aDeterm 
+   {: EBin out = new EBin(KindE.RESTA,aDeexp1,aDeterm);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Exp ::= Op0: aDeterm
    {: RESULT=aDeterm; :};
 Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
    {: args1.addUnnamedArg(arg2);
       RESULT= args1; :};
 
-Op0 ::= Op0: aDeterm1 MAYOR Op1: aDefact
-   {: RESULT= new EBin(KindE.MAY,aDeterm1,aDefact); :};
-Op0 ::= Op0: aDeterm1 MENOR Op1: aDefact
-   {: RESULT= new EBin(KindE.MEN,aDeterm1,aDefact); :};
-Op0 ::= Op0: aDeterm1 OPIGUAL Op1: aDefact
-   {: RESULT= new EBin(KindE.EQ,aDeterm1,aDefact); :};
-Op0 ::= Op0: aDeterm1 DIST Op1: aDefact
-   {: RESULT= new EBin(KindE.NEQ,aDeterm1,aDefact); :};
+Op0 ::= Op0: aDeterm1 MAYOR: palinea Op1: aDefact
+   {: EBin out = new EBin(KindE.MAY,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op0 ::= Op0: aDeterm1 MENOR: palinea Op1: aDefact
+   {: EBin out = new EBin(KindE.MEN,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op0 ::= Op0: aDeterm1 OPIGUAL: palinea Op1: aDefact
+   {: EBin out = new EBin(KindE.EQ,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op0 ::= Op0: aDeterm1 DIST: palinea Op1: aDefact
+   {: EBin out = new EBin(KindE.NEQ,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op0 ::= Op1: aDefact
    {: RESULT=aDefact; :};    
 
-Op1 ::= Op1: aDeterm1 MUL Op2: aDefact
-   {: RESULT= new EBin(KindE.MUL,aDeterm1,aDefact); :};
-Op1 ::= Op1: aDeterm1 DIV Op2: aDefact
-   {: RESULT= new EBin(KindE.DIV,aDeterm1,aDefact); :};
+Op1 ::= Op1: aDeterm1 MUL: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.MUL,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op1 ::= Op1: aDeterm1 DIV: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.DIV,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op1 ::= Op2: aDeterm2
    {: RESULT=aDeterm2; :};
 
-Op2 ::= Op2: aDeterm1 POT Op3: aDefact
-   {: RESULT= new EBin(KindE.POT,aDeterm1,aDefact); :};
-Op2 ::= Op2: aDeterm1 MOD Op3: aDefact
-   {: RESULT= new EBin(KindE.MOD,aDeterm1,aDefact); :};
+Op2 ::= Op2: aDeterm1 POT: palinea Op3: aDefact
+   {: EBin out = new EBin(KindE.POT,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op2 ::= Op2: aDeterm1 MOD: palinea Op3: aDefact
+   {: EBin out = new EBin(KindE.MOD,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op2 ::= Op3: aDefact
    {: RESULT=aDefact; :};
 
-Op3 ::= Op3: aDeterm1 AND Op4: aDefact
-   {: RESULT= new EBin(KindE.AND,aDeterm1,aDefact); :};
-Op3 ::= Op3: aDeterm1 OR Op4: aDefact
-   {: RESULT= new EBin(KindE.OR,aDeterm1,aDefact); :};
+Op3 ::= Op3: aDeterm1 AND: palinea Op4: aDefact
+   {: EBin out = new EBin(KindE.AND,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op3 ::= Op3: aDeterm1 OR: palinea Op4: aDefact
+   {: EBin out = new EBin(KindE.OR,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op3 ::= Op4: aDefact
    {: RESULT=aDefact; :};                                  
 
-Op4 ::= IdFun: id1 CALL PAP StructInitOrden: args PCIERRE
-   {: RESULT= new FunctCall(id1,args); :};
-//Op4 ::= IdFun: id1 CALL PAP Exp: args PCIERRE
-//   {: RESULT= new FunctCall(id1,args); :};
-Op4 ::= IdFun: id1 CALL PAP PCIERRE
-   {: RESULT= new FunctCall(id1,null); :};
+Op4 ::= IdFun: id1 CALL: palinea PAP StructInitOrden: args PCIERRE
+   {: FunctCall out = new FunctCall(id1,args);
+      out.setLine(palinea.fila);
+      RESULT = out; :};
+Op4 ::= IdFun: id1 CALL: palinea PAP PCIERRE
+   {: FunctCall out = new FunctCall(id1,null);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op4 ::= Op5: aDefact
    {: RESULT=aDefact; :};
 
 Op5 ::= INT: intValue           
-   {: RESULT = new Int(intValue.lexema); :};
-Op5 ::= TRUE
-   {: RESULT = new Bool("true"); :};        
-Op5 ::= FALSE
-   {: RESULT = new Bool("false"); :};
+   {: Int out = new Int(intValue.lexema);
+      out.setLine(intValue.fila);
+      RESULT = out; :};
+Op5 ::= TRUE : palinea
+   {: Bool out = new Bool("true");
+      out.setLine(palinea.fila);
+      RESULT = out; :};        
+Op5 ::= FALSE: palinea
+   {: Bool out = new Bool("false");
+      out.setLine(palinea.fila);
+      RESULT = out; :};
 Op5 ::= Des: d1    
-   {: RESULT = new EBin(KindE.MEM, d1, null); :};
+   {: EBin out = new EBin(KindE.MEM, d1, null);
+      out.setLine(d1.getLine());
+      RESULT = out; :};
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
-Op5 ::= NULL
-   {: RESULT = new Null(); :};
+Op5 ::= NULL: palinea
+   {: Null out = new Null();
+      out.setLine(palinea.fila);
+      RESULT = out; :};
 Op5 ::= NOT Op5: arg
-   {: RESULT = new EBin(KindE.NOT, arg, null); :};
+   {: EBin out =  new EBin(KindE.NOT, arg, null);
+      out.setLine(arg.getLine());
+      RESULT = out; :};
+
 
 StructInitOrden ::= StructInitOrden: args1 COMA Exp: arg2
    {: args1.addUnnamedArg(arg2);
@@ -170,11 +232,11 @@ StructInitOrden ::= Exp: arg2
       args1.addUnnamedArg(arg2);
       RESULT= args1; :};
 
+
 Tipo ::= PUNTERO Tipo2: t1
    {: RESULT = new TPointer(t1); :};
 Tipo ::= Tipo2: t1
    {: RESULT = t1; :};
-
 
 // --- Pruebas para construccion de arrays: ignorar ---
 /* dimensiones ::= CAP INT: intValue
@@ -189,27 +251,37 @@ Tipo2 ::= Tipo3: t1 dimensiones: d1 CCIERRE
    {: RESULT = new TListMultDim(t1, d1); :};
 */
 
-
 Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
    {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
 Tipo2 ::= Tipo3: t1
    {: RESULT = t1; :};
 
-
-Tipo3 ::= TIPOINT
-   {: RESULT = new TSimple(KindT.INT, RefMode.VALUE); :};
-Tipo3 ::= TIPOBOOL
-   {: RESULT = new TSimple(KindT.BOOL, RefMode.VALUE); :};
-Tipo3 ::= DOSPUNTOS IdType: id
-   {: RESULT = new TComp(id, RefMode.VALUE); :};
+Tipo3 ::= TIPOINT: tipo
+   {: TSimple res = new TSimple(KindT.INT, RefMode.VALUE);
+      res.setLine(tipo.fila);
+      RESULT = res; :};
+Tipo3 ::= TIPOBOOL: tipo
+   {: TSimple res = new TSimple(KindT.BOOL, RefMode.VALUE);
+      res.setLine(tipo.fila);
+      RESULT = res; :};
+Tipo3 ::= DOSPUNTOS: palinea IdType: id
+   {: TComp out = new TComp(id, RefMode.VALUE);
+      out.setLine(palinea.fila);
+      RESULT = out; :};
 Tipo3 ::= PAP StructBodyDef: args1 PCIERRE
    {: RESULT = args1; :};
-Tipo3 ::= REF TIPOINT
-   {: RESULT = new TSimple(KindT.INT, RefMode.REF); :};
-Tipo3 ::= REF TIPOBOOL
-   {: RESULT = new TSimple(KindT.BOOL, RefMode.REF); :};
-Tipo3 ::= REF IdType: id
-   {: RESULT = new TComp(id, RefMode.REF); :};
+Tipo3 ::= REF TIPOINT: tipo
+   {: TSimple res = new TSimple(KindT.INT, RefMode.REF);
+      res.setLine(tipo.fila);
+      RESULT = res; :};
+Tipo3 ::= REF TIPOBOOL: tipo
+   {: TSimple res = new TSimple(KindT.BOOL, RefMode.REF);
+      res.setLine(tipo.fila);
+      RESULT = res; :};
+Tipo3 ::= REF: palinea IdType: id
+   {: TComp out = new TComp(id, RefMode.REF);
+      out.setLine(palinea.fila);
+      RESULT = out; :}; 
 Tipo3 ::= Tipo4: t1
    {: RESULT = t1; :};
 
@@ -218,46 +290,78 @@ Tipo4 ::= PAP Tipo : t1 PCIERRE
 
 
 IdVar ::= IDEN: idValue 
-   {: RESULT = new IdenVar(idValue.lexema); :};
+   {: IdenVar res = new IdenVar(idValue.lexema);
+      res.setLine(idValue.fila);
+      RESULT = res; :};
 IdType ::= IDEN: idValue
-   {: RESULT = new IdenType(idValue.lexema); :};
+   {: IdenType res = new IdenType(idValue.lexema);
+      res.setLine(idValue.fila);
+      RESULT = res; :};
 IdFun ::= IDEN: idValue
-   {: RESULT = new IdenFun(idValue.lexema); :};
+   {: IdenFun res = new IdenFun(idValue.lexema);
+      res.setLine(idValue.fila);
+      RESULT = res; :};
    
 
 
 Decl ::= Tipo: t1 IdVar: id1
-   {:RESULT= new DecVar(t1, id1); :};
+   {: DecVar out = new DecVar(t1, id1);
+      out.setLine(t1.getLine());
+      RESULT= out; :};
 Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new DecFun(t1, id1, st1, b1); :};
+   {: DecFun out = new DecFun(t1, id1, st1, b1);
+      out.setLine(t1.getLine());
+      RESULT= out; :}; 
 Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new DecFun(t1, id1, null, b1); :};
+   {: DecFun out = new DecFun(t1, id1, null, b1);
+      out.setLine(t1.getLine());
+      RESULT= out; :}; 
 Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new DecFun(null, id1, st1, b1); :};
+   {: DecFun out = new DecFun(null, id1, st1, b1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
 Decl ::= PROC IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
-   {: RESULT= new DecFun(null, id1, null, b1); :};
+   {: DecFun out = new DecFun(null, id1, null, b1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
 Decl ::= STRUCT IdType: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
-   {: RESULT= new DecStruct(id1, st1); :};
+   {: DecStruct out = new DecStruct(id1, st1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
 Decl ::= TIPEDEF IdType: id1 Tipo: t1
-   {: RESULT= new DecTipo(id1,t1); :};
+   {: DecTipo out = new DecTipo(id1,t1);
+      out.setLine(id1.getLine());
+      RESULT= out; :};
 
 
 StructBodyDef ::= StructBodyDef: st1 COMA Decl: d1
    {: st1.append(d1);
       RESULT= st1; :};
 StructBodyDef ::= Decl: d1
-   {: RESULT= new TStruct(d1); :};
+   {: TStruct out = new TStruct(d1);
+      out.setLine(d1.getLine());
+      RESULT= out; :};
 
 
 Des ::= IdVar: id1
-   {: RESULT= new DesigVar(id1); :};
+   {: DesigVar out = new DesigVar(id1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
 Des ::= Des: d1 CAP Exp: e1 CCIERRE
-   {: RESULT = new DesigPosArray(d1,e1); :};
+   {: DesigPosArray out = new DesigPosArray(d1,e1);
+      out.setLine(d1.getLine());
+      RESULT= out; :}; 
 Des ::= Des: d1 PUNTO IdVar: id1
-   {: RESULT = new DesigCampo(d1,id1); :};
+   {: DesigCampo out = new DesigCampo(d1,id1);
+      out.setLine(d1.getLine());
+      RESULT= out; :};
 Des ::= PUNTERO PAP Des: d1 PCIERRE
-   {: RESULT = new DesigRef(d1); :};
+   {: DesigRef out = new DesigRef(d1);
+      out.setLine(d1.getLine());
+      RESULT= out; :}; 
 Des ::= VALPTR PAP Des: d1 PCIERRE
-   {: RESULT = new GetPointerVal(d1); :};
+   {: GetPointerVal out = new GetPointerVal(d1);
+      out.setLine(d1.getLine());
+      RESULT= out; :}; 
 
    

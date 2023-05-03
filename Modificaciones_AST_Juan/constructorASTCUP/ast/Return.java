@@ -22,8 +22,8 @@ public class Return extends I{
     }
 
 	@Override
-	public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException {
-		e.bind(envs);
+	public boolean bind(LinkedList<Map<String, Dec>> envs){
+		return e.bind(envs);
 	}
 
     public T type() {
