@@ -105,9 +105,9 @@ public class TStruct extends T{
         while(i < this.opnd.size()){
             while(i < this.opnd.size() && this.opnd.get(i).kind() != KindDec.VAR && this.opnd.get(i).kind() != KindDec.STRUCT)
                 i++;
-            if(j >= aux.opnd.size())
-                return false;
             if(i < this.opnd.size()){
+                if(j >= aux.opnd.size())
+                    return false;
                 if(!this.opnd.get(i).type().compatible(aux.opnd.get(j).type()))
                     return false;
                 i++;
