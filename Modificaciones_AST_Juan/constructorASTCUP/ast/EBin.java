@@ -1,4 +1,4 @@
-KindEpackage ast;
+package ast;
 
 import java.util.LinkedList;
 import java.util.Map;
