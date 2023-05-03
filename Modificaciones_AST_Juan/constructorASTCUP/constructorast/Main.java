@@ -21,6 +21,12 @@ public class Main {
 	 raiz.setDelta(0);
 	 raiz.setDepth(0);
 	 System.out.println(raiz);
+
+	 //Generacion de codigo:
+	 /*
+	 ProgPrincipal prog = new ProgPrincipal(raiz);
+	 System.out.println(prog.generateCode());
+	 */
  }
 }   
    

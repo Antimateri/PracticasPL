@@ -8,8 +8,10 @@ interface ASTNode {
     public T type(); // for the future
     public void bind(LinkedList<Map<String, Dec>> envs) throws UndefinedVariableException, RedefinedVariableException; // for the future
     public String generateCode();
+    public String generateDecFun();
     public NodeKind nodeKind();
     public String toString();
     public int setDelta(int last);
     public void setDepth(int depth);
+    public int maxMem();
 }
