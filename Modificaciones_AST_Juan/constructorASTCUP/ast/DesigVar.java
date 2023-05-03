@@ -30,6 +30,7 @@ public class DesigVar extends Desig{
     //devuelve la direccion del MP en el que fue declarada la variable (no necesariamente en el actual)
     public String getRealMP(){
         // --------falta por hacer. hay que utilizar el valor depth
+        return "";
     }
 
     public String generateCode(){

@@ -27,4 +27,6 @@ public abstract class Statement implements ASTNode{
     public int getSize(){ return 0; }
 
     public void setDepth(int depth){}
+
+    public String generateDecFun(){ return ""; }
 }
