@@ -89,12 +89,15 @@ public class DecFun extends Dec{
         //el parámetro returnDir guardará la dirección en memoria en la que guardar el resultado de la funcion (el espacio ya se ha reservado)
         str.append("(local $localsStart i32) \n");
         str.append("(local $temp i32) \n");
-        str.append("set_local $returnDir \n");
+
+        str.append("set_local $returnDir \n");//recibimos de pila el valor de $returnDir
+
         int memParams = params.getSize(); //tamaño de los parametros que vamos a recibir por pila (todos serán así)
         int memLocals = body.maxMem(); //tamaño de las variables locales + llamadas a función que se hagan en el cuerpo
         int mem = memParams + memLocals + 8; //+8 para guardar MP y SP
+        //Creamos el nuevo marco de ejecución:
         str.append("i32.const " + mem + " \n");
-        str.append("call $reserveStack \n");
+        str.append("call $reserveStack \n"); //reservamos la memoria necesaria para el nuevo marco
         str.append("set_local $temp \n");
         str.append("get_global $MP \n");
         str.append("get_local $temp \n"); 
@@ -105,7 +108,7 @@ public class DecFun extends Dec{
         str.append("get_global $MP \n");
         str.append("i32.const 8 \n");
         str.append("i32.add \n");
-        str.append("set_local $localsStart \n");
+        str.append("set_local $localsStart \n"); //$localsStart es la dirección desde la que se empeizan a guardar todas las variables/estructuras locales
         
         //instrucciones del cuerpo:
         str.append(body.generateCode());

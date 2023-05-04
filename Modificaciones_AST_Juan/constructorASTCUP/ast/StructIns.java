@@ -104,14 +104,14 @@ public class StructIns extends E {
     public String paramsToStack(){
         StringBuilder str = new StringBuilder();
 
-        //direccion de origen: MP+8+delta
+        str.append(generateCode());
+
+        //dirección de origen: $localsStart + delta
         str.append("i32.const"+ getDelta()+"\n");
-        str.append("get_global $MP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
+        str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
-        //direccion destino: SP + 8 (inicio del nuevo marco que vamos a crear con la llamada a la funcion)
+        //direccion destino: SP + 8 (inicio del nuevo marco que vamos a crear con la llamada a la función)
         str.append("get_global $SP\n");
         str.append("i32.const " + 8 + "\n");
         str.append("i32.add\n");
@@ -128,7 +128,7 @@ public class StructIns extends E {
     //Inicializacion del struct anónimo: copia en su espacio de memoria todos los campos del struct anónimo definido
     public String generateCode(){
         StringBuilder str = new StringBuilder();
-        int d = delta + 8; //desplazamiento desde MP
+        int d = delta; //desplazamiento desde $localsStart
         for(E a : args){
             //copiar en memoria el valor resultante de la expresión:
             str.append(a.codeCopyStack(d));
@@ -150,11 +150,11 @@ public class StructIns extends E {
     public String codeCopyAssign(String codeDirDest){
 		StringBuilder str = new StringBuilder();
 
-        //direccion de origen: MP+8+delta
+        str.append(generateCode());
+
+        //direccion de origen: $localsStart+delta
         str.append("i32.const"+ getDelta()+"\n");
-        str.append("get_global $MP\n");
-        str.append("i32.const 8 \n");
-        str.append("i32.add\n");
+        str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
         //direccion de destino:

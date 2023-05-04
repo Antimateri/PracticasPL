@@ -25,7 +25,8 @@ public class Main {
 	 }
 	 raiz.setDelta(0);
 	 raiz.setDepth(0);
-	 System.out.println(raiz);
+	 String code = new ProgPrincipal(raiz).generateCode();
+	 System.out.println(code);
  }
 }   
    

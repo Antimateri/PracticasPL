@@ -31,7 +31,7 @@ public class Return extends I{
     }
 
     public int maxMem(){
-        return e.getSize();
+        return e.maxMem();
     }
 
     public int setDelta(int last){
@@ -41,7 +41,8 @@ public class Return extends I{
     public String generateCode(){
         StringBuilder str = new StringBuilder();
 
-        str.append(e.codeCopyReturn());
+        String codeDirDest = "get_local $returnDir\n";
+        str.append(e.codeCopyAssign(codeDirDest));
 
         str.append("call $freeStack \n )");
         str.append("return \n )");

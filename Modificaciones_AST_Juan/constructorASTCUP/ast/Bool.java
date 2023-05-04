@@ -27,18 +27,18 @@ public class Bool extends E{
     public int getSize(){ return 4; }
 
     public String codeCopyStack(int d){
-		StringBuilder str = new StringBuilder();
-		str.append("get_global $MP\n");
-		str.append(this.generateCode());
-		str.append("i32.store offset=" + (d + 8) + "\n");
-		return str.toString();
+      StringBuilder str = new StringBuilder();
+      str.append("get_local $localsStart\n");
+      str.append(this.generateCode());
+      str.append("i32.store offset=" + d + "\n");
+      return str.toString();
     }
 
     public String codeCopyAssign(String codeDirDest){
-		StringBuilder str = new StringBuilder();
-		str.append(codeDirDest);
-		str.append(this.generateCode());
-		str.append("i32.store offset= \n");
-		return str.toString();
+      StringBuilder str = new StringBuilder();
+      str.append(codeDirDest);
+      str.append(this.generateCode());
+      str.append("i32.store\n");
+      return str.toString();
     }
 }
