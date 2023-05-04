@@ -18,7 +18,7 @@ public class Int extends E {
 	public T type() {return new TSimple(KindT.INT, RefMode.VALUE);}
 
 	public String generateCode(){
-		return "i32.const" + v + "\n" ;
+		return "i32.const " + v + "\n" ;
 	}
 
 	public int getSize(){ return 4; }

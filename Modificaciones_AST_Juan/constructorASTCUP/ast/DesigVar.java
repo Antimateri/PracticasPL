@@ -35,11 +35,11 @@ public class DesigVar extends Desig{
 
     public String generateCode(){
         StringBuilder str = new StringBuilder();
-        str.append("i32.const"+iden.getDelta()+"\n");
+        str.append("i32.const "+iden.getDelta()+"\n");
         str.append(getRealMP()); 
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
-        str.append("i32.add\n");
+        //str.append("i32.add\n"); //Aun no funciona
         return str.toString();
     }
 

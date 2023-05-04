@@ -19,9 +19,9 @@ public class Bool extends E{
 
     public String generateCode(){
         if(v.equals("true"))
-		    return "i32.const" + 1 + "\n" ;
+		    return "i32.const " + 1 + "\n" ;
         else
-            return "i32.const" + 0 + "\n" ;
+            return "i32.const " + 0 + "\n" ;
 	}
 
     public int getSize(){ return 4; }

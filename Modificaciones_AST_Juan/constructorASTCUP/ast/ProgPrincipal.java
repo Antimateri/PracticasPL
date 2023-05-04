@@ -31,6 +31,7 @@ public class ProgPrincipal {
         str.append("(type $_sig_i32ri32 (func (param i32) (result i32)))\n");
         str.append("(type $_sig_i32 (func (param i32)))\n");
         str.append("(type $_sig_ri32 (func (result i32)))\n");
+        str.append("(type $_sig_i32i32i32 (func (param i32 i32 i32)))");
         str.append("(type $_sig_void (func ))\n");
         str.append("(import \"runtime\" \"exceptionHandler\" (func $exception (type $_sig_i32)))\n");
         str.append("(import \"runtime\" \"print\" (func $print (type $_sig_i32)))\n");
@@ -79,7 +80,11 @@ public class ProgPrincipal {
 
         //Llamamos a la función main, que obligatoriamente hemos tenido que definir en nuestro programa.
         //main ha de ser de tipo void (no devuelve nada) y sin parámetros (no devuelve nada)
-        str.append("call $main\n");
+        
+        /*
+         * Descomentar cuando este listo
+         */
+        //str.append("call $main\n");
 
         str.append("call $freeStack\n");
         str.append(")\n");
@@ -89,7 +94,10 @@ public class ProgPrincipal {
     }
 
     public String codeEnd(){
-        return(")\n");
+        StringBuilder str = new StringBuilder();
+        str.append("(export \"memory\" (memory 0))\n"); //pa debug
+        str.append(")\n");
+        return str.toString();
     }
 
     public String codeReserveStack(){

@@ -35,4 +35,10 @@ public class Print extends I{
         return e.setDelta(last);
     }
     
+    public String generateCode(){
+        StringBuilder strb = new StringBuilder();
+        strb.append(e.generateCode() + "\n");
+        strb.append("call $print\n");
+        return strb.toString();
+    }
 }

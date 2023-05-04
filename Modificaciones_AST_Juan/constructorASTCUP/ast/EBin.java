@@ -110,7 +110,7 @@ public class EBin extends E {
 	public String generateCode(){
 		StringBuilder strb = new StringBuilder();
 		if(kind == KindE.MEM){
-			strb.append(((Desig)opnd1).generateCode() + "\n");
+			strb.append(opnd1.generateCode() + "\n");
 			strb.append("i32.load\n");
 		}
 		else{
