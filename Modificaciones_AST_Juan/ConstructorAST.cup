@@ -68,15 +68,17 @@ Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
 Linea ::= PUNTOCOMA
    {: RESULT=null; :};
+Linea ::= LAP Bl : b1 LCIERRE
+   {: RESULT=b1; :};
 
 
-Instr ::= IF: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+Instr ::= IF: palinea PAP Exp: e2 PCIERRE Linea: b2 PUNTOCOMA
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2);
       InsBin out = new InsBin(KindI.IF,array);
       out.setLine(palinea.fila);
       RESULT= out; :};
-Instr ::= WHILE: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
+Instr ::= WHILE: palinea PAP Exp: e2 PCIERRE Linea: b2
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2); 
       InsBin out = new InsBin(KindI.WHILE,array);
@@ -84,7 +86,7 @@ Instr ::= WHILE: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE
       RESULT= out; :};
 Instr ::= Asign: a1 PUNTOCOMA
    {: RESULT=a1; :};
-Instr ::= IFELSE: palinea PAP Exp: e2 PCIERRE LAP Bl: b2 LCIERRE ELSE LAP Bl: b3 LCIERRE
+Instr ::= IF: palinea PAP Exp: e2 PCIERRE Linea: b2 ELSE Linea: b3
    {: ArrayList<Statement> array = new ArrayList<Statement>();
       array.add(e2); array.add(b2); array.add(b3);
       InsBin out = new InsBin(KindI.IFELSE,array);
@@ -98,10 +100,11 @@ Instr ::= PRINT PAP Exp: e1 PCIERRE PUNTOCOMA
    {: Print out = new Print(e1);
       out.setLine(e1.getLine());
       RESULT= out; :};
-Instr ::= READ PAP IdVar: id1 PCIERRE PUNTOCOMA
+/*Instr ::= READ PAP IdVar: id1 PCIERRE PUNTOCOMA
    {: Read out = new Read(id1);
       out.setLine(id1.getLine());
       RESULT= out; :};
+*/
 Instr ::= IdFun: id1 EXEC PAP StructInitOrden: args PCIERRE
    {: FunctCall out = new FunctCall(id1,args);
       out.setLine(id1.getLine());
@@ -213,6 +216,10 @@ Op4 ::= IdFun: id1 CALL: palinea PAP PCIERRE
    {: FunctCall out = new FunctCall(id1,null);
       out.setLine(palinea.fila);
       RESULT= out; :};
+Op4 ::= READ: palinea PAP PCIERRE
+   {: Read out = new Read();
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op4 ::= Op5: aDefact
    {: RESULT=aDefact; :};
 
@@ -240,6 +247,10 @@ Op5 ::= NULL: palinea
       RESULT = out; :};
 Op5 ::= NOT Op5: arg
    {: EBin out =  new EBin(KindE.NOT, arg, null);
+      out.setLine(arg.getLine());
+      RESULT = out; :};
+Op5 ::= RESTA Op5: arg
+   {: EBin out =  new EBin(KindE.RESTA, new Int("0"), arg);
       out.setLine(arg.getLine());
       RESULT = out; :};
 
@@ -328,19 +339,19 @@ Decl ::= Tipo: t1 IdVar: id1
    {: DecVar out = new DecVar(t1, id1);
       out.setLine(t1.getLine());
       RESULT= out; :};
-Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE Linea: b1
    {: DecFun out = new DecFun(t1, id1, st1, b1);
       out.setLine(t1.getLine());
       RESULT= out; :}; 
-Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE Linea: b1
    {: DecFun out = new DecFun(t1, id1, null, b1);
       out.setLine(t1.getLine());
       RESULT= out; :}; 
-Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE  Linea: b1
    {: DecFun out = new DecFun(null, id1, st1, b1);
       out.setLine(id1.getLine());
       RESULT= out; :}; 
-Decl ::= PROC IdFun: id1 PAP PCIERRE LAP Bl: b1 LCIERRE
+Decl ::= PROC IdFun: id1 PAP PCIERRE Linea: b1
    {: DecFun out = new DecFun(null, id1, null, b1);
       out.setLine(id1.getLine());
       RESULT= out; :}; 

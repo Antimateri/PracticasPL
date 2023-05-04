@@ -17,9 +17,9 @@ public class DecFun extends Dec{
     //tipo de retorno de la funcion
     private T type;
     //cuerpo de la funcion
-    private Bloque body;
+    private Statement body;
     
-    public DecFun(T type, IdenFun name, TStruct params, Bloque body) {
+    public DecFun(T type, IdenFun name, TStruct params, Statement body) {
         this.name = name;
         this.params = params;
         this.type = type;

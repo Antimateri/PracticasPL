@@ -150,6 +150,11 @@ public class EBin extends E {
 				case EQ:
 					strb.append("i32.eq\n");
 				break;
+				case NEQ:
+					strb.append("i32.ne\n");
+				break;
+				case NOT:
+					strb.append("i32.eqz\n");
 				default: 
 				break;
 			}
