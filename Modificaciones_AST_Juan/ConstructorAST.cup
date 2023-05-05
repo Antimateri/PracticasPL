@@ -295,7 +295,13 @@ Tipo2 ::= Tipo3: t1 dimensiones: d1 CCIERRE
 */
 
 Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
-   {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
+   {: if (t1.kind() != KindT.LIST) 
+         RESULT = new TList(t1, Integer.parseInt(intValue.lexema));
+      else {
+         ((TList) t1).addList(Integer.parseInt(intValue.lexema));
+         RESULT = t1;
+      }
+   :};
 Tipo2 ::= Tipo3: t1
    {: RESULT = t1; :};
 
