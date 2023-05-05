@@ -107,7 +107,7 @@ public class StructIns extends E {
         str.append(generateCode());
 
         //dirección de origen: $localsStart + delta
-        str.append("i32.const"+ getDelta()+"\n");
+        str.append("i32.const "+ getDelta()+"\n");
         str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
@@ -153,7 +153,7 @@ public class StructIns extends E {
         str.append(generateCode());
 
         //direccion de origen: $localsStart+delta
-        str.append("i32.const"+ getDelta()+"\n");
+        str.append("i32.const "+ getDelta()+"\n");
         str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 

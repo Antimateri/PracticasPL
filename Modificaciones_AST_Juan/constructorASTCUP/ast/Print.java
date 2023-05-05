@@ -26,6 +26,11 @@ public class Print extends I{
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		return e.bind(envs);
 	}
+
+    public T type(){
+        if(e.type().kind()==KindT.ERROR)return e.type();
+        else return null;
+    }
     
     public int maxMem(){
         return e.getSize();

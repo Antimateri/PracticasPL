@@ -18,17 +18,17 @@ public class DesigCampo extends Desig{
     }
 
     public String toString(){
-        return des.toString() + "." + id.toString() + "]";
+        return des.toString() + "." + id.toString();
     }
 
 	@Override
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		boolean out = true;
 		out &= des.bind(envs);
-		Map<String, Dec> env = des.getDeclaration().getEnv();
-		if(env!=null)envs.push(env);
+		Map<String, Dec> env = des.getDeclaration().type().getEnv();
+		envs.push(env);
 		out &= id.bind(envs);
-		if(env!=null)envs.pop();
+		envs.pop();
 		return out;
 	}
 
@@ -41,7 +41,7 @@ public class DesigCampo extends Desig{
 		if(des.type().kind()!=KindT.STRUCT) Log.error(Log.ErrorType.TIPEERROR, this);
 		else{
 			TStruct t = (TStruct)des.type();
-			if(t.getDec(id.toString())!=null) return t.getDec(id.toString()).type();
+			if(t.getDec(id.name)!=null) return t.getDec(id.name).type();
 			else Log.error(Log.ErrorType.UNDEFINEDVARIABLE, this);
 		}
 		return new TError();

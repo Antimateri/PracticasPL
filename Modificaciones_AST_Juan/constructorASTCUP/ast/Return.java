@@ -44,8 +44,9 @@ public class Return extends I{
         String codeDirDest = "get_local $returnDir\n";
         str.append(e.codeCopyAssign(codeDirDest));
 
-        str.append("call $freeStack \n )");
-        str.append("return \n )");
+        str.append("call $freeStack \n");
+        str.append("get_local $returnDir\n");
+        str.append("return \n");
         return str.toString();
     }
     

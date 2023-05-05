@@ -74,6 +74,16 @@ public class Bloque extends I{
         StringBuilder str = new StringBuilder();
         for(Statement s : opnd){
             str.append(s.generateCode());
+            if(s.type() != null && (s.nodeKind() == NodeKind.EXPRESSION || s.nodeKind() == NodeKind.DESIGNATION) ) 
+                str.append("drop ;; Este se ha generado porque una linea acababa dejando basura en el stack\n");
+        }
+        return str.toString();
+    }
+
+    public String generateDecFun(){
+        StringBuilder str = new StringBuilder();
+        for(Statement s : opnd){
+            str.append(s.generateDecFun());
         }
         return str.toString();
     }

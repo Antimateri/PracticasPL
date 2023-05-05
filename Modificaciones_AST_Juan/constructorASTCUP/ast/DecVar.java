@@ -28,6 +28,7 @@ public class DecVar extends Dec{
 
     public int setDelta(int last){ 
         this.delta = last;
+        tipo.setDelta(0);
         return last + tipo.getSize();
     }
 

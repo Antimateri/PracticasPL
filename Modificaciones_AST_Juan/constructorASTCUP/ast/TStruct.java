@@ -70,6 +70,7 @@ public class TStruct extends T{
         return res;
     }
 
+    @Override
     public int setDelta(int x){ //en este caso ignoramos el parámetro, no nos hace falta
         int res = x;
         for (Dec d : opnd) { 

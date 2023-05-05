@@ -37,6 +37,11 @@ public class DecTipo extends Dec{
         return out;
 	}
 
+    public int setDelta(int last){
+        type.setDelta(0);
+        return last;
+    }
+
     public T type(){
         return type.type();
     }
