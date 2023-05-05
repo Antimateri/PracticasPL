@@ -8,6 +8,12 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import alex.AnalizadorLexicoExp;
+import ast.Declaraciones.*;
+import ast.Designadores.*;
+import ast.Expresiones.*;
+import ast.Instrucciones.*;
+import ast.Enumeradores.*;
+import ast.Tipos.*;
 import ast.*;
 
 public class Main {
@@ -16,11 +22,14 @@ public class Main {
 	 AnalizadorLexicoExp alex = new AnalizadorLexicoExp(input);
 	 ConstructorASTExp constructorast = new ConstructorASTExp(alex);
 	 Statement raiz = (Statement)constructorast.parse().value;
-	 if(!raiz.bind(new LinkedList<Map<String,Dec>>())){
+	 boolean out2 = raiz.bind(new LinkedList<Map<String,Dec>>());
+	 if(!out2){
+		System.out.println(raiz.toString());
 		throw new Exception("Error de enlazado");
 	 }
 	 T out = raiz.type();
 	 if(out != null && out.kind() == KindT.ERROR){
+		System.out.println(raiz.toString());
 		throw new Exception("Error de tipos");
 	 }
 	 raiz.setDelta(0);

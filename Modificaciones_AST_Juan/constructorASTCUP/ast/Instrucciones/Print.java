@@ -2,6 +2,7 @@ package ast.Instrucciones;
 import ast.Declaraciones.*;
 import ast.Enumeradores.*;
 import ast.Expresiones.*;
+import ast.Tipos.*;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -31,6 +32,11 @@ public class Print extends I{
     
     public int maxMem(){
         return e.getSize();
+    }
+
+    public T type(){
+        if(e.type().kind()==KindT.ERROR)return e.type();
+        else return null;
     }
 
     public int setDelta(int last){

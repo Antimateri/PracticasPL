@@ -1,5 +1,5 @@
 package errors;
-import ast.Statement;
+import ast.Instrucciones.Statement;
 
 public class Log {
     

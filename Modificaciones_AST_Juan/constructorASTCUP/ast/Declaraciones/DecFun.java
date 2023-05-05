@@ -52,6 +52,7 @@ public class DecFun extends Dec{
 
     public int setDelta(int last){
         int aux = 0;
+        if(type!=null) type.setDelta(0);
         if(this.params!=null)aux = params.setDelta(0);
         body.setDelta(aux);
         return last;
@@ -65,8 +66,9 @@ public class DecFun extends Dec{
             out=false;
         }
     	envs.getFirst().put(name.name, this);
+        out &= name.bind(envs);
         if(this.params!=null) out &= this.params.bind(envs);
-        out &= this.type.bind(envs);
+        if(this.type != null) out &= this.type.bind(envs);
         if(this.params!=null) envs.push(params.getEnv());
         out &= this.body.bind(envs);
         if(this.params!=null) envs.pop();
@@ -83,19 +85,23 @@ public class DecFun extends Dec{
         else return null; 
     }
 
-    public String generateCode(){
+    public String generateDecFun(){
         StringBuilder str = new StringBuilder();
         //cabecera:
-        str.append("(fun $"+name.toString()+"\n"); //en princpio las funciones de webassembly no devolverán nada
+        str.append("(func $"+name.toString()); //en princpio las funciones de webassembly no devolverán nada
+        if(type()!=null) str.append(" (type $_sig_i32ri32)\n");
+        else str.append(" (type $_sig_i32)\n");
         //secuencia de entrada:
         str.append("(param $returnDir i32) \n"); //es el primer el valor que hemos de encontrar en la pila
+        if(type()!=null) str.append("(result i32) \n");
         //el parámetro returnDir guardará la dirección en memoria en la que guardar el resultado de la funcion (el espacio ya se ha reservado)
         str.append("(local $localsStart i32) \n");
         str.append("(local $temp i32) \n");
 
-        str.append("set_local $returnDir \n");//recibimos de pila el valor de $returnDir
+        //str.append("set_local $returnDir \n");//recibimos de pila el valor de $returnDir
 
-        int memParams = params.getSize(); //tamaño de los parametros que vamos a recibir por pila (todos serán así)
+        int memParams = 0;
+        if(params!=null) memParams = params.getSize(); //tamaño de los parametros que vamos a recibir por pila (todos serán así)
         int memLocals = body.maxMem(); //tamaño de las variables locales + llamadas a función que se hagan en el cuerpo
         int mem = memParams + memLocals + 8; //+8 para guardar MP y SP
         //Creamos el nuevo marco de ejecución:
@@ -111,13 +117,13 @@ public class DecFun extends Dec{
         str.append("get_global $MP \n");
         str.append("i32.const 8 \n");
         str.append("i32.add \n");
-        str.append("set_local $localsStart \n"); //$localsStart es la dirección desde la que se empeizan a guardar todas las variables/estructuras locales
+        str.append("set_local $localsStart \n\n ;;Aqui empieza el cuerpo de la funcion\n\n"); //$localsStart es la dirección desde la que se empeizan a guardar todas las variables/estructuras locales
         
         //instrucciones del cuerpo:
         str.append(body.generateCode());
    
-        str.append("call $freeStack \n )");
-        str.append("return \n )");
+        str.append("call $freeStack \n");
+        str.append("return \n)\n\n");
         return str.toString();
     }
 
@@ -126,3 +132,4 @@ public class DecFun extends Dec{
     }
     
 }
+

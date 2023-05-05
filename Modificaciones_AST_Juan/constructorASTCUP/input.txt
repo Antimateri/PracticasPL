@@ -1,50 +1,16 @@
-typedef entero int;
-typedef fraccion (int n, int d);
-typedef nuevo :fraccion;
-
-fun int funcion(ref int a, pointer int b, int c, int d){
-    int x;
-    #x = a + d + ptrval(b) + c;
-    while(true){
-        ifElse(x > 10){
-            x = x - 10;
-        }
-        else{
-            x = x + 10;
-        }
-    }
-    return x;
-};
-
-int y;
-y=2;
-int x;
-x = funcion eval (1,pointer(y),3, 4);
-pointer int z;
-z = null;
-struct cocido has{
-    int a,
-    bool b,
-    fun int funcion(ref int a){
-        return a;
-    }
-};
-
-pointer (int n, int d)[4][5] array;
-
-
-print(pointer(array)[2]);
-
-(pointer int)[1] arr;
-
-
-:cocido madrileno;
-int input;
-read(input);
+fun int cabra(int x)
+    return x+1;
 ;
-madrileno = (input,true);
-print(madrileno.a == 1);
 
-int bad;
+typedef par (int a, int b);
 
-int[2][42][1] array2ElectricBoogaloo;
+(int a, int b) z;
+z.a = 1+3;
+z.b = 5;
+z = (1,2);
+print(z.a);
+print(z.b);
+:par w;
+w = (0,1);
+print(w.a);
+print(w.b);

@@ -6,6 +6,13 @@ import alex.AnalizadorLexicoExp;
 import alex.UnidadLexica;
 import alex.TokenValue;
 import errors.GestionErroresExp;
+import alex.AnalizadorLexicoExp;
+import ast.Declaraciones.*;
+import ast.Designadores.*;
+import ast.Expresiones.*;
+import ast.Instrucciones.*;
+import ast.Tipos.*;
+import ast.Enumeradores.*;
 import ast.*;
 
 scan with {: return getScanner().next_token(); :};

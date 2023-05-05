@@ -72,12 +72,14 @@ public class FunctCall extends E{
         str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
-        str.append("i32.const" + nombre.getDelta()+"\n");
+        str.append("i32.const " + nombre.getDelta()+"\n");
         str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
         //llamamos a la funcion declarada en webassembly:
         str.append("call $" + nombre.toString() + "\n");
+        if(type().kind()==KindT.BOOL || type().kind()==KindT.INT)
+            str.append("i32.load\n");
         return str.toString();
     }
 
@@ -101,17 +103,18 @@ public class FunctCall extends E{
     //Método que ejecuta la función (devolviendo en memoria el resultado)
 	//Sirve para inicializar structs anónimos 
 	public String codeCopyStack(int d){
-        return generateCode();
+        return generateCode() + "drop\n";
 	}
 
     public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
 		StringBuilder str = new StringBuilder();
 
         str.append(generateCode());
+        str.append("drop\n");
 
         //direccion de origen: $localsStart+delta
-        str.append("i32.const"+ getDelta()+"\n");
-        str.append("get_global $localsStart\n");
+        /*str.append("i32.const "+ getDelta()+"\n");
+        str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
         //direccion destino:
@@ -121,7 +124,10 @@ public class FunctCall extends E{
         str.append("i32.const " + nombre.getSize() + "\n");
         
         //llamamos a la funcion $copyn;
-        str.append("call $copyn\n");
+        str.append("call $copyn\n");*/
+
+        /*if( type() != null && type().kind()==KindT.BOOL || type().kind()==KindT.INT)
+            str.append("i32.load\n");*/
 
 		return str.toString();
 
