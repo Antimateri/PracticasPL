@@ -7,13 +7,10 @@ import ast.Tipos.*;
 import java.util.LinkedList;
 import java.util.Map;
 
-import errors.Log;
-
 //Designadores a posición de un array:
 public class DesigPosArray extends Desig{
     private E exp;
     private Desig des;
-    public KindDesig kind(){ return KindDesig.POSARRAY; }
 
     public DesigPosArray(Desig des, E exp){
         this.des = des;
@@ -21,12 +18,10 @@ public class DesigPosArray extends Desig{
     }
 
     public String toString(){
-        //Muestra del AST en string:
+        // Muestra del AST en string:
+        //return generateCode() + "\n";
         return des.toString() + "[" + exp.toString() + "]";
-        
-        //Para debuggear generacion de codigo
-        //aux = generateCode();
-        //return "\n" + aux + "\n" + "(" + des.toString() + ")" + "[" + exp.toString() + "]";
+        //return type().toString();
     }
 
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
@@ -41,34 +36,37 @@ public class DesigPosArray extends Desig{
 	}
 
     public T type() {
-        T out;
-        if(des.type().kind()!=KindT.LIST){
-            Log.error(Log.ErrorType.TIPEERROR, this);
-            out = new TError();
-        }
-        else
-            out = ((TList)(des.type())).prevType().type();
-        if(exp.type().kind()!=KindT.INT){
-            Log.error(Log.ErrorType.TIPEERROR, this);
-            out = new TError();
-        }
-        return out;
+        Desig currDes = this;
+        T currT = des.getDeclaration().type();
+        do { // El primero siempre es un DesigPosArray
+            if (currT.kind() == KindT.ERROR) return currT; 
+            currDes = ((DesigPosArray) currDes).nextDesig();
+            currT = ((TList) currT).nextType();
+        } while (currDes.kind() == KindDesig.POSARRAY);
+        return currT;
     }
 
-    public String generateCode(){
+    public KindDesig kind() { return KindDesig.POSARRAY; }
+
+    public Desig nextDesig() { return des; }
+
+    public String generateCode(){ // Deja en la cima de la pila la posición referida
         StringBuilder str = new StringBuilder();
-        if (des.kind() == KindDesig.VAR){
+        //if (des.kind() == KindDesig.VAR) {
             str.append(des.generateCode());
             str.append(exp.generateCode());
-        }
-        else{
-            str.append(des.generateCode());
-            TList arr = (TList) des.type(); // Esto se supone que tiene que ser un array
-            str.append("i32.const " + Integer.toString(arr.getDim()) + "\n");
+            str.append("i32.const " + type().getSize() + "\n");
             str.append("i32.mul\n");
-            str.append(exp.generateCode());
             str.append("i32.add\n");
-        }
+        //}
+        /*else {
+            String aux = des.generateCode();
+            str.append(exp.generateCode());
+            str.append("i32.const " + des.type().getSize() + "\n");
+            str.append("i32.mul\n");
+            str.append("i32.add\n");
+            str.append(des.generateCode());
+        }*/
         
         return str.toString();
     }
