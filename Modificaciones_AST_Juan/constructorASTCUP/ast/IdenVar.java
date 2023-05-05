@@ -13,4 +13,6 @@ public class IdenVar extends Iden{
 
     public int getDelta(){ return super.nodeDec.getDelta(); }
 
+    public int getDepth(){ return super.nodeDec.getDepth(); }
+
 }

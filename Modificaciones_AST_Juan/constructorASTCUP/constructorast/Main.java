@@ -3,6 +3,7 @@ package constructorast;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ public class Main {
 	 AnalizadorLexicoExp alex = new AnalizadorLexicoExp(input);
 	 ConstructorASTExp constructorast = new ConstructorASTExp(alex);
 	 Statement raiz = (Statement)constructorast.parse().value;
-	 //System.out.println(constructorast.parse().value);
 	 if(!raiz.bind(new LinkedList<Map<String,Dec>>())){
 		throw new Exception("Error de enlazado");
 	 }
@@ -25,8 +25,11 @@ public class Main {
 	 }
 	 raiz.setDelta(0);
 	 raiz.setDepth(0);
+	 System.out.println(raiz.toString());
+	 FileWriter writer = new FileWriter("./output.wat");
 	 String code = new ProgPrincipal(raiz).generateCode();
-	 System.out.println(code);
+	 writer.write(code);	
+	 writer.close();
  }
 }   
    

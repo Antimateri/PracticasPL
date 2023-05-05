@@ -29,8 +29,10 @@ public class DesigVar extends Desig{
 
     //devuelve la direccion del MP en el que fue declarada la variable (no necesariamente en el actual)
     public String getRealMP(){
-        // --------falta por hacer. hay que utilizar el valor depth
-        return "";
+        if(iden.getDepth() == 0) 
+            return "i32.const 0\n";
+        else 
+            return "get_local $mp\n";
     }
 
     public String generateCode(){
@@ -39,7 +41,7 @@ public class DesigVar extends Desig{
         str.append(getRealMP()); 
         str.append("i32.const 8 \n");
         str.append("i32.add\n");
-        //str.append("i32.add\n"); //Aun no funciona
+        str.append("i32.add\n"); //Aun no funciona
         return str.toString();
     }
 

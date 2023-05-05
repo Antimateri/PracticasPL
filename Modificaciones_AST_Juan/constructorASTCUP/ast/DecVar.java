@@ -60,4 +60,8 @@ public class DecVar extends Dec{
     public void setDepth(int depth){
         this.depth = depth;
     }
+
+    public int getDepth(){
+        return depth;
+    }
 }
