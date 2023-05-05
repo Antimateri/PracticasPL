@@ -32,7 +32,6 @@ import errors.GestionErroresExp;
 int = int
 bool = bool
 if = if
-ifelse = ifElse
 else = else
 while = while
 fun = fun
@@ -100,7 +99,6 @@ puntoComa = ;
 {int}                     {return ops.unidadTipoInt();}
 {bool}                    {return ops.unidadTipoBool();}
 {if}                      {return ops.unidadIf();}
-{ifelse}                  {return ops.unidadIfElse();}
 {else}                    {return ops.unidadElse();}
 {while}                   {return ops.unidadWhile();}
 {fun}                     {return ops.unidadFun();}

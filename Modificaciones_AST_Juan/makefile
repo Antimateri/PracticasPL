@@ -17,3 +17,7 @@ true:
 comp: ast
 	./wat2wasm constructorASTCUP/output.wat
 	node runner.js
+
+comptrue: true
+	./wat2wasm constructorASTCUP/output.wat
+	node runner.js

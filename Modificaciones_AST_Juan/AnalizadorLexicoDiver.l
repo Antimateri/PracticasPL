@@ -32,7 +32,6 @@ import errors.GestionErroresExp;
 int = int
 bool = depende
 if = padron
-ifelse = sipica
 else = nopica
 while = ajo
 fun = cabra
@@ -99,7 +98,6 @@ dospuntos = :
 {int}                     {return ops.unidadTipoInt();}
 {bool}                    {return ops.unidadTipoBool();}
 {if}                      {return ops.unidadIf();}
-{ifelse}                  {return ops.unidadIfElse();}
 {else}                    {return ops.unidadElse();}
 {while}                   {return ops.unidadWhile();}
 {fun}                     {return ops.unidadFun();}

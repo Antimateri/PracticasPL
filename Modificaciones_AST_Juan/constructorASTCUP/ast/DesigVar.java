@@ -32,7 +32,7 @@ public class DesigVar extends Desig{
         if(iden.getDepth() == 0) 
             return "i32.const 0\n";
         else 
-            return "get_local $mp\n";
+            return "get_global $MP\n";
     }
 
     public String generateCode(){

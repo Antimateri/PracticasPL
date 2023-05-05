@@ -15,9 +15,6 @@ public class ALexOperations {
    public UnidadLexica unidadIf(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IF); 
    }
-   public UnidadLexica unidadIfElse(){
-      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.IFELSE); 
-   }
    public UnidadLexica unidadElse(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.ELSE); 
    }
