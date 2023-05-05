@@ -8,26 +8,26 @@ import java.util.Map;
 public class TList extends T{
     private T t; //tipo de sus elementos
     private int length; //longitud de la lista
-    private int dim; // dimensión de la lista
 
     public TList(T t, int length) {
         this.t = t;
         this.length = length;
-        this.dim = length;
-        if (this.t.kind() == KindT.LIST) this.dim *= ((TList) t).getDim();
+    }
+
+    public void addList(int dim) {
+        if (t.kind() != KindT.LIST) t = new TList(t, dim);
+        else ((TList) t).addList(dim);
     }
 
     public String toString(){
-        return "T["+Integer.toString(length)+"](" + t.toString() + ",  dim: " + Integer.toString(dim) +" )" ;
+        return "T["+Integer.toString(length)+"](" + t.toString() + ")" ;
     }
 
     public KindT kind() { return KindT.LIST; }
     
     public int getSize(){ return length * t.getSize(); } //tamaño total en memoria del array
 
-    public int getDim() { return dim; } //dimension total (en numero de elementos) del array
-
-    public T prevType(){ return t; }
+    public T nextType(){ return t; }
 
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		return t.bind(envs);
