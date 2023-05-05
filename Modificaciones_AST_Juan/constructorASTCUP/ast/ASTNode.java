@@ -1,10 +1,14 @@
 package ast;
 
+import ast.Tipos.*;
+import ast.Enumeradores.*;
+import ast.Declaraciones.*;
+
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
-interface ASTNode {
+
+public interface ASTNode {
     public T type(); // for the future
     public boolean bind(LinkedList<Map<String, Dec>> envs); // for the future
     public String generateCode();
