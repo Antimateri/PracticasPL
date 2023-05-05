@@ -1,32 +1,14 @@
 segunyo entero int;
-segunyo fraccion (int n, int d);
-segunyo nuevo :fraccion;
 
-cabra int jimmy(ref int a, apunta int b, int c, int d){
-    int queso;
-    queso = a + d + palante(b) + c;
-    ajo(pica){
-        sipica(queso > 10){
-            queso = queso - 10;
-        }
-        nopica{
-            queso = queso + 10;
-        }
-    }
-    caga queso;
-};
-
-cocido madrileno lleva{
-    int a,
-    depende b,
-    baca juanita(int c){
-        a=c;
-    }
-};
-
-:madrileno dePepita;
-dePepita = (1, true);
-
-dePepita.juanita rumia (2);
-
-jimmy come dePepita;
+:entero x;
+:entero y;
+x=2;
+y=padentro();
+pafuera(x);
+pafuera(y);
+padron(x == y)
+    pafuera( 0 );
+nopica padron(x>y)
+    pafuera(1);
+nopica
+    pafuera(-1);

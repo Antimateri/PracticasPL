@@ -51,10 +51,7 @@ true = pica
 false = vallamierda
 exec = rumia
 procedure = baca
-class = ganado
-atributes = miembros
-constructor = pare
-methods = cosasquehacer
+puntoComa = ;
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
@@ -67,13 +64,13 @@ reservada = ({tipo}|{condicional}|{bucle}|{registro}|{funcion})
 letra  = ([A-Z]|[a-z])
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
-parteEntera = {digitoPositivo}{digito}*
+parteEntera = ({digitoPositivo}{digito}* | 0)
 parteDecimal = {digito}* {digitoPositivo}
 separador = [ \t\r\b\n]
 comentario = #[^\n]*
 identificador = {letra}({letra}|{digito})*
-numeroEntero = [\+\-]?{parteEntera}
-numeroReal = [\+\-]?{parteEntera}\.{parteDecimal}
+numeroEntero = {parteEntera}
+numeroReal = {parteEntera}\.{parteDecimal}
 operadorSuma = \+
 operadorResta = \-
 operadorMultiplicacion = \*
@@ -95,7 +92,6 @@ igual = \=
 coma  = ,
 punto = \.
 dospuntos = :
-puntoComa = ;
 
 
 %%
@@ -122,10 +118,6 @@ puntoComa = ;
 {false}                   {return ops.unidadFalse();}
 {exec}                    {return ops.unidadExec();}
 {procedure}               {return ops.unidadProc();}
-{class}                   {return ops.unidadClass();}
-{atributes}               {return ops.unidadAtributes();}
-{constructor}             {return ops.unidadConstructor();}
-{methods}                 {return ops.unidadMethods();}
 
 {separador}               {}
 {comentario}              {}
