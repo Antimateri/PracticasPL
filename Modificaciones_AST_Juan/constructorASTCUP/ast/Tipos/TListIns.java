@@ -100,4 +100,6 @@ public class TListIns extends E {
 
 		return str.toString();
     }
+
+    public int getSize() { return t.getSize(); }
 }
