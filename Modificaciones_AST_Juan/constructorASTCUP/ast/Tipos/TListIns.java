@@ -13,9 +13,12 @@ public class TListIns extends E {
 
     private ArrayList <E> listaExp; // Puede ser una expresion o un TListIns
     private T t; // Tipo del array
+    private int delta; // delta para la posición de memoria
+
     public TListIns (ArrayList <E> listaExp){
         this.listaExp = listaExp;
         t = calculateType();
+        delta = 0; // Por ahora, luego se calcula
         if (t.kind() == KindT.ERROR) 
             Log.error(Log.ErrorType.TIPEERROR, this);
     }
@@ -44,5 +47,57 @@ public class TListIns extends E {
         return str.toString();
     }
     
-    public int setDelta(int last){ return last; }
+    public int setDelta(int last){
+        this.delta = last;
+        int ret = last;
+        for (E e : listaExp){
+            e.setDelta(ret);
+            ret += e.getSize();
+        }
+        return ret;
+    }
+
+    public int getDelta() { return delta; }
+
+    public String generateCode(){
+        StringBuilder str = new StringBuilder();
+        int daux = delta; 
+        for (E e : listaExp) {
+            // copiar en memoria el valor resultante de la expresión
+            str.append(e.codeCopyStack(daux));
+            daux += e.getSize();
+        }
+        return str.toString();
+    }
+
+    public String codeCopyStack(int line){
+        StringBuilder str = new StringBuilder();
+        for (E e : listaExp) {
+            str.append(e.codeCopyStack(line));
+            line += e.getSize();
+        }
+        return str.toString();
+    }
+
+    public String codeCopyAssign(String codeDirDest){
+		StringBuilder str = new StringBuilder();
+
+        str.append(generateCode());
+
+        //direccion de origen: $localsStart+delta
+        str.append("i32.const "+ getDelta()+"\n");
+        str.append("get_local $localsStart\n");
+        str.append("i32.add\n");
+
+        //direccion de destino:
+		str.append(codeDirDest);
+
+		//tamaño de los datos:
+        str.append("i32.const " + getSize() + "\n");
+        
+        //llamamos a la funcion $copyn;
+        str.append("call $copyn\n");
+
+		return str.toString();
+    }
 }
