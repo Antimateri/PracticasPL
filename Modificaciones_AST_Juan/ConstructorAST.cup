@@ -65,6 +65,30 @@ Bl ::= Linea: l1
    {: Bloque out = new Bloque(l1);
       out.setLine(l1.getLine());
       RESULT= out; :};
+Bl ::= Bl: b1 Tipo: t1 IdVar: id1 IGUAL: palinea Exp: e2 PUNTOCOMA
+   {: DecVar dec = new DecVar(t1, id1);
+      dec.setLine(t1.getLine());
+      b1.append(dec);
+      DesigVar des = new DesigVar(id1);
+      des.setLine(id1.getLine());
+      ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(des); array.add(e2);
+      InsBin out = new InsBin(KindI.ASIG,array);
+      out.setLine(palinea.fila);
+      b1.append(out);
+      RESULT= b1; :};
+Bl ::= Tipo: t1 IdVar: id1 IGUAL: palinea Exp: e2 PUNTOCOMA
+   {: DecVar dec = new DecVar(t1, id1);
+      dec.setLine(t1.getLine());
+      Bloque b1 = new Bloque(dec);
+      DesigVar des = new DesigVar(id1);
+      des.setLine(id1.getLine());
+      ArrayList<Statement> array = new ArrayList<Statement>();
+      array.add(des); array.add(e2);
+      InsBin out = new InsBin(KindI.ASIG,array);
+      out.setLine(palinea.fila);
+      b1.append(out);
+      RESULT= b1; :};
 
 Blin ::= LAP Bl: b1 LCIERRE
    {: RESULT= b1; :};
@@ -295,13 +319,7 @@ Tipo2 ::= Tipo3: t1 dimensiones: d1 CCIERRE
 */
 
 Tipo2 ::= Tipo2: t1 CAP INT: intValue CCIERRE
-   {: if (t1.kind() != KindT.LIST) 
-         RESULT = new TList(t1, Integer.parseInt(intValue.lexema));
-      else {
-         ((TList) t1).addList(Integer.parseInt(intValue.lexema));
-         RESULT = t1;
-      }
-   :};
+   {: RESULT = new TList(t1, Integer.parseInt(intValue.lexema)); :};
 Tipo2 ::= Tipo3: t1
    {: RESULT = t1; :};
 
