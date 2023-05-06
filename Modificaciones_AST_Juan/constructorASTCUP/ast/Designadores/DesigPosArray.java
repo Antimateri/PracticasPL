@@ -20,7 +20,7 @@ public class DesigPosArray extends Desig{
     public String toString(){
         // Muestra del AST en string:
         //return generateCode() + "\n";
-        return des.toString() + "[" + exp.toString() + "]";
+        return des.toString() + "[" + exp.toString() + "], size = " + this.type().getSize() + "\n";
         //return type().toString();
     }
 
@@ -72,6 +72,6 @@ public class DesigPosArray extends Desig{
     }
 
     //Tamaño del elemento del array al que estamos accediendo en este designador:
-    public int getSize(){ return des.getSize(); } //creo que hay que corregir esto
+    public int getSize(){ return type().getSize(); }
 
 }
