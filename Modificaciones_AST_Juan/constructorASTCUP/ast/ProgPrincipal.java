@@ -150,6 +150,10 @@ public class ProgPrincipal {
         str.append("(param $src i32)\n");
         str.append("(param $dest i32)\n");
         str.append("(param $n i32)\n");
+        str.append("get_local $n\n");
+        str.append("i32.const 4\n");
+        str.append("i32.div_s\n");
+        str.append("set_local $n\n");
         str.append("block\n");
         str.append("loop\n");
         str.append("get_local $n\n");
