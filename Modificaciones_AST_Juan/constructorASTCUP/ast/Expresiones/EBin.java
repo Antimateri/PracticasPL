@@ -71,10 +71,14 @@ public class EBin extends E {
 			case DIV:
 			case MOD:
 			case POT:
+				if(opnd1.type().kind() == KindT.INT && opnd2.type().kind() == KindT.INT)
+					return opnd1.type();
+				Log.error(Log.ErrorType.TIPEERROR, this);
+				return new TError();
 			case MAY:
 			case MEN:
 				if(opnd1.type().kind() == KindT.INT && opnd2.type().kind() == KindT.INT)
-					return opnd1.type();
+					return new TSimple(KindT.BOOL, RefMode.VALUE); // Creo que con esto debería valer...
 				Log.error(Log.ErrorType.TIPEERROR, this);
 				return new TError();
 			case AND:
@@ -137,7 +141,7 @@ public class EBin extends E {
 					strb.append("i32.rem_u\n");
 				break;
 				case POT:
-					//
+					// lo hago al final que se tarda poco xdd
 				break;
 				case AND:
 					strb.append("i32.and\n");
