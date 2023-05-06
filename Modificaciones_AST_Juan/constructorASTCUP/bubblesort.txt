@@ -1,0 +1,32 @@
+fun int printArray (int [10] arr){
+    int i = 0;
+    while (i < 10) {
+        print(arr[i]);
+        i = i + 1;
+    }
+    return 42;
+};
+
+fun int[10] bubblesort (int [10] v) {
+    int i = 0;
+    while (i < 10) {
+        int posMenor = i;
+        int j = i + 1;
+        while (j < 10){
+            if (v[posMenor] > v[j]) {
+                posMenor = j;
+            };
+            j = j + 1;
+        }
+        int temp = v[i];
+        v[i] = v[posMenor];
+        v[posMenor] = temp;
+        i = i + 1;
+    }
+    return v;
+};
+
+# ASÍ FUNCIONA PERO AL HACER RETURN SOBREESCRIBE POSICIONES DE MEMORIA QUE NO DEBERÍA
+int[10] v = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+v = bubblesort eval (v);
+printArray eval (v);
