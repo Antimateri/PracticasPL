@@ -4,6 +4,7 @@ import ast.Enumeradores.*;
 import ast.Instrucciones.*;
 import ast.Tipos.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -12,20 +13,22 @@ import errors.Log;
 // Nodo para la declaración de variables:
 public class DecVar extends Dec{
     private T tipo; //Tipo de la variable declarada
-    private IdenVar identificador; //Identificador de la variable declarada
     private int delta = 0;
     private int depth = 0;
 
   //El primer operador es el tipo y el segundo el identificador:
     public DecVar(T tipo, IdenVar id) {
+        if(typed == null){
+            typed = new HashSet<String>();
+        }
         this.tipo = tipo;
-        this.identificador = id;
+        this.name = id;
     }
 
     public KindDec kind() {return KindDec.VAR;}
 
     public String toString() {
-        return "var("+ tipo.toString()+","+ identificador.toString() + ")";
+        return "var("+ tipo.toString()+","+ name.toString() + ")";
     }
 
     public int getSize(){ return tipo.getSize(); }
@@ -44,12 +47,12 @@ public class DecVar extends Dec{
 
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
         boolean out = true;
-		if(envs.getFirst().containsKey(identificador.name)){
+		if(envs.getFirst().containsKey(name.name)){
             Log.error(Log.ErrorType.REDEFINEDVARIABLE, this);
             out = false;
         }
-		envs.getFirst().put(identificador.name, this);
-        out &= identificador.bind(envs);
+		envs.getFirst().put(name.name, this);
+        out &= name.bind(envs);
 		out &= tipo.bind(envs);
         return out;
 	}

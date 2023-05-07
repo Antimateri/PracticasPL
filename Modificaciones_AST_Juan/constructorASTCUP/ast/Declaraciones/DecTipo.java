@@ -4,18 +4,20 @@ import ast.Enumeradores.*;
 import ast.Instrucciones.*;
 import ast.Tipos.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import errors.Log;
 
 // Nodo para la definición de un nuevo tipo por parte del usuario (alias, typedef)
 public class DecTipo extends Dec{
-    // Identificador del nuevo tipo:
-    private IdenType name;
     // Tipo al que se le asigna el alias:
     private T type;
 
     public DecTipo(IdenType name, T type) {
+        if(typed == null){
+            typed = new HashSet<String>();
+        }
         this.name = name;
         this.type = type;
         name.setSize(type.getSize());

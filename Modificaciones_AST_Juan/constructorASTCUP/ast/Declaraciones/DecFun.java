@@ -3,6 +3,8 @@ package ast.Declaraciones;
 import ast.Enumeradores.*;
 import ast.Instrucciones.*;
 import ast.Tipos.*;
+
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -12,8 +14,6 @@ import errors.Log;
 public class DecFun extends Dec{
     public KindDec kind() {return KindDec.FUN;}
 
-    //nombre de la funcion
-    private IdenFun name;
     //parametros de la funcion en forma de un tipo struct anonimo
     //al hacer el ast ha parecido conveniente hacerlo asi pero contemplamos hacer algo propio si complica mucho el resto del proceso
     private TStruct params;
@@ -23,6 +23,9 @@ public class DecFun extends Dec{
     private Statement body;
     
     public DecFun(T type, IdenFun name, TStruct params, Statement body) {
+        if(typed == null){
+            typed = new HashSet<String>();
+        }
         this.name = name;
         this.params = params;
         this.type = type;
@@ -76,6 +79,8 @@ public class DecFun extends Dec{
 	}
 
     public T type(){
+        if(typed.contains(name.name)) return type;
+        typed.add(name.name);
         T b= body.type();
         if((b==null && type!=null) || (type==null && b!=null) || (b!=null && type!=null && !type.type().compatible(b))){
             Log.error(Log.ErrorType.FUNCTIONRETURNMISSMATCH, this);
