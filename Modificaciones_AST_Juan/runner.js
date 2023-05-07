@@ -51,7 +51,7 @@ async function start() {
     const code = readFileSync("output.wasm");
     wasmModule = await WebAssembly.compile(code);
     instance = await WebAssembly.instantiate(wasmModule, importObjects);
-//    await instance.exports.init();
+    process.exit(0);
 }
 
 async function run() {

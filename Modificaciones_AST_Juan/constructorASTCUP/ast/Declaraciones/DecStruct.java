@@ -4,6 +4,7 @@ import ast.Enumeradores.*;
 import ast.Instrucciones.*;
 import ast.Tipos.*;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -11,12 +12,13 @@ import errors.Log;
 
 //Declaración de tipo struct
 public class DecStruct extends Dec{
-    //Identificador del nuevo tipo struct:
-    private IdenType name;
     //definicion de la estructura como struct anonimo:
     private TStruct data;
     
     public DecStruct(IdenType name, TStruct data) {
+        if(typed == null){
+            typed = new HashSet<String>();
+        }
         this.name = name;
         this.data = data;
         name.setSize(data.getSize());
