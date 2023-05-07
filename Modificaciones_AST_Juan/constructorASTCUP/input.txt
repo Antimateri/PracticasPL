@@ -14,3 +14,6 @@ print(z.b);
 w = (0,1);
 print(w.a);
 print(w.b);
+
+pointer int x;
+x = new int;

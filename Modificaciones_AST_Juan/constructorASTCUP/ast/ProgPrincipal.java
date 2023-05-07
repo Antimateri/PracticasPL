@@ -13,6 +13,7 @@ public class ProgPrincipal {
         str.append(codeReserveStack());
         str.append(codeFreeStack());
         str.append(codeCopyN());
+        str.append(codeReserveHeap());
 
         str.append(codeInit());
 
@@ -36,7 +37,7 @@ public class ProgPrincipal {
         str.append("(import \"runtime\" \"exceptionHandler\" (func $exception (type $_sig_i32)))\n");
         str.append("(import \"runtime\" \"print\" (func $print (type $_sig_i32)))\n");
         str.append("(import \"runtime\" \"read\" (func $read (type $_sig_ri32)))\n");
-        str.append("(memory 2000)\n");
+        str.append("(memory 400)\n");
         str.append("(global $SP (mut i32) (i32.const 0)) ;; start of stack\n");
         str.append("(global $MP (mut i32) (i32.const 0)) ;; mark pointer\n");
         str.append("(global $NP (mut i32) (i32.const 131071996)) ;; heap 2000*64*1024-4\n");
@@ -177,6 +178,30 @@ public class ProgPrincipal {
         str.append("set_local $src\n");
         str.append("br 0\n");
         str.append("end\n");
+        str.append("end\n");
+        str.append(")\n");
+        str.append("\n");
+
+        return str.toString();
+    }
+
+    public String codeReserveHeap(){
+        StringBuilder str = new StringBuilder();
+
+        str.append("(func $reserveHeap (param $size i32)\n");
+        str.append("(result i32)\n");
+        //Hacemos $NP = $NP-size:
+        str.append("get_global $NP\n");
+        str.append("get_local $size\n");
+        str.append("i32.sub\n");
+        str.append("get_global $NP\n");
+        //Comprobamos ahora si SP Y NP se cruzan:
+        str.append("get_global $SP\n");
+        str.append("get_global $NP\n");
+        str.append("i32.gt_u\n");
+        str.append("if\n");
+        str.append("i32.const 3\n");
+        str.append("call $exception\n");
         str.append("end\n");
         str.append(")\n");
         str.append("\n");

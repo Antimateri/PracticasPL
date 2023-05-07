@@ -66,6 +66,9 @@ public class ALexOperations {
    public UnidadLexica unidadProc(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.PROC); 
    }
+   public UnidadLexica unidadNew(){
+      return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.NEW); 
+   }
    public UnidadLexica unidadTipeDef(){
       return new UnidadLexica(alex.fila(),alex.columna(),ClaseLexica.TIPEDEF); 
    }

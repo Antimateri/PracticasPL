@@ -6,7 +6,7 @@
 (import "runtime" "exceptionHandler" (func $exception (type $_sig_i32)))
 (import "runtime" "print" (func $print (type $_sig_i32)))
 (import "runtime" "read" (func $read (type $_sig_ri32)))
-(memory 2000)
+(memory 400)
 (global $SP (mut i32) (i32.const 0)) ;; start of stack
 (global $MP (mut i32) (i32.const 0)) ;; mark pointer
 (global $NP (mut i32) (i32.const 131071996)) ;; heap 2000*64*1024-4
@@ -43,6 +43,10 @@ set_global $MP
 (param $src i32)
 (param $dest i32)
 (param $n i32)
+get_local $n
+i32.const 4
+i32.div_s
+set_local $n
 block
 loop
 get_local $n
@@ -69,10 +73,25 @@ end
 end
 )
 
+(func $reserveHeap (param $size i32)
+(result i32)
+get_global $NP
+get_local $size
+i32.sub
+get_global $NP
+get_global $SP
+get_global $NP
+i32.gt_u
+if
+i32.const 3
+call $exception
+end
+)
+
 (func $init (type $_sig_void)
 (local $localsStart i32) 
 (local $temp i32) 
-i32.const 48 
+i32.const 52 
 call $reserveStack 
 set_local $temp 
 get_global $MP 
@@ -183,6 +202,15 @@ i32.add
 i32.load
 
 call $print
+i32.const 24
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
+i32.const 4
+call $reserveHeap
+get_global $NP
+i32.store
 call $freeStack
 )
 

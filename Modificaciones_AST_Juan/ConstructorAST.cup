@@ -34,7 +34,7 @@ init with {:
 
 terminal TokenValue IF, WHILE, ELSE, FUN, TIPEDEF, CALL, RETURN, STRUCT, LLEVA, PROC, EXEC,
          SUMA, RESTA, MUL, DIV, MOD, POT, AND, OR, MAYOR, MENOR, OPIGUAL, DIST, NOT,
-         PRINT, READ,
+         PRINT, READ, NEW,
          PAP, PCIERRE, CAP, CCIERRE, LAP, LCIERRE,
          PUNTOCOMA, IGUAL, COMA, PUNTO, DOSPUNTOS,
          TIPOINT, TIPOBOOL, NULL, REF, PUNTERO, VALPTR,
@@ -244,6 +244,8 @@ Op3 ::= Op3: aDeterm1 OR: palinea Op4: aDefact
 Op3 ::= Op4: aDefact
    {: RESULT=aDefact; :};                                  
 
+Op4 ::= NEW Tipo: t1
+   {: RESULT = new New(t1); :};
 Op4 ::= IdFun: id1 CALL: palinea PAP StructInitOrden: args PCIERRE
    {: FunctCall out = new FunctCall(id1,args);
       out.setLine(palinea.fila);

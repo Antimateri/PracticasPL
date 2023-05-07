@@ -50,6 +50,7 @@ true = true
 false = false
 exec = exec
 procedure = proc
+new = new
 
 tipo = (int | bool)
 condicional = ({if}|{ifelse}|{else})
@@ -117,6 +118,7 @@ puntoComa = ;
 {false}                   {return ops.unidadFalse();}
 {exec}                    {return ops.unidadExec();}
 {procedure}               {return ops.unidadProc();}
+{new}                     {return ops.unidadNew();}
 
 {separador}               {}
 {comentario}              {}
