@@ -189,12 +189,13 @@ public class ProgPrincipal {
         StringBuilder str = new StringBuilder();
 
         str.append("(func $reserveHeap (param $size i32)\n");
-        str.append("(result i32)\n");
+        //str.append("(result i32)\n");
         //Hacemos $NP = $NP-size:
         str.append("get_global $NP\n");
         str.append("get_local $size\n");
         str.append("i32.sub\n");
-        str.append("get_global $NP\n");
+        str.append("set_global $NP\n");
+        //str.append("get_global $NP\n");
         //Comprobamos ahora si SP Y NP se cruzan:
         str.append("get_global $SP\n");
         str.append("get_global $NP\n");
