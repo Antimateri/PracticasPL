@@ -1,12 +1,22 @@
-fun int test (int num1, int num2) {
-    int num3 = 104;
-    return num1 + num2;
+
+struct struct2 has {
+    int[2] arr
 };
 
-int basura1 = 101;
-int basura2 = 102;
-int basura3 = 103;  
+struct mistruct has {
+    int x,
+    bool y,
+    :struct2 s2
+};
 
-int a = 17;
-a = test eval (a, 3);
-print(a);
+:mistruct str = (1, true, (,[4,3]));
+
+print(str.s2.arr[0]);
+
+int k = 3;
+
+str.x = 2;
+
+k = k + str.x;
+
+print (k);
