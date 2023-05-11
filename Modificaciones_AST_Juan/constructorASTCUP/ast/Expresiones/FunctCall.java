@@ -27,7 +27,7 @@ public class FunctCall extends E{
         if(args==null) 
             return nombre.toString() + "()";
         else
-            return nombre.toString() + "(" + args.toString() + ")";
+            return nombre.toString() + "(//delta="+ delta +"// "+ args.toString() + ")";
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FunctCall extends E{
     }
 
     public int maxMem(){ //Lo que ocupa el valor que devuelve, para guardarlo en memoria despues
-        return nombre.type().getSize();
+        return nombre.type().getSize() + args.maxMem();
     }
 
     public String generateCode(){
@@ -72,7 +72,7 @@ public class FunctCall extends E{
         str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
-        str.append("i32.const " + nombre.getDelta()+"\n");
+        str.append("i32.const " + getDelta()+"\n");
         str.append("get_local $localsStart\n");
         str.append("i32.add\n");
 
@@ -109,8 +109,9 @@ public class FunctCall extends E{
     public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
 		StringBuilder str = new StringBuilder();
 
+        str.append(codeDirDest);
         str.append(generateCode());
-        str.append("drop\n");
+        str.append("i32.store\n");
 
         //direccion de origen: $localsStart+delta
         /*str.append("i32.const "+ getDelta()+"\n");

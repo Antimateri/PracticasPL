@@ -34,6 +34,7 @@ public class StructIns extends E {
 
     public String toString() {
         StringBuilder res = new StringBuilder();
+        res.append("struct delta="+delta+"\n");
         res.append("{");
         for (E arg : args) {
             res.append(arg.toString());

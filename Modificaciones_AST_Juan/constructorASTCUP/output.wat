@@ -73,25 +73,10 @@ end
 end
 )
 
-(func $reserveHeap (param $size i32)
-(result i32)
-get_global $NP
-get_local $size
-i32.sub
-get_global $NP
-get_global $SP
-get_global $NP
-i32.gt_u
-if
-i32.const 3
-call $exception
-end
-)
-
 (func $init (type $_sig_void)
 (local $localsStart i32) 
 (local $temp i32) 
-i32.const 52 
+i32.const 40 
 call $reserveStack 
 set_local $temp 
 get_global $MP 
@@ -109,117 +94,79 @@ i32.const 0
 i32.const 8 
 i32.add
 i32.add
-i32.const 0
-i32.add
-i32.const 1
-
-i32.const 3
-
-i32.add
-i32.store 
-i32.const 0
-i32.const 0
-i32.const 8 
-i32.add
-i32.add
-i32.const 4
-i32.add
-i32.const 5
+i32.const 101
 i32.store
-get_local $localsStart
-i32.const 1
-i32.store offset=8
-get_local $localsStart
-i32.const 2
-i32.store offset=12
+i32.const 4
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
+i32.const 102
+i32.store
 i32.const 8
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
+i32.const 103
+i32.store
+i32.const 12
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
+i32.const 17
+i32.store
+i32.const 12
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
+i32.const 12
+i32.const 0
+i32.const 8 
+i32.add
+i32.add
 get_local $localsStart
-i32.add
-i32.const 0
-i32.const 0
-i32.const 8 
-i32.add
-i32.add
-i32.const 8
-call $copyn
-i32.const 0
-i32.const 0
-i32.const 8 
-i32.add
-i32.add
-i32.const 0
-i32.add
-
-i32.load
-
-call $print
-i32.const 0
-i32.const 0
-i32.const 8 
-i32.add
+i32.const 16
 i32.add
 i32.const 4
-i32.add
-
-i32.load
-
-call $print
+call $copyn
 get_local $localsStart
-i32.const 0
-i32.store offset=16
-get_local $localsStart
-i32.const 1
+i32.const 3
 i32.store offset=20
 i32.const 16
 get_local $localsStart
 i32.add
-i32.const 16
-i32.const 0
-i32.const 8 
-i32.add
+get_global $SP
+i32.const 8
 i32.add
 i32.const 8
 call $copyn
-i32.const 16
-i32.const 0
-i32.const 8 
-i32.add
-i32.add
-i32.const 0
-i32.add
-
-i32.load
-
-call $print
-i32.const 16
-i32.const 0
-i32.const 8 
-i32.add
-i32.add
-i32.const 4
-i32.add
-
-i32.load
-
-call $print
 i32.const 24
+get_local $localsStart
+i32.add
+call $test
+i32.load
+i32.store
+i32.const 12
 i32.const 0
 i32.const 8 
 i32.add
 i32.add
-i32.const 4
-call $reserveHeap
-get_global $NP
-i32.store
+
+i32.load
+
+call $print
 call $freeStack
 )
 
-(func $cabra (type $_sig_i32ri32)
+(func $test (type $_sig_i32ri32)
 (param $returnDir i32) 
 (result i32) 
 (local $localsStart i32) 
 (local $temp i32) 
-i32.const 12 
+i32.const 20 
 call $reserveStack 
 set_local $temp 
 get_global $MP 
@@ -235,16 +182,29 @@ set_local $localsStart
 
  ;;Aqui empieza el cuerpo de la funcion
 
+i32.const 8
+get_global $MP
+i32.const 8 
+i32.add
+i32.add
+i32.const 104
+i32.store
 get_local $returnDir
 i32.const 0
-i32.const 0
+get_global $MP
 i32.const 8 
 i32.add
 i32.add
 
 i32.load
 
-i32.const 1
+i32.const 4
+get_global $MP
+i32.const 8 
+i32.add
+i32.add
+
+i32.load
 
 i32.add
 i32.store 

@@ -13,7 +13,7 @@ public class ProgPrincipal {
         str.append(codeReserveStack());
         str.append(codeFreeStack());
         str.append(codeCopyN());
-        str.append(codeReserveHeap());
+        //str.append(codeReserveHeap());
 
         str.append(codeInit());
 

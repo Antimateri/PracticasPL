@@ -31,6 +31,8 @@ public class Bool extends E{
     public String codeCopyStack(int d){
       StringBuilder str = new StringBuilder();
       str.append("get_local $localsStart\n");
+      str.append("i32.const "+d+"\n");
+      str.append("i32.add\n");
       str.append(this.generateCode());
       str.append("i32.store offset=" + d + "\n");
       return str.toString();

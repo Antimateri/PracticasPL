@@ -1,19 +1,12 @@
-fun int cabra(int x)
-    return x+1;
-;
+fun int test (int num1, int num2) {
+    int num3 = 104;
+    return num1 + num2;
+};
 
-typedef par (int a, int b);
+int basura1 = 101;
+int basura2 = 102;
+int basura3 = 103;
 
-(int a, int b) z;
-z.a = 1+3;
-z.b = 5;
-z = (1,2);
-print(z.a);
-print(z.b);
-:par w;
-w = (0,1);
-print(w.a);
-print(w.b);
-
-pointer int x;
-x = new int;
+int a = 17;
+a = test eval (a, 3);
+print(a);
