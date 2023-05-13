@@ -1,7 +1,11 @@
 package ast;
 
 public class ProgPrincipal {
+    
+    private static final int maxMem = 10000; 
+
     ASTNode nodeRoot;
+
     public ProgPrincipal(ASTNode nodeRoot){
         this.nodeRoot = nodeRoot;
     }
@@ -13,7 +17,7 @@ public class ProgPrincipal {
         str.append(codeReserveStack());
         str.append(codeFreeStack());
         str.append(codeCopyN());
-        //str.append(codeReserveHeap());
+        str.append(codeReserveHeap());
 
         str.append(codeInit());
 
@@ -37,7 +41,7 @@ public class ProgPrincipal {
         str.append("(import \"runtime\" \"exceptionHandler\" (func $exception (type $_sig_i32)))\n");
         str.append("(import \"runtime\" \"print\" (func $print (type $_sig_i32)))\n");
         str.append("(import \"runtime\" \"read\" (func $read (type $_sig_ri32)))\n");
-        str.append("(memory 400)\n");
+        str.append("(memory "+ maxMem + ")\n");
         str.append("(global $SP (mut i32) (i32.const 0)) ;; start of stack\n");
         str.append("(global $MP (mut i32) (i32.const 0)) ;; mark pointer\n");
         str.append("(global $NP (mut i32) (i32.const 131071996)) ;; heap 2000*64*1024-4\n");

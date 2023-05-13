@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 // Designador a la dirección de un designador dado
+@Deprecated
 public class DesigRef extends Desig{
     private Desig des;
 

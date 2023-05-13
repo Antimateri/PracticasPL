@@ -283,6 +283,10 @@ Op5 ::= Des: d1
    {: EBin out = new EBin(KindE.MEM, d1, null);
       out.setLine(d1.getLine());
       RESULT = out; :};
+Op5 ::= REF PAP Des: d1 PCIERRE
+   {: GetVarDir out = new GetVarDir(d1);
+      out.setLine(d1.getLine());
+      RESULT= out; :}; 
 Op5 ::= PAP Exp: aDeexp PCIERRE
    {: RESULT = aDeexp; :};
 Op5 ::= NULL: palinea
@@ -431,10 +435,6 @@ Des ::= Des: d1 PUNTO IdVar: id1
    {: DesigCampo out = new DesigCampo(d1,id1);
       out.setLine(d1.getLine());
       RESULT= out; :};
-Des ::= PUNTERO PAP Des: d1 PCIERRE
-   {: DesigRef out = new DesigRef(d1);
-      out.setLine(d1.getLine());
-      RESULT= out; :}; 
 Des ::= VALPTR PAP Des: d1 PCIERRE
    {: GetPointerVal out = new GetPointerVal(d1);
       out.setLine(d1.getLine());
