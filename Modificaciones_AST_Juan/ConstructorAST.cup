@@ -45,7 +45,7 @@ non terminal  Statement Linea, Instr;
 non terminal  E Exp, Op0, Op1, Op2, Op3, Op4, Op5;
 non terminal  Bloque Bl, Blin;
 non terminal  TStruct StructBodyDef;
-non terminal  Dec Decl;
+non terminal  Dec Decl, NestDecl;
 non terminal  IdenType IdType;
 non terminal  IdenVar IdVar;
 non terminal  IdenFun IdFun;
@@ -101,6 +101,8 @@ Blin ::= Linea: l1
 Linea ::= Instr: i1
    {: RESULT=i1; :};
 Linea ::= Decl: d1 PUNTOCOMA
+   {: RESULT=d1; :};
+Linea ::= NestDecl: d1
    {: RESULT=d1; :};
 Linea ::= Exp: e1 PUNTOCOMA
    {: RESULT=e1; :};
@@ -381,22 +383,6 @@ Decl ::= Tipo: t1 IdVar: id1
    {: DecVar out = new DecVar(t1, id1);
       out.setLine(t1.getLine());
       RESULT= out; :};
-Decl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE Blin: b1
-   {: DecFun out = new DecFun(t1, id1, st1, b1);
-      out.setLine(t1.getLine());
-      RESULT= out; :}; 
-Decl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE Blin: b1
-   {: DecFun out = new DecFun(t1, id1, null, b1);
-      out.setLine(t1.getLine());
-      RESULT= out; :}; 
-Decl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE Blin: b1
-   {: DecFun out = new DecFun(null, id1, st1, b1);
-      out.setLine(id1.getLine());
-      RESULT= out; :}; 
-Decl ::= PROC IdFun: id1 PAP PCIERRE Blin: b1
-   {: DecFun out = new DecFun(null, id1, null, b1);
-      out.setLine(id1.getLine());
-      RESULT= out; :}; 
 Decl ::= STRUCT IdType: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
    {: DecStruct out = new DecStruct(id1, st1);
       out.setLine(id1.getLine());
@@ -405,6 +391,23 @@ Decl ::= TIPEDEF IdType: id1 Tipo: t1
    {: DecTipo out = new DecTipo(id1,t1);
       out.setLine(id1.getLine());
       RESULT= out; :};
+
+NestDecl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE Blin: b1
+   {: DecFun out = new DecFun(t1, id1, st1, b1);
+      out.setLine(t1.getLine());
+      RESULT= out; :}; 
+NestDecl ::= FUN Tipo : t1 IdFun: id1 PAP PCIERRE Blin: b1
+   {: DecFun out = new DecFun(t1, id1, null, b1);
+      out.setLine(t1.getLine());
+      RESULT= out; :}; 
+NestDecl ::= PROC IdFun: id1 PAP StructBodyDef: st1 PCIERRE Blin: b1
+   {: DecFun out = new DecFun(null, id1, st1, b1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
+NestDecl ::= PROC IdFun: id1 PAP PCIERRE Blin: b1
+   {: DecFun out = new DecFun(null, id1, null, b1);
+      out.setLine(id1.getLine());
+      RESULT= out; :}; 
 
 
 StructBodyDef ::= StructBodyDef: st1 COMA Decl: d1
