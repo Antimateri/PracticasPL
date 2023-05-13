@@ -78,7 +78,7 @@ public class EBin extends E {
 			case MAY:
 			case MEN:
 				if(opnd1.type().kind() == KindT.INT && opnd2.type().kind() == KindT.INT)
-					return new TSimple(KindT.BOOL, RefMode.VALUE); // Creo que con esto debería valer...
+					return new TSimple(KindT.BOOL); // Creo que con esto debería valer...
 				Log.error(Log.ErrorType.TIPEERROR, this);
 				return new TError();
 			case AND:
@@ -90,7 +90,7 @@ public class EBin extends E {
 			case EQ:
 			case NEQ:
 				if(opnd1.type().compatible(opnd2.type()))
-					return new TSimple(KindT.BOOL, RefMode.VALUE);
+					return new TSimple(KindT.BOOL);
 				Log.error(Log.ErrorType.TIPEERROR, this);
 				return new TError();
 			case MEM:

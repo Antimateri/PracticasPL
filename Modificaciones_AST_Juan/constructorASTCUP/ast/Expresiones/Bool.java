@@ -17,7 +17,7 @@ public class Bool extends E{
 
 	@Override
 	public boolean bind(LinkedList<Map<String, Dec>> envs){ return true;} 
-    public T type() {return new TSimple(KindT.BOOL, RefMode.VALUE);}
+    public T type() {return new TSimple(KindT.BOOL);}
 
     public String generateCode(){
         if(v.equals("true"))

@@ -43,7 +43,7 @@ public class InsBin extends I {
       case IF:
       case WHILE:
       case IFELSE:
-        if(!opnd(0).type().compatible(new TSimple(KindT.BOOL, RefMode.VALUE))){
+        if(!opnd(0).type().compatible(new TSimple(KindT.BOOL))){
           Log.error(Log.ErrorType.TIPEERROR, this);
           return new TError();
         }

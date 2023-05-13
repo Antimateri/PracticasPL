@@ -11,8 +11,6 @@ public class TError extends T{
 
     public KindT kind() {return KindT.ERROR;}
 
-    public RefMode refMode() {return RefMode.VALUE;}
-
     public String toString() {
         return "esto no deberia salir, ups?";
     }

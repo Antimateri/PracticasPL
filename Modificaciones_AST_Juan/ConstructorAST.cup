@@ -336,31 +336,37 @@ Tipo2 ::= Tipo3: t1
    {: RESULT = t1; :};
 
 Tipo3 ::= TIPOINT: tipo
-   {: TSimple res = new TSimple(KindT.INT, RefMode.VALUE);
+   {: TSimple res = new TSimple(KindT.INT);
       res.setLine(tipo.fila);
       RESULT = res; :};
 Tipo3 ::= TIPOBOOL: tipo
-   {: TSimple res = new TSimple(KindT.BOOL, RefMode.VALUE);
+   {: TSimple res = new TSimple(KindT.BOOL);
       res.setLine(tipo.fila);
       RESULT = res; :};
 Tipo3 ::= DOSPUNTOS: palinea IdType: id
-   {: TComp out = new TComp(id, RefMode.VALUE);
+   {: TComp out = new TComp(id);
       out.setLine(palinea.fila);
       RESULT = out; :};
 Tipo3 ::= PAP StructBodyDef: args1 PCIERRE
    {: RESULT = args1; :};
-Tipo3 ::= REF TIPOINT: tipo
-   {: TSimple res = new TSimple(KindT.INT, RefMode.REF);
+/*Tipo3 ::= REF TIPOINT: tipo
+   {: TSimple res = new TSimple(KindT.INT);
       res.setLine(tipo.fila);
-      RESULT = res; :};
+      TRef res2 = new TRef(res);
+      res2.setLine(tipo.fila);
+      RESULT = res2; :};
 Tipo3 ::= REF TIPOBOOL: tipo
-   {: TSimple res = new TSimple(KindT.BOOL, RefMode.REF);
+   {: TSimple res = new TSimple(KindT.BOOL);
       res.setLine(tipo.fila);
-      RESULT = res; :};
+      TRef res2 = new TRef(res);
+      res2.setLine(tipo.fila);
+      RESULT = res2; :};
 Tipo3 ::= REF: palinea IdType: id
-   {: TComp out = new TComp(id, RefMode.REF);
+   {: TComp out = new TComp(id);
       out.setLine(palinea.fila);
-      RESULT = out; :}; 
+      TRef res2 = new TRef(out);
+      res2.setLine(palinea.fila);
+      RESULT = res2; :};*/ 
 Tipo3 ::= Tipo4: t1
    {: RESULT = t1; :};
 
@@ -394,6 +400,10 @@ Decl ::= STRUCT IdType: id1 LLEVA LAP StructBodyDef: st1 LCIERRE
 Decl ::= TIPEDEF IdType: id1 Tipo: t1
    {: DecTipo out = new DecTipo(id1,t1);
       out.setLine(id1.getLine());
+      RESULT= out; :};
+Decl ::= REF Tipo: t1 IdVar: id1 IGUAL Des: d1
+   {: DecRef out = new DecRef(t1, id1, d1);
+      out.setLine(t1.getLine());
       RESULT= out; :};
 
 NestDecl ::= FUN Tipo : t1 IdFun: id1 PAP StructBodyDef: st1 PCIERRE Blin: b1

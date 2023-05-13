@@ -27,7 +27,7 @@ public class Read extends E{
 
     @Override
     public T type(){
-        return new TSimple(KindT.INT, RefMode.VALUE);
+        return new TSimple(KindT.INT);
     }
 
     @Override

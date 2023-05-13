@@ -20,7 +20,7 @@ public class Null extends E{
     }
 
     public T type() {
-        return new TPointer(new TSimple(KindT.INT, RefMode.VALUE));
+        return new TPointer(new TSimple(KindT.INT));
     }
 
     public int getSize(){ return 0; }

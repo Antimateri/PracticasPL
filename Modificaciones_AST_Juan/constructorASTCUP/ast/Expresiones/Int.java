@@ -18,7 +18,7 @@ public class Int extends E {
 	public String toString() {return "int("+v+")";}
 	@Override
 	public boolean bind(LinkedList<Map<String, Dec>> envs){ return true;}  
-	public T type() {return new TSimple(KindT.INT, RefMode.VALUE);}
+	public T type() {return new TSimple(KindT.INT);}
 
 	public String generateCode(){
 		return "i32.const " + v + "\n" ;
