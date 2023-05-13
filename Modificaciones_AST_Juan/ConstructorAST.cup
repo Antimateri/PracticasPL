@@ -186,6 +186,10 @@ Exp ::= Exp: aDeexp1 RESTA: palinea Op0: aDeterm
       RESULT= out; :};
 Exp ::= Op0: aDeterm
    {: RESULT=aDeterm; :};
+Exp ::= PAP COMA Exp: e1 PCIERRE
+     {: StructIns args1 = new StructIns();
+      args1.addUnnamedArg(e1);
+      RESULT= args1; :};
 Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
    {: args1.addUnnamedArg(arg2);
       RESULT= args1; :};

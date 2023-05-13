@@ -134,6 +134,7 @@ public class DecFun extends Dec{
 
     public void setDepth(int depth){
         body.setDepth(depth+1);
+        params.setDepth(depth+1);
     }
     
 }

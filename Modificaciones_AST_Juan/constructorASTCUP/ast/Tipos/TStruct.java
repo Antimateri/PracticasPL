@@ -120,4 +120,11 @@ public class TStruct extends T{
             return false;
         return true;
     }
+
+    
+    public void setDepth(int depth){
+        for (Dec d : opnd) { 
+            d.setDepth(depth);
+        }
+    }
 }

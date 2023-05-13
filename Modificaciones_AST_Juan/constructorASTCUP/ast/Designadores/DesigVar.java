@@ -16,7 +16,7 @@ public class DesigVar extends Desig{
     }
 
     public String toString(){
-        return iden.toString();
+        return iden.toString() + "depth=" + iden.getDepth();
     }
 
 	@Override
