@@ -46,11 +46,17 @@ public class FunctCall extends E{
     public T type(){
         if(((DecFun)(nombre.nodeDec)).getParams()!=null){
             TStruct trueArgs = ((DecFun)(nombre.nodeDec)).getParams();
-            if(args.type()==null){
-                Log.error(Log.ErrorType.TIPEERROR, this);
-                return new TError();
+            if(args!=null){
+                if(args.type()==null){
+                    Log.error(Log.ErrorType.TIPEERROR, this);
+                    return new TError();
+                }
+                if(!args.type().compatible(trueArgs)){
+                    Log.error(Log.ErrorType.TIPEERROR, this);
+                    return new TError();
+                }
             }
-            if(!args.type().compatible(trueArgs)){
+            else{
                 Log.error(Log.ErrorType.TIPEERROR, this);
                 return new TError();
             }
@@ -63,13 +69,19 @@ public class FunctCall extends E{
     }
 
     public int maxMem(){ //Lo que ocupa el valor que devuelve, para guardarlo en memoria despues
-        return nombre.type().getSize() + args.maxMem();
+        int out = 0;
+        if(nombre.type()!=null)
+            out += nombre.type().getSize();
+        if(args!=null)
+            out += args.maxMem();
+        return out;
     }
 
     public String generateCode(){
         StringBuilder str = new StringBuilder();
         //metemos en la memoria los argumentos con los que llamamos a la función:
-        str.append(args.paramsToStack());
+        if(args!=null)
+            str.append(args.paramsToStack());
 
         //metemos en la cima de la pila el valor $returnDir, que es la dirección en memoria donde guardar el resultado:
         str.append("i32.const " + getDelta()+"\n");
@@ -78,7 +90,7 @@ public class FunctCall extends E{
 
         //llamamos a la funcion declarada en webassembly:
         str.append("call $" + nombre.toString() + "\n");
-        if(type().kind()==KindT.BOOL || type().kind()==KindT.INT)
+        if(type()!=null && (type().kind()==KindT.BOOL || type().kind()==KindT.INT))
             str.append("i32.load\n");
         return str.toString();
     }
@@ -86,7 +98,8 @@ public class FunctCall extends E{
     public int getSize(){ return nombre.getSize(); }
 
     public int setDelta(int last){
-        int res = args.setDelta(last);
+        int res = last;
+        if(args!=null) args.setDelta(last);
         this.delta = res;
 
         if(nombre.type() == null) //si no devuelve nada (es un procedimiento)

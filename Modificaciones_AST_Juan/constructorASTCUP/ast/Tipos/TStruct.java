@@ -100,7 +100,7 @@ public class TStruct extends T{
         if(this.kind() != t.type().kind())
             return false;
         TStruct aux = (TStruct)(t.type());
-        if(this.opnd.size() < aux.opnd.size())
+        if(this.opnd.size() != aux.opnd.size())
             return false;
         int i = 0;
         int j = 0;
