@@ -22,7 +22,7 @@ public class TComp extends T{
     }
 
     public int getSize(){ 
-        return iden.getSize(); //devuelve el tamaño asociado al identificador de tipo
+        return iden.type().getSize(); //devuelve el tamaño asociado al identificador de tipo
     }
 
 	@Override
