@@ -31,5 +31,10 @@ public class TPointer extends T{
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		return t.bind(envs);
 	}
+
+    public Map<String, Dec> getEnv(){
+    	return t.getEnv();
+    }
+
     
 }
