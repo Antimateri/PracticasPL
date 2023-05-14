@@ -1,0 +1,36 @@
+# Arrays
+
+int [5] arr; # Declaración de un array de 5 enteros
+arr = [1,2,3,4,5]; # asignación;
+
+int i = 0;
+while (i < 5) {
+    print(arr[i]); # acceso
+    i = i + 1;
+}
+
+# La declaración y la asignación se pueden juntar
+
+int [2][3] matrix = [[1,2,3], [-1,-2,-3]];
+i = 0;
+while (i < 2) {
+    int j = 0;
+    while (j < 3) {
+        print(matrix[i][j]);
+        j = j + 1;
+    }
+    i = i + 1;
+}
+
+# Se pueden asignar partes del array;
+matrix[1] = [4,5,6];
+
+i = 0;
+while (i < 2) {
+    int j = 0;
+    while (j < 3) {
+        print(matrix[i][j]);
+        j = j + 1;
+    }
+    i = i + 1;
+}

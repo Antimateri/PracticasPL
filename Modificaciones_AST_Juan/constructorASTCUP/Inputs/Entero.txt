@@ -1,0 +1,10 @@
+# Tipo Entero
+
+int n; # Declaración de un entero
+n = 3; # Asignación
+print(n);
+
+# Se puede juntar la declaración con la asignación
+int m = 10;
+print(m);
+

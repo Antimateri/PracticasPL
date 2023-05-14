@@ -1,0 +1,36 @@
+# Struct
+
+# Definición de un struct 
+
+struct mistruct has {
+    int a, int b,
+    bool c
+};
+
+# Campos separados por , 
+# Para crear una variable de ese tipo se usa la sintaxis :[nombre_struct]
+
+:mistruct s;
+
+# Para acceder se usa . seguido del nombre del campo
+s.a = 666;
+s.b = -666;
+s.c = true;
+print(s.a);
+print(s.b);
+print(s.c);
+
+# Se puede inicializar un struct directamente 
+
+:mistruct s2 = (7, 2**10, 1 > 12);
+
+print(s2.a);
+print(s2.b);
+print(s2.c);
+
+
+
+
+
+
+
