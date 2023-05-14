@@ -23,6 +23,10 @@ public class TPointer extends T{
 
     public T prevType(){ return t; }
 
+    public int setDelta(int x){ //en este caso ignoramos el parámetro, no nos hace falta
+        return t.setDelta(x);
+    }
+
 	@Override
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		return t.bind(envs);

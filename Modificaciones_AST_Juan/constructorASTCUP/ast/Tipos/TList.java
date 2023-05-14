@@ -33,6 +33,14 @@ public class TList extends T{
 		return t.bind(envs);
 	}
 
+    public Map<String, Dec> getEnv(){
+        return t.getEnv();
+    }
+
+    public int setDelta(int x){ //en este caso ignoramos el parámetro, no nos hace falta
+        return t.setDelta(x);
+    }
+
     public boolean compatible(T t){
         return this.kind() == t.type().kind() && this.t.compatible(((TList)(t.type())).t.type()) && ((TList)(t.type())).length == this.length;
     }

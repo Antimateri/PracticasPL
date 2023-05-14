@@ -28,6 +28,10 @@ public class DecRef extends Dec{
     }
 
     public KindDec kind() { return KindDec.VAR; }
+
+    public Map<String, Dec> getEnv(){
+        return copia.getDeclaration().getEnv();
+    }
     
 	@Override
 	public boolean bind(LinkedList<Map<String, Dec>> envs){

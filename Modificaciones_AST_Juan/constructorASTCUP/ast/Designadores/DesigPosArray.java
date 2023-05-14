@@ -37,11 +37,11 @@ public class DesigPosArray extends Desig{
 
     public T type() {
         Desig currDes = this;
-        T currT = des.getDeclaration().type();
+        T currT = des.type();
         do { // El primero siempre es un DesigPosArray
             if (currT.kind() == KindT.ERROR) return currT; 
             currDes = ((DesigPosArray) currDes).nextDesig();
-            currT = ((TList) currT).nextType();
+            currT = ((TList) currT).nextType().type();
         } while (currDes.kind() == KindDesig.POSARRAY);
         return currT;
     }

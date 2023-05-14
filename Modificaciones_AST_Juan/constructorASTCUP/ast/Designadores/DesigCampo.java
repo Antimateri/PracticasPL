@@ -29,7 +29,7 @@ public class DesigCampo extends Desig{
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		boolean out = true;
 		out &= des.bind(envs);
-		Map<String, Dec> env = des.getDeclaration().type().getEnv();
+		Map<String, Dec> env = des.getDeclaration().getEnv();
 		envs.push(env);
 		out &= id.bind(envs);
 		envs.pop();

@@ -34,7 +34,13 @@ public class TListIns extends E {
 
     public T type() { return t; }
     
-    public boolean bind(LinkedList<Map<String, Dec>> envs) { return true; }
+    public boolean bind(LinkedList<Map<String, Dec>> envs) { 
+        boolean out = true;
+        for(E i : listaExp){
+            out &= i.bind(envs);
+        }
+        return out;
+    }
     public KindE kind() { return KindE.TLISTINS; }
 
     public NodeKind nodeKind() { return NodeKind.EXPRESSION; }
@@ -51,8 +57,8 @@ public class TListIns extends E {
         this.delta = last;
         int ret = last;
         for (E e : listaExp){
-            e.setDelta(ret);
-            ret += e.getSize();
+            ret += e.setDelta(ret);
+            //ret += e.getSize();
         }
         return ret;
     }

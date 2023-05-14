@@ -27,6 +27,10 @@ public class DecTipo extends Dec{
         return "typeDef(" + name.toString() + " = " + type.toString()+")";
     }
 
+    public Map<String, Dec> getEnv(){
+        return type.getEnv();
+    }
+
     public KindDec kind() { return KindDec.TYPE; }
     
 	@Override
