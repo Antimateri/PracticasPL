@@ -123,7 +123,7 @@ public class EBin extends E {
 		}
 		else{
 			strb.append(opnd1.generateCode() + "\n");
-			strb.append(opnd2.generateCode() + "\n");
+			if (kind != KindE.NOT) strb.append(opnd2.generateCode() + "\n");
 			switch(kind){
 				case SUMA:
 					strb.append("i32.add\n");
@@ -141,7 +141,7 @@ public class EBin extends E {
 					strb.append("i32.rem_u\n");
 				break;
 				case POT:
-					// lo hago al final que se tarda poco xdd
+					strb.append("call $pot\n");
 				break;
 				case AND:
 					strb.append("i32.and\n");
