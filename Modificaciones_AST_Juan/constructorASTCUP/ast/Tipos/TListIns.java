@@ -17,10 +17,7 @@ public class TListIns extends E {
 
     public TListIns (ArrayList <E> listaExp){
         this.listaExp = listaExp;
-        t = calculateType();
         delta = 0; // Por ahora, luego se calcula
-        if (t.kind() == KindT.ERROR) 
-            Log.error(Log.ErrorType.TIPEERROR, this);
     }
 
     private T calculateType () { // Tiene que ser consistente el tipo en todas las expresiones del array
@@ -32,7 +29,10 @@ public class TListIns extends E {
         return new TList(ret, listaExp.size());
     }
 
-    public T type() { return t; }
+    public T type() { 
+        t=calculateType();
+        return t; 
+    }
     
     public boolean bind(LinkedList<Map<String, Dec>> envs) { 
         boolean out = true;
