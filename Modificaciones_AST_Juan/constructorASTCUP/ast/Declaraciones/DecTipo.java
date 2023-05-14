@@ -20,7 +20,6 @@ public class DecTipo extends Dec{
         }
         this.name = name;
         this.type = type;
-        name.setSize(type.getSize());
     }
 
     public String toString() {
@@ -41,8 +40,8 @@ public class DecTipo extends Dec{
             out = false;
         }
 		envs.getFirst().put(name.name, this);
+        out &= type.bind(envs);
         out &= name.bind(envs);
-		out &= type.bind(envs);
         return out;
 	}
     
