@@ -18,7 +18,7 @@ public class ProgPrincipal {
         str.append(codeFreeStack());
         str.append(codeCopyN());
         str.append(codeReserveHeap());
-
+        str.append(codePot());
         str.append(codeInit());
 
         str.append(nodeRoot.generateDecFun());
@@ -213,43 +213,28 @@ public class ProgPrincipal {
 
         return str.toString();
     }
+
+    public String codePot(){
+        StringBuilder str = new StringBuilder();
+        str.append("(func $pot (param $base i32) (param $exponent i32) (result i32)\n");
+        str.append("(local $result i32)\n");
+        str.append("(local $i i32)\n");
+        str.append("(local.set $i (i32.const 0))\n");
+        str.append("(i32.const 1)\n");
+        str.append("(local.set $result)\n");
+        str.append("(block\n");
+        str.append("(loop\n");
+        str.append("(br_if 1 (i32.eq (local.get $exponent) (i32.const 0)))\n");
+        str.append("(local.set $result (i32.mul (local.get $result) (local.get $base)))\n");
+        str.append("(i32.const 1)\n");
+        str.append("(local.set $exponent (i32.sub (local.get $exponent) (i32.const 1)))\n");
+        str.append("(i32.add (local.get $i) (i32.const 1))\n");
+        str.append("(br 0)\n");
+        str.append(")\n");
+        str.append(")\n");
+        str.append("(local.get $result)\n");
+        str.append(")\n\n\n");
+        return str.toString();
+    }
 }
-
-
-
-
-   
-   
-   
-   
-     
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-     
-   
-
-
-
-
-
-
-
 
