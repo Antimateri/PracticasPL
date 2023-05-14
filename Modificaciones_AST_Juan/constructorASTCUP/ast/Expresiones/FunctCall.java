@@ -90,7 +90,7 @@ public class FunctCall extends E{
 
         //llamamos a la funcion declarada en webassembly:
         str.append("call $" + nombre.toString() + "\n");
-        if(type()!=null && (type().kind()==KindT.BOOL || type().kind()==KindT.INT))
+        if(type()!=null && (type().kind()==KindT.BOOL || type().kind()==KindT.INT)) //Si devuelve bool o int, lo deja en la cima de la pila
             str.append("i32.load\n");
         return str.toString();
     }
@@ -122,26 +122,24 @@ public class FunctCall extends E{
     public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
 		StringBuilder str = new StringBuilder();
 
-        str.append(codeDirDest);
-        str.append(generateCode());
-        str.append("i32.store\n");
+        if(type()!=null && (type().kind()==KindT.BOOL || type().kind()==KindT.INT)){
+            str.append(codeDirDest);
+            str.append(this.generateCode());
+            str.append("i32.store\n");
+        }
+        else{
+            //direccion de origen:
+            str.append(generateCode());
+            
+            //direccion destino:
+            str.append(codeDirDest);
 
-        //direccion de origen: $localsStart+delta
-        /*str.append("i32.const "+ getDelta()+"\n");
-        str.append("get_local $localsStart\n");
-        str.append("i32.add\n");
-
-        //direccion destino:
-        str.append(codeDirDest);
-
-        //tamaño de los datos:
-        str.append("i32.const " + nombre.getSize() + "\n");
-        
-        //llamamos a la funcion $copyn;
-        str.append("call $copyn\n");*/
-
-        /*if( type() != null && type().kind()==KindT.BOOL || type().kind()==KindT.INT)
-            str.append("i32.load\n");*/
+            //tamaño de los datos:
+            str.append("i32.const " + nombre.getSize() + "\n");
+            
+            //llamamos a la funcion $copyn;
+            str.append("call $copyn\n");
+        }
 
 		return str.toString();
 

@@ -1,22 +1,23 @@
-
-struct struct2 has {
-    int[2] arr
+struct mistruct has{
+    int a,
+    int b,
+    int c
 };
 
-struct mistruct has {
-    int x,
-    bool y,
-    :struct2 s2
-};
-
-:mistruct str = (1, true, (,[4,3]));
-
-print(str.s2.arr[0]);
-
+int i = 1;
+int j = 2;
 int k = 3;
 
-str.x = 2;
+typedef mitipo :mistruct;
 
-k = k + str.x;
+fun :mitipo funcion4 (int x, int y, int z){
+    print(w);
+    :mitipo m = (x,y,z);
+    return m;
+};
 
-print (k);
+:mitipo m = funcion4 eval (i,j,k);
+
+print(m.a);
+print(m.b);
+print(m.c);
