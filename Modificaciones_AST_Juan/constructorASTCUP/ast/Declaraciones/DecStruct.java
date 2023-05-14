@@ -21,7 +21,6 @@ public class DecStruct extends Dec{
         }
         this.name = name;
         this.data = data;
-        name.setSize(data.getSize());
     }
 
     public String toString() {

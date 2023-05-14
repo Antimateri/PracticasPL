@@ -1,23 +1,24 @@
 struct mistruct has{
     int a,
-    int b,
+    int[2] b,
     int c
 };
 
-int i = 1;
-int j = 2;
-int k = 3;
+typedef t :mistruct;
 
-typedef mitipo :mistruct;
-
-fun :mitipo funcion4 (int x, int y, int z){
-    print(w);
-    :mitipo m = (x,y,z);
-    return m;
+fun :t funcion2(int x, int[2] y, int z){
+    return (x,y,z+1);
 };
 
-:mitipo m = funcion4 eval (i,j,k);
+fun int[2] funcion1(:t m, int k){
+    print(m.a);
+    print(m.b[0]);
+    print(m.b[1]);
+    print(m.c);
+    return [k,k+1];
+};
 
-print(m.a);
-print(m.b);
-print(m.c);
+int[2] res = funcion1 eval(funcion2 eval (1,[2,3],4), 5);
+
+print(res[0]);
+print(res[1]);
