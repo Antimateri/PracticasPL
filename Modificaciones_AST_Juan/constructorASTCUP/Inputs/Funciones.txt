@@ -1,0 +1,56 @@
+# Funciones y Procedimientos
+
+
+fun int suma(int x, int y) { # Declaración de una función
+    return x + y;
+}
+
+int x = suma eval (10, 11); # nombre de la función seguido de eval con los parámetros
+print (x);
+
+proc printArray(int[20] arr) {
+    int i = 0; 
+    while (i < 20) {
+        print(arr[i]);
+        i = i + 1;
+    }
+}
+
+
+# int [5] v = [1,2,3,4,5];
+# printArray exec (v); # nombre del procedimiento seguido de exec con los parámetros
+
+# Ejemplo función recursivo
+
+fun int fact (int num){
+    int ret;
+    if (num == 0 || num == 1) ret = num;
+    else ret = num * fact eval (num - 1);
+    return ret;
+}
+
+print(fact eval (3));
+
+
+fun int fibonacci (int n) {
+    int ret;
+    if (n == 0) ret = 0;
+    else if (n < 3) ret = 1;
+    else {
+         int a = fibonacci eval (n-1);
+         int b = fibonacci eval (n-2);
+         ret = a + b;
+        # ret = fibonacci eval (n-1) + fibonacci eval (n-2);
+    }
+    return ret;
+}
+
+
+int [20] f;
+int i = 0;
+while (i < 20){
+    f[i] = fibonacci eval (i); 
+    i = i + 1;
+}
+
+printArray exec (f);
