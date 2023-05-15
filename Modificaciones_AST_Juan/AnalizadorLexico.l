@@ -52,19 +52,11 @@ exec = exec
 procedure = proc
 new = new
 
-tipo = (int | bool)
-condicional = ({if}|{ifelse}|{else})
-bucle = {while}
-registro = ({struct}|{lleva})
-funcion = ({fun}|{call})
-reservada = ({tipo}|{condicional}|{bucle}|{registro}|{funcion})
-
 
 letra  = ([A-Z]|[a-z])
 digitoPositivo = [1-9]
 digito = ({digitoPositivo}|0)
 parteEntera = {digito}{digito}*
-parteDecimal = {digito}* {digitoPositivo}
 separador = [ \t\r\b\n]
 comentario = #[^\n]*
 identificador = {letra}({letra}|{digito})*

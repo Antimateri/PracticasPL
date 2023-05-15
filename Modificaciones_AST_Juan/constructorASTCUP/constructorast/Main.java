@@ -35,7 +35,7 @@ public class Main {
 	 raiz.setDelta(0);
 	 raiz.setDepth(0);
 	 System.out.println(raiz.toString());
-	 FileWriter writer = new FileWriter("./output.wat");
+	 FileWriter writer = new FileWriter(args[1]);
 	 String code = new ProgPrincipal(raiz).generateCode();
 	 writer.write(code);	
 	 writer.close();

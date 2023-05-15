@@ -15,8 +15,14 @@ public class IdenVar extends Iden{
         return super.name;
     }
 
-    public int getDelta(){ return super.nodeDec.getDelta(); }
+    public int getDelta(){ 
+        if(nodeDec!=null) return super.nodeDec.getDelta(); 
+        return 0;
+    }
 
-    public int getDepth(){ return super.nodeDec.getDepth(); }
+    public int getDepth(){ 
+        if(nodeDec!=null) return super.nodeDec.getDepth(); 
+        return 0;
+    }
 
 }

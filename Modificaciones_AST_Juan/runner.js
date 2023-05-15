@@ -3,6 +3,7 @@
 const { readFileSync } = require("fs");
 const readline = require('readline');
 const prompt = require('prompt-sync')();
+const args = process.argv;
 
 const insrc = readline.createInterface({
   input: process.stdin,
@@ -48,7 +49,7 @@ var importObjects = {
     }};
 
 async function start() {
-    const code = readFileSync("output.wasm");
+    const code = readFileSync(args[2]);
     wasmModule = await WebAssembly.compile(code);
     instance = await WebAssembly.instantiate(wasmModule, importObjects);
     process.exit(0);
