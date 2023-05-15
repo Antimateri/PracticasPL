@@ -27,7 +27,7 @@ public class TList extends T{
     
     public int getSize(){ return length * t.getSize(); } //tamaño total en memoria del array
 
-    public T nextType(){ return t; }
+    public T nextType(){ return t.type(); }
 
 	public boolean bind(LinkedList<Map<String, Dec>> envs){
 		return t.bind(envs);
