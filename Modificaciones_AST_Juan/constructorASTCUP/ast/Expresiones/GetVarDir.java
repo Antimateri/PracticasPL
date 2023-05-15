@@ -41,6 +41,22 @@ public class GetVarDir extends E {
         return str.toString();
     }
 
+    public String codeCopyStack(int d){
+		StringBuilder str = new StringBuilder();
+        str.append("get_local $localsStart\n");
+        str.append(this.generateCode()); //genera el resultado
+        str.append("i32.store offset=" + d + "\n");
+		return str.toString();
+	}
+
+	public String codeCopyAssign(String codeDirDest){ //recibe en string el codigo necesario para obtener la direccion de destino
+		StringBuilder str = new StringBuilder();
+		str.append(codeDirDest); //direccion de destino
+		str.append(this.generateCode()); //genera el resultado
+		str.append("i32.store \n");
+		return str.toString();
+	}
+
     public int getSize(){ return 4; }
 
 }
