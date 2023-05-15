@@ -198,57 +198,63 @@ Exp ::= PAP StructInitOrden: args1 COMA Exp: arg2 PCIERRE
 Exp ::= ArrayAnonimo: a
    {: RESULT = a; :};
 
-Op0 ::= Op0: aDeterm1 MAYOR: palinea Op1: aDefact
-   {: EBin out = new EBin(KindE.MAY,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op0 ::= Op0: aDeterm1 MENOR: palinea Op1: aDefact
-   {: EBin out = new EBin(KindE.MEN,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op0 ::= Op0: aDeterm1 OPIGUAL: palinea Op1: aDefact
-   {: EBin out = new EBin(KindE.EQ,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op0 ::= Op0: aDeterm1 DIST: palinea Op1: aDefact
-   {: EBin out = new EBin(KindE.NEQ,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op0 ::= Op1: aDefact
-   {: RESULT=aDefact; :};    
 
-Op1 ::= Op1: aDeterm1 MUL: palinea Op2: aDefact
-   {: EBin out = new EBin(KindE.MUL,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op1 ::= Op1: aDeterm1 DIV: palinea Op2: aDefact
-   {: EBin out = new EBin(KindE.DIV,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op1 ::= Op2: aDeterm2
-   {: RESULT=aDeterm2; :};
 
-Op2 ::= Op2: aDeterm1 POT: palinea Op3: aDefact
-   {: EBin out = new EBin(KindE.POT,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op2 ::= Op2: aDeterm1 MOD: palinea Op3: aDefact
-   {: EBin out = new EBin(KindE.MOD,aDeterm1,aDefact);
-      out.setLine(palinea.fila);
-      RESULT= out; :};
-Op2 ::= Op3: aDefact
-   {: RESULT=aDefact; :};
-
-Op3 ::= Op3: aDeterm1 AND: palinea Op4: aDefact
+Op0 ::= Op0: aDeterm1 AND: palinea Op1: aDefact
    {: EBin out = new EBin(KindE.AND,aDeterm1,aDefact);
       out.setLine(palinea.fila);
       RESULT= out; :};
-Op3 ::= Op3: aDeterm1 OR: palinea Op4: aDefact
+Op0 ::= Op0: aDeterm1 OR: palinea Op1: aDefact
    {: EBin out = new EBin(KindE.OR,aDeterm1,aDefact);
       out.setLine(palinea.fila);
       RESULT= out; :};
+      
+Op0 ::= Op1: aDefact
+   {: RESULT=aDefact; :};            
+
+
+
+Op1 ::= Op1: aDeterm1 MAYOR: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.MAY,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op1 ::= Op1: aDeterm1 MENOR: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.MEN,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op1 ::= Op1: aDeterm1 OPIGUAL: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.EQ,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op1 ::= Op1: aDeterm1 DIST: palinea Op2: aDefact
+   {: EBin out = new EBin(KindE.NEQ,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op1 ::= Op2: aDefact
+   {: RESULT=aDefact; :};    
+
+Op2 ::= Op2: aDeterm1 MUL: palinea Op3: aDefact
+   {: EBin out = new EBin(KindE.MUL,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op2 ::= Op2: aDeterm1 DIV: palinea Op3: aDefact
+   {: EBin out = new EBin(KindE.DIV,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op2 ::= Op3: aDeterm2
+   {: RESULT=aDeterm2; :};
+
+Op3 ::= Op3: aDeterm1 POT: palinea Op4: aDefact
+   {: EBin out = new EBin(KindE.POT,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
+Op3 ::= Op3: aDeterm1 MOD: palinea Op4: aDefact
+   {: EBin out = new EBin(KindE.MOD,aDeterm1,aDefact);
+      out.setLine(palinea.fila);
+      RESULT= out; :};
 Op3 ::= Op4: aDefact
-   {: RESULT=aDefact; :};                                  
+   {: RESULT=aDefact; :};
+
 
 Op4 ::= NEW Tipo: t1
    {: RESULT = new New(t1); :};
