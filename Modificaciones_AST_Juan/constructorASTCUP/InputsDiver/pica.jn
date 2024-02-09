@@ -1,0 +1,14 @@
+segunyo entero int;
+
+:entero x;
+:entero y;
+x=2;
+y=padentro();
+pafuera(x);
+pafuera(y);
+padron(x == y)
+    pafuera( 0 );
+nopica padron(x>y)
+    pafuera(1);
+nopica
+    pafuera(-1);
