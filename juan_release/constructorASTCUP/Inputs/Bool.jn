@@ -1,0 +1,9 @@
+# Tipo Bool
+
+bool b; # Declaración de un booleano
+b = true; # Asignación
+print(b);
+
+# Se puede juntar la declaración con la asignación
+bool c = false;
+print (false);

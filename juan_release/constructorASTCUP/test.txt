@@ -1,0 +1,12 @@
+fun int test (int num1, int num2) {
+    int num3 = 104;
+    return num1 + num2;
+};
+
+int basura1 = 101;
+int basura2 = 102;
+int basura3 = 103;
+
+int a = 17;
+a = test eval (a, 405);
+print(a);

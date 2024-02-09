@@ -1,0 +1,39 @@
+# Punteros
+
+int num = 5;
+pointer int ptr; # Declaración de un puntero a un entero 
+ptr = ref(num); # ref devuelve la referencia a una variable
+ptrval(ptr) = ptrval(ptr) ** 4; # ptrval accede al valor de la variable que apunta el puntero
+print (num);
+
+int num2 = 10;
+ptr = ref(num2);
+print(ptrval(ptr));
+num2 = -2;
+print(ptrval(ptr));
+
+
+
+# Referencias
+
+ref int r = num; # Se declara una referencia con una asignación
+
+print(r);
+num = num + 1;
+r = r + 1;
+print(r);
+print(num);
+
+
+# Se pueden definir punteros a un tipo definido por el usuario
+
+typedef t (int a, bool b);
+:t[5] v = [(1, true), (2, false), (3, true), (4, false), (5, true)];
+pointer :t[5] p = ref(v);
+int i = 0;
+while (i < 5) {
+    if ( ptrval(p)[i].b ){
+        print(ptrval(p)[i].a);
+    };
+    i = i + 1;
+}

@@ -1,0 +1,17 @@
+# Tipos definidos por el usuario
+
+# Usando typedef
+
+typedef mitipo (int a, int b);
+:mitipo m = (1, 1);
+print(m.a + m.a);
+print((m.b + m.a)**2);  # 4
+
+# Directamente con los paréntesis
+
+(int fst, int snd) par;
+par.fst = 20;
+par.snd = 30;
+
+print(par.fst);
+print(par.snd);

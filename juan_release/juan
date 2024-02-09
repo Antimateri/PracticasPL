@@ -1,0 +1,96 @@
+#!/bin/bash
+############################################################
+# Help                                                     #
+############################################################
+
+
+Help()
+{
+   # Display Help
+   echo "Oficial Juan compiler."
+   echo "Compiles a .jn file to a .wasm file."
+   echo
+   echo "Syntax: [-e|h] [-o dir] [-w dir] juan input_file.jn"
+   echo "options:"
+   echo "-e     Execute the program when compiled."
+   echo "-h     Print this Help."
+   echo "-o     Specify the wasm location."
+   echo "-w     Specify the wat file location."
+   echo
+}
+
+############################################################
+# Variables                                                #
+############################################################
+outputDir="a.wasm"
+watDir="a.wat"
+execute=0
+
+############################################################
+############################################################
+# Main program                                             #
+############################################################
+############################################################
+
+############################################################
+# Process the input options. Add options as needed.        #
+############################################################
+# Get the options
+
+
+while [ $# -gt 0 ]; do
+    while getopts eho:w: name; do
+        case $name in
+      e) # execute
+         execute=1;;
+      o) # output
+         outputDir=$OPTARG;;
+      w) # wat
+         watDir=$OPTARG;;
+      h) # display Help
+         Help
+         exit;;
+      \?) # incorrect option
+         echo "Error: Invalid option" >&2
+         exit;;
+      :) # missing argument
+         echo "Option -$OPTARG requires an argument." >&2
+         exit;;
+        esac
+    done
+    [ $? -eq 0 ] || exit 1
+    [ $OPTIND -gt $# ] && break   # we reach end of parameters
+
+    shift $[$OPTIND - 1] # free processed options so far
+    OPTIND=1             # we must reset OPTIND
+    inputDir=$1          # save first non-option argument (a.k.a. positional argument)
+    shift                # remove saved arg
+done
+
+if [ ! -f "$inputDir" ]; then
+    echo "No se ha encontrado el archivo $inputDir." >&2
+    exit 1
+fi
+#compilamos y ejecutamos archivo
+cd constructorASTCUP
+javac -cp "../cup.jar:." */*.java 
+#echo "$1 a constructorASTCUP/a.wat..."
+java -cp "../cup.jar:." constructorast.Main ../$inputDir ../$watDir >> ../CompilationLog.txt
+
+#si hay error, se para
+exitValue=$? 
+
+if [ $exitValue != 0 ] 
+then 
+    echo "Error en la compilación. Consulte CompilationLog.txt para más información." >&2
+exit $exitValue 
+fi 
+
+cd ..
+#echo "Compilando constructorASTCUP/$1.wat a $1.wasm..."
+#si no, se compila y ejecuta
+./wat2wasm $watDir -o $outputDir
+if [ $execute == 1 ]; then
+    echo "Ejecutando $outputDir..."
+    node runner.js $outputDir
+fi

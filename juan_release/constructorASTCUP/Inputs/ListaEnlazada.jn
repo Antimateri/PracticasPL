@@ -1,0 +1,44 @@
+struct Node has {
+    int valor,
+    pointer :Node next
+};
+
+proc add (pointer :Node head, int valor) {
+
+    pointer :Node cur = head;
+    while (ptrval(cur).next != null) {
+        cur = ptrval(cur).next;
+    }
+
+    pointer :Node nuevo = new :Node;
+
+    ptrval(nuevo).valor = valor;
+    ptrval(nuevo).next = null;
+    ptrval(cur).next = nuevo;
+}
+
+
+
+
+proc printLista (pointer :Node head) {
+    pointer :Node cur = head;
+    print (ptrval(cur).valor);
+    cur = ptrval(cur).next;
+    while (cur != null) {
+        print (ptrval(cur).valor);
+        cur = ptrval(cur).next;
+    }
+}
+int num = 21312;
+pointer :Node head = new :Node;
+ptrval(head).next = null;
+ptrval(head).valor = 3;
+
+int i = 0;
+while (i < 10) {
+    add exec (head, i ** 3);
+    i = i + 1;
+}
+
+printLista exec (head);
+

@@ -1,0 +1,48 @@
+# Ejemplo condicionales
+
+# Sintaxis para if
+if (true) {
+    print (33);
+}; # Si solo es un if tiene que acabar en ;
+
+# if else
+
+if (false) {
+    print (-1);
+}
+else {
+    print (1);
+}
+
+
+
+# Ejemplo: programa que imprime 3 números ordenados
+
+int a = 3;
+int b = 4;
+int c = 9;
+
+if (a < b) {
+    if (a < c) {
+        print(a);
+        if (b < c) { print (b); print(c); }
+        else { print(c); print(b); }
+    }
+    else {
+        print(c);
+        print(a);
+        print(b);
+    }
+}
+else{
+    if (b < c) {
+        print(b);
+        if (a < c) { print(a); print(c); }
+        else { print(c); print(a); }
+    }
+    else{
+        print(c);
+        print(b);
+        print(a);
+    }
+}
